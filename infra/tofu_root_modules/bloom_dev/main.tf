@@ -5,31 +5,23 @@ terraform {
       source  = "hashicorp/aws"
     }
   }
-  backend "s3" {
-    profile      = local.sso_profile_id
-    region       = local.tofu_state_bucket_region
-    bucket       = local.tofu_state_bucket_name
-    key          = "${local.tofu_state_key_prefix}/state"
-    use_lockfile = true
+  cloud {
+    # TODO: connect to Terraform Enterprise workspace
   }
 }
 
 locals {
   bloom_deployment = "bloom-dev"
-  sso_profile_id   = "${local.bloom_deployment}-deployer"
 
-  tofu_state_bucket_region = "us-east-1"
-  tofu_state_bucket_name   = "bloom-core-tofu-state-files"
-  tofu_state_key_prefix    = local.bloom_deployment
-
-  bloom_aws_account_number = 242477209009
+  bloom_aws_account_number = 0000 # TODO
   bloom_aws_region         = "us-west-2"
-  domain_name              = "core-dev.bloomhousing.dev"
+  domain_name              = "TODO"
 }
 
+# AWS gets credentials from environment variables set in the Terraform Enterprise workspace:
+# https://developer.hashicorp.com/terraform/language/backend#define-a-backend-block
 provider "aws" {
-  profile = local.sso_profile_id
-  region  = local.bloom_aws_region
+  region = local.bloom_aws_region
 }
 
 # We need to create and validate a certificate for bloom_deployment module to deploy
@@ -60,11 +52,17 @@ output "certificate_details" {
   description = "DNS records required to be manually added for the LB TLS certificate to be issued."
 }
 
+variable "only_deploy_aws_certificate" {
+  type        = bool
+  description = "Causes only the AWS certificate to be deployed. Once the certificate is validated, flip to false and redeploy to deploy the rest of Bloom infra."
+  default     = true
+}
+
 # Deploy bloom into the account.
 module "bloom_deployment" {
+  count  = var.only_deploy_aws_certificate ? 0 : 1
   source = "../../tofu_importable_modules/bloom_deployment"
 
-  aws_profile        = local.sso_profile_id
   aws_account_number = local.bloom_aws_account_number
   aws_region         = local.bloom_aws_region
 
@@ -74,17 +72,18 @@ module "bloom_deployment" {
   env_type          = "dev"
   high_availability = false
 
-  bloom_api_image           = "ghcr.io/bloom-housing/bloom/api:gitsha-f642fc1f3f056b9fa53429c4fa81689c5e856e5a"
-  bloom_site_partners_image = "ghcr.io/bloom-housing/bloom/partners:gitsha-f642fc1f3f056b9fa53429c4fa81689c5e856e5a"
-  bloom_site_public_image   = "ghcr.io/bloom-housing/bloom/public:gitsha-f642fc1f3f056b9fa53429c4fa81689c5e856e5a"
+  bloom_api_image           = "ghcr.io/bloom-housing/bloom-la/api:gitsha-7204cda0958f39d215676a4961da5bd42a34a4ba"
+  bloom_site_partners_image = "ghcr.io/bloom-housing/bloom-la/partners:gitsha-7204cda0958f39d215676a4961da5bd42a34a4ba"
+  bloom_site_public_image   = "ghcr.io/bloom-housing/bloom-la/public:gitsha-7204cda0958f39d215676a4961da5bd42a34a4ba"
   bloom_site_public_env_vars = {
-    JURISDICTION_NAME     = "Bloomington"
-    CLOUDINARY_CLOUD_NAME = "exygy"
-    LANGUAGES             = "en,es,zh,vi,tl"
-    RTL_LANGUAGES         = "ar"
+    JURISDICTION_NAME = "LA"
+    LANGUAGES         = "en,es,zh,vi,tl"
+    RTL_LANGUAGES     = "ar"
   }
 }
 output "aws_lb_dns_name" {
-  value       = module.bloom_deployment.lb_dns_name
+  # need to use 'one()' func here because using the 'count' pattern above turns
+  # module.bloom_deployment into a list of values instead of just one value.
+  value       = one(module.bloom_deployment[*].lb_dns_name)
   description = "DNS name of the load balancer."
 }
