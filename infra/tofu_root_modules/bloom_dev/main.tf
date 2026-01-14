@@ -11,8 +11,6 @@ terraform {
 }
 
 locals {
-  bloom_deployment = "bloom-dev"
-
   bloom_aws_account_number = 0000 # TODO
   bloom_aws_region         = "us-west-2"
   domain_name              = "TODO"
