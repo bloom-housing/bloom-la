@@ -1047,7 +1047,7 @@ SELECT
 		{"percentOfAmi": 120, "householdSize": 5, "income": 138150},
 		{"percentOfAmi": 120, "householdSize": 6, "income": 148350},
 		{"percentOfAmi": 120, "householdSize": 7, "income": 158600},
-		{"percentOfAmi": 120, "householdSize": 8, "income": 168850},
+		{"percentOfAmi": 120, "householdSize": 8, "income": 168850}
 	]'::jsonb,
 	j.id,
 	'Land Use Schedule 10'
