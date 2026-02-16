@@ -1,6 +1,5 @@
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -159,18 +158,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Bond'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Bond'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Bond'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -217,18 +215,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Land Use Schedule VII'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Land Use Schedule VII'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Land Use Schedule VII'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -323,18 +320,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'CRA-HCD Schedule (HCD Post-1991)'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'CRA-HCD Schedule (HCD Post-1991)'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'CRA-HCD Schedule (HCD Post-1991)'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -381,18 +377,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Bond/CDLAC (Recertification)'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Bond/CDLAC (Recertification)'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Bond/CDLAC (Recertification)'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -439,18 +434,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Bond Recertification'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Bond Recertification'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Bond Recertification'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -609,18 +603,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Bond/CDLAC (All Bond w/CDLAC Allocation)'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Bond/CDLAC (All Bond w/CDLAC Allocation)'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Bond/CDLAC (All Bond w/CDLAC Allocation)'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -715,18 +708,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'CRA-HCD Schedule Pre-1991'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'CRA-HCD Schedule Pre-1991'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'CRA-HCD Schedule Pre-1991'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -797,18 +789,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'CRA-HUD'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'CRA-HUD'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'CRA-HUD'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -935,18 +926,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Major Projects NPP, EQ, HHH, AHLF, ULA, PHK'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Major Projects NPP, EQ, HHH, AHLF, ULA, PHK'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Major Projects NPP, EQ, HHH, AHLF, ULA, PHK'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -993,18 +983,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Land Use Schedule I'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Land Use Schedule I'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Land Use Schedule I'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -1051,18 +1040,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Land Use Schedule VI'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Land Use Schedule VI'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Land Use Schedule VI'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -1101,18 +1089,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Land Use Schedule VIII'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Land Use Schedule VIII'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Land Use Schedule VIII'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -1223,18 +1210,17 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Land Use Schedule IX'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Land Use Schedule IX'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Land Use Schedule IX'
 	);
 
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-	uuid_generate_v4(),
 	now(),
 	now(),
 	'[
@@ -1273,11 +1259,11 @@ SELECT
 	]'::jsonb,
 	j.id,
 	'Land Use Schedule 10'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
 	AND NOT EXISTS (
 		SELECT 1
-		FROM "ami_chart" ac
-		WHERE ac."jurisdiction_id" = j.id
-			AND ac."name" = 'Land Use Schedule 10'
+		FROM ami_chart ac
+		WHERE ac.jurisdiction_id = j.id
+			AND ac.name = 'Land Use Schedule 10'
 	);

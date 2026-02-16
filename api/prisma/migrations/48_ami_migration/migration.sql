@@ -1,6 +1,5 @@
-INSERT INTO "ami_chart" ("id", "created_at", "updated_at", "items", "jurisdiction_id", "name")
+INSERT INTO ami_chart (created_at, updated_at, items, jurisdiction_id, name)
 SELECT
-  uuid_generate_v4(),
   now(),
   now(),
   '[
@@ -183,11 +182,12 @@ SELECT
   ]'::jsonb,
   j.id,
   '[Historical] AMI'
-FROM "jurisdictions" j
-WHERE j."name" = 'Los Angeles'
+FROM jurisdictions j
+WHERE j.name = 'Los Angeles'
   AND NOT EXISTS (
     SELECT 1
-    FROM "ami_chart" ac
-    WHERE ac."jurisdiction_id" = j.id
-      AND ac."name" = '[Historical] AMI'
+    FROM ami_chart ac
+    WHERE ac.jurisdiction_id = j.id
+      AND ac.name = '[Historical] AMI'
   );
+  
