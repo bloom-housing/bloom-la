@@ -32,5 +32,6 @@
   "resources.contactDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   "resources.contactEmail": "bloomington@vivienda.org",
   "resources.contactInfo": "Departamento de Vivienda y Desarrollo Comunitario de Bloomington",
-  "resources.housingProgramsTitle": "Programas de vivienda de Vivienda y Desarrollo Comunitario de Bloomington"
+  "resources.housingProgramsTitle": "Programas de vivienda de Vivienda y Desarrollo Comunitario de Bloomington",
+  "welcome.title": "Solicite vivienda asequible y accesible en"
 }
