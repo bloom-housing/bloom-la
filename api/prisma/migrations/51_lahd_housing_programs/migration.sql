@@ -26,8 +26,8 @@ SELECT
 	j.id,
 	'[]'::jsonb,
 	'Mobility accessibility needs',
-	'[{"text":"Wheelchair","ordinal":0},{"text":"Walker","ordinal":1},{"text":"Power chair","ordinal":2},{"text":"Other mobility device","ordinal":3},{"text":"None of the above","ordinal":4}]'::jsonb,
-	'Prefer not to say',
+	'[{"text":"Wheelchair","ordinal":0},{"text":"Walker","ordinal":1},{"text":"Power chair","ordinal":2},{"text":"Other mobility device","ordinal":3}]'::jsonb,
+	'None of the above',
 	'draft'::"multiselect_questions_status_enum",
 	'Mobility accessibility needs',
 	false
@@ -70,8 +70,8 @@ SELECT
 	j.id,
 	'[]'::jsonb,
 	'Hearing/vision accessibility needs',
-	'[{"text":"Audible and visual doorbells","ordinal":0},{"text":"Fire and smoke alarms with hard wired strobes","ordinal":1},{"text":"Documents in screen-reader accessible format","ordinal":2},{"text":"Documents in large text or braille","ordinal":3},{"text":"None of the above","ordinal":4}]'::jsonb,
-	'Prefer not to say',
+	'[{"text":"Audible and visual doorbells","ordinal":0},{"text":"Fire and smoke alarms with hard wired strobes","ordinal":1},{"text":"Documents in screen-reader accessible format","ordinal":2},{"text":"Documents in large text or braille","ordinal":3}]'::jsonb,
+	'None of the above',
 	'draft'::"multiselect_questions_status_enum",
 	'Hearing/vision accessibility needs',
 	false
