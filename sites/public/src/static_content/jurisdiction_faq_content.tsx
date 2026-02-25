@@ -1,10 +1,9 @@
 import Markdown from "markdown-to-jsx"
-import { t } from "@bloom-housing/ui-components"
 import { FaqCategory, FaqContent } from "../patterns/FrequentlyAskedQuestions"
 
 export const getJurisdictionFaqContent = (): FaqContent => {
   const faqContentSection: FaqCategory = {
-    title: t("faq.genericHeading"),
+    title: "Frequently Asked Questions",
     faqs: [
       {
         question: "How should I prepare for the process?",
@@ -92,6 +91,6 @@ export const getJurisdictionFaqContent = (): FaqContent => {
   }
 
   return {
-    categories: [faqContentSection, faqContentSection, faqContentSection],
+    categories: [faqContentSection],
   }
 }
