@@ -24,10 +24,18 @@ export const getJurisdictionFaqContent = (): FaqContent => {
         ),
       },
       {
-        question: t("faq.whatOtherPaperwork"),
+        question: t("faq.howDoIDetermineMyHouseholdSize"),
         answer: (
           <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatOtherPaperworkAnswer")}
+            {t("faq.howDoIDetermineMyHouseholdSizeAnswer")}
+          </Markdown>
+        ),
+      },
+      {
+        question: t("faq.whatSizeUnitShouldIApply"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.whatSizeUnitShouldIApplyAnswer")}
           </Markdown>
         ),
       },
