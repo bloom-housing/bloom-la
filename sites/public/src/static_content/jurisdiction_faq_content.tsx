@@ -99,10 +99,18 @@ export const getJurisdictionFaqContent = (): FaqContent => {
     title: t("faq.whatElseShouldIKnowAboutAffordableHousingHeader"),
     faqs: [
       {
-        question: t("faq.howDoPropertyManagersMakeTheirSelections"),
+        question: t("faq.whatMakesHousingAffordable"),
         answer: (
           <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
-            {t("faq.howDoPropertyManagersMakeTheirSelectionsAnswer")}
+            {t("faq.whatMakesHousingAffordableAnswer")}
+          </Markdown>
+        ),
+      },
+      {
+        question: t("faq.howDoesMyIncomeAffectTheRentIPay"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.howDoesMyIncomeAffectTheRentIPayAnswer")}
           </Markdown>
         ),
       },
