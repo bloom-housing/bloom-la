@@ -114,6 +114,42 @@ export const getJurisdictionFaqContent = (): FaqContent => {
           </Markdown>
         ),
       },
+      {
+        question: t("faq.whatIsTheDifferenceBetweenSection8AndHousingChoiceVouchers"),
+        answer: t("faq.whatIsTheDifferenceBetweenSection8AndHousingChoiceVouchersAnswer"),
+      },
+      {
+        question: t("faq.howCanITellIfImBeingScammed"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.howCanITellIfImBeingScammedAnswer")}
+          </Markdown>
+        ),
+      },
+      {
+        question: t("faq.whatAgeRestrictionsAreApplicableToSeniorDevelopments"),
+        answer: t("faq.whatAgeRestrictionsAreApplicableToSeniorDevelopmentsAnswer"),
+      },
+      {
+        question: t("faq.areSomeUnitsSetAsideForPersonsThatHaveMobility"),
+        answer: t("faq.areSomeUnitsSetAsideForPersonsThatHaveMobilityAnswer"),
+      },
+      {
+        question: t("faq.howDoIGetSection8Housing"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.howDoIGetSection8HousingAnswer")}
+          </Markdown>
+        ),
+      },
+      {
+        question: t("faq.howDoIKnowIfIHaveADisability"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.howDoIKnowIfIHaveADisabilityAnswer")}
+          </Markdown>
+        ),
+      },
     ],
   }
 
