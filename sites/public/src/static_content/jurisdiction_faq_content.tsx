@@ -158,6 +158,42 @@ export const getJurisdictionFaqContent = (): FaqContent => {
           </Markdown>
         ),
       },
+      {
+        question: t("faq.whatIfIHaveACommunicationBarrier"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.whatIfIHaveACommunicationBarrierAnswer")}
+          </Markdown>
+        ),
+      },
+      {
+        question: t("faq.canApropertyAdoptANoPetPolicy"),
+        answer: t("faq.canApropertyAdoptANoPetPolicyAnswer"),
+      },
+      {
+        question: t("faq.howDoIRequestAReasonableModification"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.howDoIRequestAReasonableModificationAnswer")}
+          </Markdown>
+        ),
+      },
+      {
+        question: t("faq.areApplicantsWithADIsabilityTreatedDifferently"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.areApplicantsWithADIsabilityTreatedDifferentlyAnswer")}
+          </Markdown>
+        ),
+      },
+      {
+        question: t("faq.imExperiencingHomelessness"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.imExperiencingHomelessnessAnswer")}
+          </Markdown>
+        ),
+      },
     ],
   }
 
