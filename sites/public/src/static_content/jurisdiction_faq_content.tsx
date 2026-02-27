@@ -39,6 +39,14 @@ export const getJurisdictionFaqContent = (): FaqContent => {
           </Markdown>
         ),
       },
+      {
+        question: t("faq.howCanImproveMyChancesOfGettingHousing"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.howCanImproveMyChancesOfGettingHousingAnswer")}
+          </Markdown>
+        ),
+      },
     ],
   }
 
