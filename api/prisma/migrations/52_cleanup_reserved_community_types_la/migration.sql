@@ -9,10 +9,6 @@ BEGIN
   ORDER BY j.created_at ASC
   LIMIT 1;
 
-  IF la_jurisdiction_id IS NULL THEN
-    RAISE EXCEPTION 'Could not find jurisdiction named Los Angeles';
-  END IF;
-
   INSERT INTO reserved_community_types (id, created_at, updated_at, description, jurisdiction_id, name)
   SELECT
     uuid_generate_v4(),
