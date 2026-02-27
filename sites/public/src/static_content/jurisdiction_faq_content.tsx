@@ -61,42 +61,48 @@ export const getJurisdictionFaqContent = (): FaqContent => {
     title: t("faq.afterIApplyWhatNextHeader"),
     faqs: [
       {
-        question: t("faq.whatIdentificationWillINeed"),
+        question: t("faq.howDoPropertyManagersMakeTheirSelections"),
         answer: (
           <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatIdentificationWillINeedAnswer")}
+            {t("faq.howDoPropertyManagersMakeTheirSelectionsAnswer")}
           </Markdown>
         ),
       },
       {
-        question: t("faq.whatOtherPaperwork"),
+        question: t("faq.howLongDoesTheProcessTake"),
         answer: (
           <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatOtherPaperworkAnswer")}
+            {t("faq.howLongDoesTheProcessTakeAnswer")}
           </Markdown>
         ),
       },
       {
-        question: t("faq.howDoIDetermineMyHouseholdSize"),
+        question: t("faq.whatHappensIfImSelected"),
         answer: (
           <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
-            {t("faq.howDoIDetermineMyHouseholdSizeAnswer")}
+            {t("faq.whatHappensIfImSelectedAnswer")}
           </Markdown>
         ),
       },
       {
-        question: t("faq.whatSizeUnitShouldIApply"),
+        question: t("faq.onceIveBeenPlacedInAnAffordableUnitHowDoIRemainEligible"),
         answer: (
           <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatSizeUnitShouldIApplyAnswer")}
+            {t("faq.onceIveBeenPlacedInAnAffordableUnitHowDoIRemainEligibleAnswer")}
           </Markdown>
         ),
       },
+    ],
+  }
+
+  const whatElseShouldIKnowAboutAffordableHousingSection: FaqCategory = {
+    title: t("faq.whatElseShouldIKnowAboutAffordableHousingHeader"),
+    faqs: [
       {
-        question: t("faq.howCanImproveMyChancesOfGettingHousing"),
+        question: t("faq.howDoPropertyManagersMakeTheirSelections"),
         answer: (
           <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
-            {t("faq.howCanImproveMyChancesOfGettingHousingAnswer")}
+            {t("faq.howDoPropertyManagersMakeTheirSelectionsAnswer")}
           </Markdown>
         ),
       },
@@ -104,6 +110,10 @@ export const getJurisdictionFaqContent = (): FaqContent => {
   }
 
   return {
-    categories: [howShouldIPrepareForTheProcessSection, afterIApplyWhatNextSection],
+    categories: [
+      howShouldIPrepareForTheProcessSection,
+      afterIApplyWhatNextSection,
+      whatElseShouldIKnowAboutAffordableHousingSection,
+    ],
   }
 }
