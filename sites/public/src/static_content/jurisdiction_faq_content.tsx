@@ -150,6 +150,14 @@ export const getJurisdictionFaqContent = (): FaqContent => {
           </Markdown>
         ),
       },
+      {
+        question: t("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDo"),
+        answer: (
+          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+            {t("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDoAnswer")}
+          </Markdown>
+        ),
+      },
     ],
   }
 
