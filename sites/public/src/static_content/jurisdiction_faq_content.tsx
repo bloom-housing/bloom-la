@@ -3,56 +3,36 @@ import { FaqCategory, FaqContent } from "../patterns/FrequentlyAskedQuestions"
 import { t } from "@bloom-housing/ui-components"
 
 export const getJurisdictionFaqContent = (): FaqContent => {
+  const renderMD = (key: string) => (
+    <Markdown options={{ disableParsingRawHTML: true }}>{t(key)}</Markdown>
+  )
+
   const howShouldIPrepareForTheProcessSection: FaqCategory = {
     title: t("faq.howShouldIPrepareForTheProcessHeader"),
     faqs: [
       {
         question: t("faq.whatIdentificationWillINeed"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatIdentificationWillINeedAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.whatIdentificationWillINeedAnswer"),
       },
       {
         question: t("faq.whatOtherPaperwork"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatOtherPaperworkAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.whatOtherPaperworkAnswer"),
       },
       {
         question: t("faq.howDoIDetermineMyHouseholdSize"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howDoIDetermineMyHouseholdSizeAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howDoIDetermineMyHouseholdSizeAnswer"),
       },
       {
         question: t("faq.whatSizeUnitShouldIApply"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatSizeUnitShouldIApplyAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.whatSizeUnitShouldIApplyAnswer"),
       },
       {
         question: t("faq.howCanImproveMyChancesOfGettingHousing"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howCanImproveMyChancesOfGettingHousingAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howCanImproveMyChancesOfGettingHousingAnswer"),
       },
       {
         question: t("faq.areSomeUnitsSetAsideForParticularCommunities"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.areSomeUnitsSetAsideForParticularCommunitiesAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.areSomeUnitsSetAsideForParticularCommunitiesAnswer"),
       },
     ],
   }
@@ -61,35 +41,19 @@ export const getJurisdictionFaqContent = (): FaqContent => {
     faqs: [
       {
         question: t("faq.howDoPropertyManagersMakeTheirSelections"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howDoPropertyManagersMakeTheirSelectionsAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howDoPropertyManagersMakeTheirSelectionsAnswer"),
       },
       {
         question: t("faq.howLongDoesTheProcessTake"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howLongDoesTheProcessTakeAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howLongDoesTheProcessTakeAnswer"),
       },
       {
         question: t("faq.whatHappensIfImSelected"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatHappensIfImSelectedAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.whatHappensIfImSelectedAnswer"),
       },
       {
         question: t("faq.onceIveBeenPlacedInAnAffordableUnitHowDoIRemainEligible"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.onceIveBeenPlacedInAnAffordableUnitHowDoIRemainEligibleAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.onceIveBeenPlacedInAnAffordableUnitHowDoIRemainEligibleAnswer"),
       },
     ],
   }
@@ -99,19 +63,11 @@ export const getJurisdictionFaqContent = (): FaqContent => {
     faqs: [
       {
         question: t("faq.whatMakesHousingAffordable"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatMakesHousingAffordableAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.whatMakesHousingAffordableAnswer"),
       },
       {
         question: t("faq.howDoesMyIncomeAffectTheRentIPay"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howDoesMyIncomeAffectTheRentIPayAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howDoesMyIncomeAffectTheRentIPayAnswer"),
       },
       {
         question: t("faq.whatIsTheDifferenceBetweenSection8AndHousingChoiceVouchers"),
@@ -119,11 +75,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       },
       {
         question: t("faq.howCanITellIfImBeingScammed"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howCanITellIfImBeingScammedAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howCanITellIfImBeingScammedAnswer"),
       },
       {
         question: t("faq.whatAgeRestrictionsAreApplicableToSeniorDevelopments"),
@@ -135,35 +87,19 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       },
       {
         question: t("faq.howDoIGetSection8Housing"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howDoIGetSection8HousingAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howDoIGetSection8HousingAnswer"),
       },
       {
         question: t("faq.howDoIKnowIfIHaveADisability"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howDoIKnowIfIHaveADisabilityAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howDoIKnowIfIHaveADisabilityAnswer"),
       },
       {
         question: t("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDo"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDoAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDoAnswer"),
       },
       {
         question: t("faq.whatIfIHaveACommunicationBarrier"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.whatIfIHaveACommunicationBarrierAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.whatIfIHaveACommunicationBarrierAnswer"),
       },
       {
         question: t("faq.canApropertyAdoptANoPetPolicy"),
@@ -171,27 +107,15 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       },
       {
         question: t("faq.howDoIRequestAReasonableModification"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.howDoIRequestAReasonableModificationAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.howDoIRequestAReasonableModificationAnswer"),
       },
       {
         question: t("faq.areApplicantsWithADIsabilityTreatedDifferently"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.areApplicantsWithADIsabilityTreatedDifferentlyAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.areApplicantsWithADIsabilityTreatedDifferentlyAnswer"),
       },
       {
         question: t("faq.imExperiencingHomelessness"),
-        answer: (
-          <Markdown options={{ disableParsingRawHTML: true }}>
-            {t("faq.imExperiencingHomelessnessAnswer")}
-          </Markdown>
-        ),
+        answer: renderMD("faq.imExperiencingHomelessnessAnswer"),
       },
     ],
   }
