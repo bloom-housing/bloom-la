@@ -1,6 +1,5 @@
 import Markdown from "markdown-to-jsx"
 import { FaqCategory, FaqContent } from "../patterns/FrequentlyAskedQuestions"
-import styles from "../patterns/PageHeaderLayout.module.scss"
 import { t } from "@bloom-housing/ui-components"
 
 export const getJurisdictionFaqContent = (): FaqContent => {
@@ -10,7 +9,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.whatIdentificationWillINeed"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.whatIdentificationWillINeedAnswer")}
           </Markdown>
         ),
@@ -18,7 +17,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.whatOtherPaperwork"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.whatOtherPaperworkAnswer")}
           </Markdown>
         ),
@@ -26,7 +25,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howDoIDetermineMyHouseholdSize"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howDoIDetermineMyHouseholdSizeAnswer")}
           </Markdown>
         ),
@@ -34,7 +33,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.whatSizeUnitShouldIApply"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.whatSizeUnitShouldIApplyAnswer")}
           </Markdown>
         ),
@@ -42,7 +41,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howCanImproveMyChancesOfGettingHousing"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howCanImproveMyChancesOfGettingHousingAnswer")}
           </Markdown>
         ),
@@ -50,7 +49,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.areSomeUnitsSetAsideForParticularCommunities"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.areSomeUnitsSetAsideForParticularCommunitiesAnswer")}
           </Markdown>
         ),
@@ -63,7 +62,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howDoPropertyManagersMakeTheirSelections"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howDoPropertyManagersMakeTheirSelectionsAnswer")}
           </Markdown>
         ),
@@ -71,7 +70,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howLongDoesTheProcessTake"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howLongDoesTheProcessTakeAnswer")}
           </Markdown>
         ),
@@ -79,7 +78,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.whatHappensIfImSelected"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.whatHappensIfImSelectedAnswer")}
           </Markdown>
         ),
@@ -87,7 +86,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.onceIveBeenPlacedInAnAffordableUnitHowDoIRemainEligible"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.onceIveBeenPlacedInAnAffordableUnitHowDoIRemainEligibleAnswer")}
           </Markdown>
         ),
@@ -101,7 +100,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.whatMakesHousingAffordable"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.whatMakesHousingAffordableAnswer")}
           </Markdown>
         ),
@@ -109,7 +108,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howDoesMyIncomeAffectTheRentIPay"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howDoesMyIncomeAffectTheRentIPayAnswer")}
           </Markdown>
         ),
@@ -121,7 +120,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howCanITellIfImBeingScammed"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howCanITellIfImBeingScammedAnswer")}
           </Markdown>
         ),
@@ -137,7 +136,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howDoIGetSection8Housing"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howDoIGetSection8HousingAnswer")}
           </Markdown>
         ),
@@ -145,7 +144,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howDoIKnowIfIHaveADisability"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howDoIKnowIfIHaveADisabilityAnswer")}
           </Markdown>
         ),
@@ -153,7 +152,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDo"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDoAnswer")}
           </Markdown>
         ),
@@ -161,7 +160,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.whatIfIHaveACommunicationBarrier"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.whatIfIHaveACommunicationBarrierAnswer")}
           </Markdown>
         ),
@@ -173,7 +172,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.howDoIRequestAReasonableModification"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.howDoIRequestAReasonableModificationAnswer")}
           </Markdown>
         ),
@@ -181,7 +180,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.areApplicantsWithADIsabilityTreatedDifferently"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.areApplicantsWithADIsabilityTreatedDifferentlyAnswer")}
           </Markdown>
         ),
@@ -189,7 +188,7 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.imExperiencingHomelessness"),
         answer: (
-          <Markdown className={styles["markdown"]} options={{ disableParsingRawHTML: true }}>
+          <Markdown options={{ disableParsingRawHTML: true }}>
             {t("faq.imExperiencingHomelessnessAnswer")}
           </Markdown>
         ),
