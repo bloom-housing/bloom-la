@@ -40,6 +40,7 @@ import { littleVillageApartments } from './seed-helpers/listing-data/little-vill
 import { elmVillage } from './seed-helpers/listing-data/elm-village';
 import { lakeviewVilla } from './seed-helpers/listing-data/lakeview-villa';
 import { sunshineFlats } from './seed-helpers/listing-data/sunshine-flats';
+import { agencyFactory } from './seed-helpers/agency-factory';
 
 export const defaultRaceEthnicityConfiguration: RaceEthnicityConfiguration = {
   options: [
@@ -456,6 +457,13 @@ export const stagingSeed = async (
       raceEthnicityConfiguration: angelopolisRaceEthnicityConfiguration,
     }),
   });
+  await agencyFactory(
+    angelopolisJurisdiction.id,
+    prismaClient,
+    5,
+    'Angelopolis',
+  );
+  await agencyFactory(mainJurisdiction.id, prismaClient, 5, 'Bloomington');
   // create super admin user
   await prismaClient.userAccounts.create({
     data: await userFactory({
@@ -581,6 +589,20 @@ export const stagingSeed = async (
         angelopolisJurisdiction.id,
       ],
       acceptedTerms: true,
+    }),
+  });
+  const agency = await prismaClient.agency.findFirst({
+    where: {
+      jurisdictionsId: angelopolisJurisdiction.id,
+    },
+  });
+  await prismaClient.userAccounts.create({
+    data: await userFactory({
+      email: 'advocate@example.com',
+      confirmedAt: new Date(),
+      jurisdictionIds: [angelopolisJurisdiction.id],
+      isAdvocate: true,
+      agencyId: agency.id,
     }),
   });
   // add jurisdiction specific translations and default ones
@@ -792,6 +814,51 @@ export const stagingSeed = async (
       }),
     },
   );
+  const mobilityAccessibilityNeedsProgramQuestion =
+    await prismaClient.multiselectQuestions.create({
+      data: multiselectQuestionFactory(angelopolisJurisdiction.id, {
+        multiselectQuestion: {
+          text: 'Mobility accessibility needs',
+          description:
+            'Some units require at least one resident to have a mobility accessibility need',
+          applicationSection:
+            MultiselectQuestionsApplicationSectionEnum.programs,
+          optOutText: 'None of the above',
+          options: [
+            { text: 'Wheelchair', ordinal: 0 },
+            { text: 'Walker', ordinal: 1 },
+            { text: 'Power chair', ordinal: 2 },
+            { text: 'Other mobility device', ordinal: 3 },
+          ],
+        },
+      }),
+    });
+  const hearingVisionAccessibilityNeedsProgramQuestion =
+    await prismaClient.multiselectQuestions.create({
+      data: multiselectQuestionFactory(angelopolisJurisdiction.id, {
+        multiselectQuestion: {
+          text: 'Hearing/vision accessibility needs',
+          description:
+            'Some units require at least one resident to have a hearing / vision accessibility need',
+          applicationSection:
+            MultiselectQuestionsApplicationSectionEnum.programs,
+          optOutText: 'None of the above',
+          options: [
+            { text: 'Audible and visual doorbells', ordinal: 0 },
+            {
+              text: 'Fire and smoke alarms with hard wired strobes',
+              ordinal: 1,
+            },
+            {
+              text: 'Documents in screen-reader accessible format',
+              ordinal: 2,
+            },
+            { text: 'Documents in large text or braille', ordinal: 3 },
+          ],
+        },
+      }),
+    });
+
   const multiselectQuestionPrograms =
     await prismaClient.multiselectQuestions.create({
       data: multiselectQuestionFactory(mainJurisdiction.id, {
@@ -911,6 +978,8 @@ export const stagingSeed = async (
           cityEmployeeQuestion,
           workInCityQuestion,
           multiselectQuestionPrograms,
+          mobilityAccessibilityNeedsProgramQuestion,
+          hearingVisionAccessibilityNeedsProgramQuestion,
         ],
         applications: [
           await applicationFactory({
@@ -922,6 +991,7 @@ export const stagingSeed = async (
         ],
         userAccounts: [{ id: partnerUser.id }],
         optionalFeatures: { carpetInUnit: true },
+        enableListingFeaturesAndUtilities: true,
       },
     ],
     [
@@ -1113,6 +1183,7 @@ export const stagingSeed = async (
           }),
         ],
         userAccounts: [{ id: partnerUser.id }],
+        enableListingFeaturesAndUtilities: true,
       },
     ],
     [
@@ -1141,6 +1212,7 @@ export const stagingSeed = async (
           },
         ],
         userAccounts: [{ id: partnerUser.id }],
+        enableListingFeaturesAndUtilities: true,
       },
     ],
     [
@@ -1181,6 +1253,7 @@ export const stagingSeed = async (
           }),
         ],
         userAccounts: [{ id: partnerUser.id }],
+        enableListingFeaturesAndUtilities: true,
       },
     ],
     [
@@ -1190,6 +1263,7 @@ export const stagingSeed = async (
         listing: littleVillageApartments,
         multiselectQuestions: [workInCityQuestion],
         userAccounts: [{ id: partnerUser.id }],
+        enableListingFeaturesAndUtilities: true,
       },
     ],
     [
@@ -1335,6 +1409,7 @@ export const stagingSeed = async (
           },
         ],
         userAccounts: [{ id: partnerUser.id }],
+        enableListingFeaturesAndUtilities: true,
       },
     ],
     [
@@ -1370,6 +1445,7 @@ export const stagingSeed = async (
             },
           },
         ],
+        enableListingFeaturesAndUtilities: true,
       },
     ],
     [
@@ -1431,6 +1507,7 @@ export const stagingSeed = async (
             },
           },
         ],
+        enableListingFeaturesAndUtilities: true,
       },
     ],
   ];

@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { Field, Form, PhoneField, Select, t } from "@bloom-housing/ui-components"
 import { CardSection } from "@bloom-housing/ui-seeds/src/blocks/Card"
-import { Alert } from "@bloom-housing/ui-seeds"
 import {
   OnClientSide,
   PageView,
@@ -13,9 +12,12 @@ import {
 } from "@bloom-housing/shared-helpers"
 import { useFormConductor } from "../../../lib/hooks"
 import { UserStatus } from "../../../lib/constants"
-import ApplicationFormLayout, { LockIcon } from "../../../layouts/application-form"
+import ApplicationFormLayout, {
+  ApplicationAlertBox,
+  LockIcon,
+  onFormError,
+} from "../../../layouts/application-form"
 import FormsLayout from "../../../layouts/forms"
-import styles from "../../../layouts/application-form.module.scss"
 
 const ApplicationAlternateContactContact = () => {
   const { profile } = useContext(AuthContext)
@@ -45,7 +47,7 @@ const ApplicationAlternateContactContact = () => {
     conductor.routeToNextOrReturnUrl()
   }
   const onError = () => {
-    window.scrollTo(0, 0)
+    onFormError()
   }
 
   useEffect(() => {
@@ -53,25 +55,16 @@ const ApplicationAlternateContactContact = () => {
     application.alternateContact.phoneNumber = profile.phoneNumber || ""
     application.alternateContact.emailAddress = profile.email || null
 
-    // TODO (Advocate): replace this with the profile address when available
-    application.alternateContact.address = {
-      ...application.alternateContact.address,
-      street: "street",
-      street2: "street2",
-      city: "Angelopolis",
-      state: "CA",
-      zipCode: "90210",
+    if (profile.address) {
+      application.alternateContact.address = {
+        ...application.alternateContact.address,
+        street: profile.address.street || "",
+        street2: profile.address.street2 || "",
+        city: profile.address.city || "",
+        state: profile.address.state || "",
+        zipCode: profile.address.zipCode || "",
+      }
     }
-    // if (profile.address) {
-    //   application.alternateContact.address = {
-    //     ...application.alternateContact.address,
-    //     street: profile.address.street || "",
-    //     street2: profile.address.street2 || "",
-    //     city: profile.address.city || "",
-    //     state: profile.address.state || "",
-    //     zipCode: profile.address.zipCode || "",
-    //   }
-    // }
 
     conductor.sync()
   }, [isAdvocate, profile, application, conductor])
@@ -106,17 +99,7 @@ const ApplicationAlternateContactContact = () => {
           }}
           conductor={conductor}
         >
-          {Object.entries(errors).length > 0 && (
-            <Alert
-              className={styles["message-inside-card"]}
-              variant="alert"
-              fullwidth
-              id={"application-alert-box"}
-            >
-              {t("errors.errorsToResolve")}
-            </Alert>
-          )}
-
+          <ApplicationAlertBox errors={errors} />
           <CardSection divider={"inset"}>
             <label className="text__caps-spaced" htmlFor="phoneNumber">
               <LockIcon locked={isAdvocate} />
