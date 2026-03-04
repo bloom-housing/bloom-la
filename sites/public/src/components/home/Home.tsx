@@ -45,7 +45,6 @@ export const Home = (props: HomeProps) => {
     FeatureFlagEnum.enableUnderConstructionHome
   )
 
-  console.log(props.jurisdiction)
   return (
     <Layout metaDescription={metaDescription}>
       <div className={styles["home-page"]}>

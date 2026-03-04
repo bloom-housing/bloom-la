@@ -18,10 +18,8 @@ export const HomeResources = (props: HomeResourcesProps) => {
     FeatureFlagEnum.enableAdditionalResources
   )
 
-  console.log(props.jurisdiction)
   const enableResources = isFeatureFlagOn(props.jurisdiction, FeatureFlagEnum.enableResources)
 
-  console.log({ enableResources })
   return (
     <Grid spacing="lg">
       <Grid.Row columns={enableAdditionalResources ? 3 : 2}>
