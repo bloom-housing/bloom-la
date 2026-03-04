@@ -28,7 +28,7 @@ const cardContent = (resourceType: string, details: ResourceLine[]) => {
 
 const resourceCard = (
   title: string,
-  href: string,
+  href: string | null,
   resourceType: string,
   details: ResourceLine[]
 ) => {
@@ -328,7 +328,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "Epilepsy Foundation Los Angeles",
-            "https://www.endepilepsy.org",
+            null,
             t("resources.resourceType.otherServices"),
             [
               "5777 W Century Blvd, Los Angeles CA 90045",
@@ -339,7 +339,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "Fair Housing Council of San Fernando Valley",
-            "https://fhcsfv.com/",
+            null,
             t("resources.resourceType.fairHousing"),
             [
               "14621 Titus St, Panorama City CA 91402",
@@ -513,7 +513,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "SSG SILVER-Sustaining Independent Lives with Vital Empowering Resources",
-            "https://www.ssg.org/programs-and-services/older-adults/",
+            null,
             t("resources.resourceType.supportServiceOlderAdults"),
             [
               "515 Columbia Ave, Los Angeles CA 90017",
@@ -556,7 +556,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "Unification Of Disabled Latin Americans",
-            "https://udla.org",
+            null,
             t("resources.resourceType.otherServices"),
             [
               "540 S Normandie, Los Angeles CA 90020",
@@ -572,7 +572,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
         cards: [
           resourceCard(
             "Alicia Broadus- Duncan Multipurpose Senior Center",
-            "https://aging.lacity.gov",
+            null,
             t("resources.resourceType.seniorCenter"),
             [
               "11300 Glenoaks Blvd, Pacoima CA 91311",
@@ -582,7 +582,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "Bernardi Multipurpose Senior Center",
-            "https://www.vic-la.org",
+            null,
             t("resources.resourceType.seniorCenter"),
             [
               "6514 Sylmar Ave, Van Nuys CA 91401",
@@ -604,7 +604,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "Estelle-Van-Meter-Multipurpose-Center",
-            "https://www.wlcac.org",
+            null,
             t("resources.resourceType.seniorCenter"),
             [
               "7600 S Avalon Blvd, Los Angeles CA 90001",
@@ -678,7 +678,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "Robert M. Wilkinson Multipurpose Senior Center",
-            "https://aging.lacity.gov",
+            null,
             t("resources.resourceType.seniorCenter"),
             [
               "8956 Vanalden Ave, Northridge CA 91324",
@@ -706,7 +706,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "Single Room Occupancy (SRO) Corps.",
-            "https://www.srohousing.org",
+            null,
             t("resources.resourceType.seniorCenter"),
             [
               "1055 W 7th St, Los Angeles CA 90017",
@@ -729,27 +729,17 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               },
             ]
           ),
-          resourceCard(
-            "St. Barnabas - Echo Park",
-            "https://www.sbssla.org",
-            t("resources.resourceType.seniorCenter"),
-            [
-              "1021 N Alvarado St, Los Angeles CA 90026",
-              { text: "(213) 388-4444", href: "tel:+12133884444" },
-              "Lorenzo Hernandez",
-              { text: "info@sbssla.org", href: "mailto:info@sbssla.org" },
-            ]
-          ),
-          resourceCard(
-            "St. Barnabas - Hollywood",
-            "https://www.sbssla.org",
-            t("resources.resourceType.seniorCenter"),
-            [
-              "5170 W Santa Monica Blvd, Los Angeles CA 90029",
-              { text: "(213) 388-4445", href: "tel:+12133884445" },
-              "Lorenzo Hernandez",
-            ]
-          ),
+          resourceCard("St. Barnabas - Echo Park", null, t("resources.resourceType.seniorCenter"), [
+            "1021 N Alvarado St, Los Angeles CA 90026",
+            { text: "(213) 388-4444", href: "tel:+12133884444" },
+            "Lorenzo Hernandez",
+            { text: "info@sbssla.org", href: "mailto:info@sbssla.org" },
+          ]),
+          resourceCard("St. Barnabas - Hollywood", null, t("resources.resourceType.seniorCenter"), [
+            "5170 W Santa Monica Blvd, Los Angeles CA 90029",
+            { text: "(213) 388-4445", href: "tel:+12133884445" },
+            "Lorenzo Hernandez",
+          ]),
           resourceCard(
             "St. Barnabas Multipurpose Senior Center",
             "https://www.sbssla.org",
@@ -758,7 +748,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
           ),
           resourceCard(
             "Theresa Lindsay Multipurpose Senior Center",
-            "https://www.wlcac.org",
+            null,
             t("resources.resourceType.seniorCenter"),
             [
               "429 E 42nd Pl, Los Angeles CA 90011",
