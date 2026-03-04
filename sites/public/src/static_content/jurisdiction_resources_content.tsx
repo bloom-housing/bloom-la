@@ -2,12 +2,17 @@ import { t } from "@bloom-housing/ui-components"
 import ResourceCard from "../components/resources/ResourceCard"
 import { ResourceCards } from "../components/resources/Resources"
 import Markdown from "markdown-to-jsx"
+import { Link } from "@bloom-housing/ui-seeds"
 
 type ResourceLine = string | { text: string; href: string }
 
 const renderLine = (line: ResourceLine) => {
   if (typeof line === "string") return line
-  return <a href={line.href}>{line.text}</a>
+  return (
+    <Link href={line.href} className={"inline"}>
+      {line.text}
+    </Link>
+  )
 }
 
 const cardContent = (resourceType: string, details: ResourceLine[]) => {
@@ -65,7 +70,7 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               { text: "(213) 680-0600", href: "tel:+12136800600" },
               "Lorena Sanchez",
               {
-                text: "LorenaS@DowntownWomensCenter.org",
+                text: "LorenaS@DowntowdddddddnWomensCenter.org",
                 href: "mailto:LorenaS@DowntownWomensCenter.org",
               },
             ]
