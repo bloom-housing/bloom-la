@@ -38,8 +38,14 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
     },
     resourceSections: [
       {
-        sectionTitle: "Organizations Serving The Homeless",
+        sectionTitle: t("resources.sectionTitle.servingTheHomeless"),
         cards: [
+          resourceCard("Ascencia", t("resources.resourceType.homelessServices"), [
+            "1851 Tyburn St, Los Angeles CA 91204",
+            { text: "(818) 246-7900", href: "tel:+18182467900" },
+            "Nancy Ardon",
+            { text: "nardon@ascenciaca.org", href: "mailto:nardon@ascenciaca.org" },
+          ]),
           resourceCard(
             "Downtown Womens' Center",
             t("resources.resourceType.homelessServicesForWomen"),
@@ -64,12 +70,46 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             { text: "info@innercitylaw.org", href: "mailto:info@innercitylaw.org" },
           ]),
           resourceCard(
+            "Los Angeles Centers for Alcohol and Drug Abuse (L.A. CADA - DTLA)",
+            t("resources.resourceType.homelessServices"),
+            [
+              "470 E 3rd St, Los Angeles CA 90013",
+              { text: "(213) 626-6411", href: "tel:+12136266411" },
+              "Jennifer Ibarra",
+              { text: "Jibarra@lacada.com", href: "mailto:Jibarra@lacada.com" },
+            ]
+          ),
+          resourceCard(
+            "Los Angeles Christian Health Centers",
+            t("resources.resourceType.otherServices"),
+            [
+              "1625 E 4th St, Los Angeles CA 90033",
+              { text: "(213) 225-2666", href: "tel:+12132252666" },
+              { text: "info@lachc.com", href: "mailto:info@lachc.com" },
+            ]
+          ),
+          resourceCard(
             "Los Angeles Homeless Services Authority (LAHSA)",
             t("resources.resourceType.homelessServices"),
             [
               "811 Wilshire Blvd, Los Angeles CA 90017",
               { text: "(213) 683-3333", href: "tel:+12136833333" },
               { text: "cesmatching@lahsa.org", href: "mailto:cesmatching@lahsa.org" },
+            ]
+          ),
+          resourceCard("Midnight Mission", t("resources.resourceType.homelessServices"), [
+            "601 San Pedro St, Los Angeles CA 90014",
+            { text: "(213) 624-9258", href: "tel:+12136249258" },
+            "Carmen Pineda",
+            { text: "cpineda@midnightmission.org", href: "mailto:cpineda@midnightmission.org" },
+          ]),
+          resourceCard(
+            "NoHo Home Alliance at St. Matthew's Church",
+            t("resources.resourceType.homelessServices"),
+            [
+              "11031 Camarillo St, Los Angeles CA 91602",
+              { text: "(818) 762-2909", href: "tel:+18187622909" },
+              { text: "info@nohohome.org", href: "mailto:info@nohohome.org" },
             ]
           ),
           resourceCard(
@@ -85,6 +125,22 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             "1835 S Hope St, Los Angeles CA 90015",
             { text: "(213) 747-5347", href: "tel:+12137475347" },
             { text: "info@sfcla.org", href: "mailto:info@sfcla.org" },
+          ]),
+          resourceCard(
+            "St. Vincent de Paul of Los Angeles",
+            t("resources.resourceType.homelessServices"),
+            [
+              "210 N 21 Ave, Los Angeles CA 90031",
+              { text: "(213) 229-9972", href: "tel:+12132299972" },
+              "Tiffany Russell",
+              { text: "socialservices@svdpla.org", href: "mailto:socialservices@svdpla.org" },
+            ]
+          ),
+          resourceCard("Step Up on Second", t("resources.resourceType.homelessServices"), [
+            "6762 Lexington Ave, Los Angeles CA 90038",
+            { text: "(323) 380-7590", href: "tel:+13233807590" },
+            "Tyler J. Martin",
+            { text: "cpeoples@stepup.org", href: "mailto:cpeoples@stepup.org" },
           ]),
           resourceCard("The People Concern", t("resources.resourceType.homelessServices"), [
             "2116 Arlington Ave, Los Angeles CA 90018",
@@ -104,66 +160,10 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             { text: "(213) 347-6300", href: "tel:+12133476300" },
             { text: "thewayhome@urm.org", href: "mailto:thewayhome@urm.org" },
           ]),
-          resourceCard(
-            "St. Vincent de Paul of Los Angeles",
-            t("resources.resourceType.homelessServices"),
-            [
-              "210 N 21 Ave, Los Angeles CA 90031",
-              { text: "(213) 229-9972", href: "tel:+12132299972" },
-              "Tiffany Russell",
-              { text: "socialservices@svdpla.org", href: "mailto:socialservices@svdpla.org" },
-            ]
-          ),
-          resourceCard("Step Up on Second", t("resources.resourceType.homelessServices"), [
-            "6762 Lexington Ave, Los Angeles CA 90038",
-            { text: "(323) 380-7590", href: "tel:+13233807590" },
-            "Tyler J. Martin",
-            { text: "cpeoples@stepup.org", href: "mailto:cpeoples@stepup.org" },
-          ]),
-          resourceCard(
-            "Los Angeles Christian Health Centers",
-            t("resources.resourceType.otherServices"),
-            [
-              "1625 E 4th St, Los Angeles CA 90033",
-              { text: "(213) 225-2666", href: "tel:+12132252666" },
-              { text: "info@lachc.com", href: "mailto:info@lachc.com" },
-            ]
-          ),
-          resourceCard(
-            "Los Angeles Centers for Alcohol and Drug Abuse (L.A. CADA - DTLA)",
-            t("resources.resourceType.homelessServices"),
-            [
-              "470 E 3rd St, Los Angeles CA 90013",
-              { text: "(213) 626-6411", href: "tel:+12136266411" },
-              "Jennifer Ibarra",
-              { text: "Jibarra@lacada.com", href: "mailto:Jibarra@lacada.com" },
-            ]
-          ),
-          resourceCard(
-            "NoHo Home Alliance at St. Matthew's Church",
-            t("resources.resourceType.homelessServices"),
-            [
-              "11031 Camarillo St, Los Angeles CA 91602",
-              { text: "(818) 762-2909", href: "tel:+18187622909" },
-              { text: "info@nohohome.org", href: "mailto:info@nohohome.org" },
-            ]
-          ),
-          resourceCard("Midnight Mission", t("resources.resourceType.homelessServices"), [
-            "601 San Pedro St, Los Angeles CA 90014",
-            { text: "(213) 624-9258", href: "tel:+12136249258" },
-            "Carmen Pineda",
-            { text: "cpineda@midnightmission.org", href: "mailto:cpineda@midnightmission.org" },
-          ]),
-          resourceCard("Ascencia", t("resources.resourceType.homelessServices"), [
-            "1851 Tyburn St, Los Angeles CA 91204",
-            { text: "(818) 246-7900", href: "tel:+18182467900" },
-            "Nancy Ardon",
-            { text: "nardon@ascenciaca.org", href: "mailto:nardon@ascenciaca.org" },
-          ]),
         ],
       },
       {
-        sectionTitle: "Organizations Serving People with Disabilities",
+        sectionTitle: t("resources.sectionTitle.servingDisabilities"),
         cards: [
           resourceCard("APLA Health and Wellness", t("resources.resourceType.otherServices"), [
             "611 S Kingsley Dr, Los Angeles CA 90005",
@@ -204,16 +204,6 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             ]
           ),
           resourceCard(
-            "Communities Actively Living Independent & Free",
-            t("resources.resourceType.independentLiving"),
-            [
-              "634 S Spring St, Los Angeles CA 90014",
-              { text: "(213) 627-0477", href: "tel:+12136270477" },
-              "Michael Martinez",
-              { text: "mtmartinez@calif-ilc.org", href: "mailto:mtmartinez@calif-ilc.org" },
-            ]
-          ),
-          resourceCard(
             "CHIRP/LA Comprehensive Housing Information & Referrals for People Living with HIV/AIDS",
             t("resources.resourceType.housingLocationAssistance"),
             [
@@ -221,6 +211,16 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               { text: "(213) 741-1951 EXT 202", href: "tel:+12137411951;ext=202" },
               "Adriana McCulloch",
               { text: "gfierro@chirpla.org", href: "mailto:gfierro@chirpla.org" },
+            ]
+          ),
+          resourceCard(
+            "Communities Actively Living Independent & Free",
+            t("resources.resourceType.independentLiving"),
+            [
+              "634 S Spring St, Los Angeles CA 90014",
+              { text: "(213) 627-0477", href: "tel:+12136270477" },
+              "Michael Martinez",
+              { text: "mtmartinez@calif-ilc.org", href: "mailto:mtmartinez@calif-ilc.org" },
             ]
           ),
           resourceCard(
@@ -363,6 +363,12 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               { text: "swayland@pawsla.org", href: "mailto:swayland@pawsla.org" },
             ]
           ),
+          resourceCard("Project 180", t("resources.resourceType.developmentalDisabilities"), [
+            "470 E 3rd St, Los Angeles CA 90013",
+            { text: "Phone : (213) 620-5712, Fax : (213) 621-4155", href: "tel:+12136205712" },
+            "Gerardo Gonzalez",
+            { text: "ggonzalez@project180la.com", href: "mailto:ggonzalez@project180la.com" },
+          ]),
           resourceCard(
             "San Fernando Valley Community Mental Health Center, Inc",
             t("resources.resourceType.otherServices"),
@@ -387,6 +393,16 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               { text: "(213) 744-8420", href: "tel:+12137448420" },
               "Kiara Lopez",
               { text: "KiaraL@sclarc.org", href: "mailto:KiaraL@sclarc.org" },
+            ]
+          ),
+          resourceCard(
+            "SSG SILVER-Sustaining Independent Lives with Vital Empowering Resources",
+            t("resources.resourceType.supportServiceOlderAdults"),
+            [
+              "515 Columbia Ave, Los Angeles CA 90017",
+              { text: "(213) 553-1884 Ext 215", href: "tel:+12135531884;ext=215" },
+              "Valorie Argomaniz",
+              { text: "vargomaniz@ssgsilver.org", href: "mailto:vargomaniz@ssgsilver.org" },
             ]
           ),
           resourceCard(
@@ -428,26 +444,10 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               { text: "udla@sbcglobal.net", href: "mailto:udla@sbcglobal.net" },
             ]
           ),
-          resourceCard(
-            "SSG SILVER-Sustaining Independent Lives with Vital Empowering Resources",
-            t("resources.resourceType.supportServiceOlderAdults"),
-            [
-              "515 Columbia Ave, Los Angeles CA 90017",
-              { text: "(213) 553-1884 Ext 215", href: "tel:+12135531884;ext=215" },
-              "Valorie Argomaniz",
-              { text: "vargomaniz@ssgsilver.org", href: "mailto:vargomaniz@ssgsilver.org" },
-            ]
-          ),
-          resourceCard("Project 180", t("resources.resourceType.developmentalDisabilities"), [
-            "470 E 3rd St, Los Angeles CA 90013",
-            { text: "Phone : (213) 620-5712, Fax : (213) 621-4155", href: "tel:+12136205712" },
-            "Gerardo Gonzalez",
-            { text: "ggonzalez@project180la.com", href: "mailto:ggonzalez@project180la.com" },
-          ]),
         ],
       },
       {
-        sectionTitle: "Multipurpose Senior Centers",
+        sectionTitle: t("resources.sectionTitle.seniorCenters"),
         cards: [
           resourceCard(
             "Alicia Broadus- Duncan Multipurpose Senior Center",
@@ -499,6 +499,14 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             ]
           ),
           resourceCard(
+            "International Institute of Los Angeles",
+            t("resources.resourceType.seniorCenter"),
+            [
+              "3845 Selig Pl, Los Angeles CA 90031",
+              { text: "(323) 224-3800", href: "tel:+13232243800" },
+            ]
+          ),
+          resourceCard(
             "James Wood Memorial Community Center (SRO)",
             t("resources.resourceType.seniorCenter"),
             [
@@ -507,6 +515,12 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               { text: "age.webinfo@lacity.org", href: "mailto:age.webinfo@lacity.org" },
             ]
           ),
+          resourceCard("Jona Goldrich MPC", t("resources.resourceType.seniorCenter"), [
+            "330 N Fairfax Ave, Los Angeles CA 90036",
+            { text: "(323) 937-5900", href: "tel:+13239375900" },
+            "Lika Litt",
+            { text: "llitt@jfsla.org", href: "mailto:llitt@jfsla.org" },
+          ]),
           resourceCard(
             "Mexican American Opportunity Foundation (MAOF)",
             t("resources.resourceType.seniorCenter"),
@@ -621,24 +635,10 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               { text: "wjc-edpebp@att.net", href: "mailto:wjc-edpebp@att.net" },
             ]
           ),
-          resourceCard(
-            "International Institute of Los Angeles",
-            t("resources.resourceType.seniorCenter"),
-            [
-              "3845 Selig Pl, Los Angeles CA 90031",
-              { text: "(323) 224-3800", href: "tel:+13232243800" },
-            ]
-          ),
-          resourceCard("Jona Goldrich MPC", t("resources.resourceType.seniorCenter"), [
-            "330 N Fairfax Ave, Los Angeles CA 90036",
-            { text: "(323) 937-5900", href: "tel:+13239375900" },
-            "Lika Litt",
-            { text: "llitt@jfsla.org", href: "mailto:llitt@jfsla.org" },
-          ]),
         ],
       },
       {
-        sectionTitle: "Family and Youth Service Centers",
+        sectionTitle: t("resources.sectionTitle.familyAndYouthCenters"),
         cards: [
           resourceCard("Best Buddies", t("resources.resourceType.volunteerServices"), [
             "11500 W Olympic Blvd, Los Angeles CA 90064",
@@ -665,6 +665,19 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             ]
           ),
           resourceCard(
+            "Boyle Heights El Centro de Ayuda Corporation",
+            t("resources.resourceType.familySourceCenter"),
+            [
+              "2130 E 1st St, Los Angeles CA 90033",
+              { text: "(323) 526-9301", href: "tel:+13235269301" },
+              "Lori Calvillo",
+              {
+                text: "lori.calvillo@elcentrodeayuda.org",
+                href: "mailto:lori.calvillo@elcentrodeayuda.org",
+              },
+            ]
+          ),
+          resourceCard(
             "Brotherhood Crusade Black United Fund",
             t("resources.resourceType.humanSocialServices"),
             [
@@ -672,6 +685,15 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               { text: "(323) 903-9626", href: "tel:+13239039626" },
               "Stacy Williams",
               { text: "info@brotherhoodcrusade.org", href: "mailto:info@brotherhoodcrusade.org" },
+            ]
+          ),
+          resourceCard(
+            "Central City Neighborhood Partners",
+            t("resources.resourceType.familySourceCenter"),
+            [
+              "501 S Bixel St, Los Angeles CA 90017",
+              { text: "(213) 482-8618", href: "tel:+12134828618" },
+              { text: "info@laccnp.org", href: "mailto:info@laccnp.org" },
             ]
           ),
           resourceCard(
@@ -724,6 +746,15 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             ]
           ),
           resourceCard(
+            "Korean Immigrant Workers Advocates of Southern California (KIWA)",
+            t("resources.resourceType.seniorFamilyYouthCenter"),
+            [
+              "941 S Vermont Ave Ste 101, Los Angeles CA 90006",
+              { text: "(213) 738-9050", href: "tel:+12137389050" },
+              { text: "info@kiwa.org", href: "mailto:info@kiwa.org" },
+            ]
+          ),
+          resourceCard(
             "Los Angeles Branch NAACP",
             t("resources.resourceType.youthServicesAfricanAmerican"),
             [
@@ -742,6 +773,28 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             ]
           ),
           resourceCard(
+            "North Valley New Economics for Women",
+            t("resources.resourceType.familySourceCenter"),
+            [
+              "21400 Saticoy Blvd, Canoga Park CA 91304",
+              { text: "(818) 887-3872", href: "tel:+18188873872" },
+              { text: "info@neworg.us", href: "mailto:info@neworg.us" },
+            ]
+          ),
+          resourceCard(
+            "Pacoima Ei Nido Family Centers",
+            t("resources.resourceType.familySourceCenter"),
+            [
+              "11243 Glenoaks Blvd, Los Angeles CA 90044",
+              { text: "(818) 839-3646", href: "tel:+18188393646" },
+              "Rosa Aldaco",
+              {
+                text: "vruiz@elnidofamilycenters.org",
+                href: "mailto:vruiz@elnidofamilycenters.org",
+              },
+            ]
+          ),
+          resourceCard(
             "Peace Over Violence's Deaf, Disabled & Elder (DDE)",
             t("resources.resourceType.supportForDomesticViolence"),
             [
@@ -757,15 +810,6 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               "16360 Roscoe Blvd, Van Nuys CA 91406",
               { text: "(818) 901-4830", href: "tel:+18189014830" },
               { text: "info@sfvcmhc.org", href: "mailto:info@sfvcmhc.org" },
-            ]
-          ),
-          resourceCard(
-            "Watts Labor Community Action Committee",
-            t("resources.resourceType.familySourceCenter"),
-            [
-              "958 E 108th St, Los Angeles CA 90059",
-              { text: "(323) 563-4721", href: "tel:+13235634721" },
-              { text: "crodriguez@wlcac.org", href: "mailto:crodriguez@wlcac.org" },
             ]
           ),
           resourceCard(
@@ -803,47 +847,30 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             ]
           ),
           resourceCard(
+            "Van Nuys New Economics for Women",
+            t("resources.resourceType.familySourceCenter"),
+            [
+              "6946 Van Nuys, Van Nuys CA 91405",
+              { text: "(818) 786-4098", href: "tel:+18187864098" },
+              { text: "ymedina@neworg.us", href: "mailto:ymedina@neworg.us" },
+            ]
+          ),
+          resourceCard(
+            "Watts Labor Community Action Committee",
+            t("resources.resourceType.familySourceCenter"),
+            [
+              "958 E 108th St, Los Angeles CA 90059",
+              { text: "(323) 563-4721", href: "tel:+13235634721" },
+              { text: "crodriguez@wlcac.org", href: "mailto:crodriguez@wlcac.org" },
+            ]
+          ),
+          resourceCard(
             "West Adams-1736 Family Crisis Center",
             t("resources.resourceType.familySourceCenter"),
             [
               "2116 Arlington Ave, Los Angeles CA 90018",
               { text: "(877) 574-9900 Ext. 225", href: "tel:+18775749900;ext=225" },
               "Rosanna Piccini",
-            ]
-          ),
-          resourceCard(
-            "Wilshire-Bresee Foundation",
-            t("resources.resourceType.familySourceCenter"),
-            [
-              "184 Bimini Pl, Los Angeles CA 90044",
-              { text: "(213) 387-2822", href: "tel:+12133872822" },
-              "Wendy Lopez",
-            ]
-          ),
-          resourceCard(
-            "Boyle Heights El Centro de Ayuda Corporation",
-            t("resources.resourceType.familySourceCenter"),
-            [
-              "2130 E 1st St, Los Angeles CA 90033",
-              { text: "(323) 526-9301", href: "tel:+13235269301" },
-              "Lori Calvillo",
-              {
-                text: "lori.calvillo@elcentrodeayuda.org",
-                href: "mailto:lori.calvillo@elcentrodeayuda.org",
-              },
-            ]
-          ),
-          resourceCard(
-            "Pacoima Ei Nido Family Centers",
-            t("resources.resourceType.familySourceCenter"),
-            [
-              "11243 Glenoaks Blvd, Los Angeles CA 90044",
-              { text: "(818) 839-3646", href: "tel:+18188393646" },
-              "Rosa Aldaco",
-              {
-                text: "vruiz@elnidofamilycenters.org",
-                href: "mailto:vruiz@elnidofamilycenters.org",
-              },
             ]
           ),
           resourceCard(
@@ -856,21 +883,12 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
             ]
           ),
           resourceCard(
-            "North Valley New Economics for Women",
+            "Wilshire-Bresee Foundation",
             t("resources.resourceType.familySourceCenter"),
             [
-              "21400 Saticoy Blvd, Canoga Park CA 91304",
-              { text: "(818) 887-3872", href: "tel:+18188873872" },
-              { text: "info@neworg.us", href: "mailto:info@neworg.us" },
-            ]
-          ),
-          resourceCard(
-            "Van Nuys New Economics for Women",
-            t("resources.resourceType.familySourceCenter"),
-            [
-              "6946 Van Nuys, Van Nuys CA 91405",
-              { text: "(818) 786-4098", href: "tel:+18187864098" },
-              { text: "ymedina@neworg.us", href: "mailto:ymedina@neworg.us" },
+              "184 Bimini Pl, Los Angeles CA 90044",
+              { text: "(213) 387-2822", href: "tel:+12133872822" },
+              "Wendy Lopez",
             ]
           ),
           resourceCard(
@@ -880,24 +898,6 @@ export const getJurisdictionResourcesContent = (): ResourceCards | null => {
               "131 N Grand Ave, San Pedro CA 90731",
               { text: "(310) 832-1145", href: "tel:+13108321145" },
               "Hector Jimenez",
-            ]
-          ),
-          resourceCard(
-            "Central City Neighborhood Partners",
-            t("resources.resourceType.familySourceCenter"),
-            [
-              "501 S Bixel St, Los Angeles CA 90017",
-              { text: "(213) 482-8618", href: "tel:+12134828618" },
-              { text: "info@laccnp.org", href: "mailto:info@laccnp.org" },
-            ]
-          ),
-          resourceCard(
-            "Korean Immigrant Workers Advocates of Southern California (KIWA)",
-            t("resources.resourceType.seniorFamilyYouthCenter"),
-            [
-              "941 S Vermont Ave Ste 101, Los Angeles CA 90006",
-              { text: "(213) 738-9050", href: "tel:+12137389050" },
-              { text: "info@kiwa.org", href: "mailto:info@kiwa.org" },
             ]
           ),
         ],
