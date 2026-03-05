@@ -36,7 +36,7 @@
   "resources.contactDescription": "فهرست مسکن مقرون به صرفه و قابل دسترس، پروژه‌ای از اداره مسکن شهر لس‌آنجلس (LAHD) است. برای سوالات مربوط به فهرست و درخواست، لطفاً با نماینده اجاره که در فهرست نمایش داده شده است تماس بگیرید. برای سوالات عمومی در مورد برنامه، می‌توانید از وب‌سایت ما به آدرس [https://lahousing.lacity.org/AAHR/](https://lahousing.lacity.org/AAHR/) دیدن کنید یا به آدرس [lahd.achp@lacity.org](mailto:lahd.achp@lacity.org) ایمیل بزنید. همچنین می‌توانید با خط ویژه ما به شماره [(213) 808-8550](تلفن:+12138088550) تماس بگیرید.",
   "resources.contactEmail": "bloomington@housing.org",
   "resources.contactInfo": "اداره مسکن و توسعه اجتماعی بلومینگتون",
-  "resources.contactTitle": "اداره مسکن شهر لس‌آنجلس",
+  "resources.contactTitleCard": "اداره مسکن شهر لس‌آنجلس",
   "resources.housingProgramsTitle": "برنامه‌های مسکن و توسعه اجتماعی بلومینگتون",
   "resources.resourceType.aidsSupportGroup": "گروه حمایت از ایدز",
   "resources.resourceType.assistanceAnimalsOpen": "حیوانات کمکی/باز",
