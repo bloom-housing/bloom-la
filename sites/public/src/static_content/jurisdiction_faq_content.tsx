@@ -94,6 +94,10 @@ export const getJurisdictionFaqContent = (): FaqContent => {
         answer: renderMD("faq.howDoIKnowIfIHaveADisabilityAnswer"),
       },
       {
+        question: t("faq.whatQuestionsCanBeAskedToProveADisability"),
+        answer: t("faq.whatQuestionsCanBeAskedToProveADisabilityAnswer"),
+      },
+      {
         question: t("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDo"),
         answer: renderMD("faq.ifIveBeenDiscriminatedAgainstWhatShouldIDoAnswer"),
       },
@@ -104,6 +108,10 @@ export const getJurisdictionFaqContent = (): FaqContent => {
       {
         question: t("faq.canApropertyAdoptANoPetPolicy"),
         answer: t("faq.canApropertyAdoptANoPetPolicyAnswer"),
+      },
+      {
+        question: t("faq.whatIsAReasonableModification"),
+        answer: t("faq.whatIsAReasonableModificationAnswer"),
       },
       {
         question: t("faq.howDoIRequestAReasonableModification"),
