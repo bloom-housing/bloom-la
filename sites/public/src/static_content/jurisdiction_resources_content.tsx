@@ -43,7 +43,7 @@ const resourceCard = (
 export const getJurisdictionResourcesContent = (): ResourceCards | null => {
   return {
     contactCard: {
-      departmentTitle: t("resources.contactTitle"),
+      departmentTitle: t("resources.contactTitleCard"),
       description: <Markdown>{t("resources.contactDescription")}</Markdown>,
     },
     resourceSections: [
