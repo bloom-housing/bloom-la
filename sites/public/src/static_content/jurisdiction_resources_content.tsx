@@ -43,7 +43,7 @@ const resourceCard = (
 export const getJurisdictionResourcesContent = (): ResourceCards | null => {
   return {
     contactCard: {
-      departmentTitle: "City of Los Angeles Housing Department",
+      departmentTitle: t("resources.contactTitle"),
       description: <Markdown>{t("resources.contactDescription")}</Markdown>,
     },
     resourceSections: [
