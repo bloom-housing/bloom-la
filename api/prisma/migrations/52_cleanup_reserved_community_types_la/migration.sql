@@ -9,6 +9,11 @@ BEGIN
   ORDER BY j.created_at ASC
   LIMIT 1;
 
+  -- If the Los Angeles jurisdiction does not yet exist, safely no-op
+  IF la_jurisdiction_id IS NULL THEN
+    RETURN;
+  END IF;
+
   INSERT INTO reserved_community_types (id, created_at, updated_at, description, jurisdiction_id, name)
   SELECT
     uuid_generate_v4(),
