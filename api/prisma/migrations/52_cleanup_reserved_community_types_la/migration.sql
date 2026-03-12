@@ -14,9 +14,8 @@ BEGIN
     RETURN;
   END IF;
 
-  INSERT INTO reserved_community_types (id, created_at, updated_at, description, jurisdiction_id, name)
+  INSERT INTO reserved_community_types (created_at, updated_at, description, jurisdiction_id, name)
   SELECT
-    uuid_generate_v4(),
     now(),
     now(),
     NULL,
