@@ -46,7 +46,7 @@ jurisdiction AS (
     false,
     false,
     ARRAY['admin']::"user_role_enum"[],
-    ARRAY['admin']::"user_role_enum"[],
+    ARRAY['admin','partner']::"user_role_enum"[],
     ARRAY['listingsBuildingAddress','name','listingImages','leasingAgentEmail','leasingAgentName','leasingAgentPhone','jurisdictions','units','digitalApplication','paperApplication','referralOpportunity','rentalAssistance','listingFileNumber','listingImages.description'],
     'TODO: set partner terms',
     NULL,
