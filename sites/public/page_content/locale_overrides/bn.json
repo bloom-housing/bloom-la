@@ -142,5 +142,7 @@
   "resources.sectionTitle.seniorCenters": "বহুমুখী প্রবীণ কেন্দ্র",
   "resources.sectionTitle.servingDisabilities": "প্রতিবন্ধী ব্যক্তিদের সেবা প্রদানকারী সংস্থাগুলি",
   "resources.sectionTitle.servingTheHomeless": "গৃহহীনদের সেবা প্রদানকারী সংস্থাগুলি",
+  "application.household.reasonableAccommodations.question": "আপনার কি কোনো যুক্তিসঙ্গত সহায়তার প্রয়োজন আছে? যদি থাকে, অনুগ্রহ করে উল্লেখ করুন।",
+  "pageTitle.reasonableAccommodations": "যুক্তিসঙ্গত বাসস্থান",
   "welcome.title": "সাশ্রয়ী মূল্যের এবং সহজলভ্য আবাসনের জন্য আবেদন করুন"
 }

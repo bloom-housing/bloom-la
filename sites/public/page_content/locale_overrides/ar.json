@@ -142,5 +142,7 @@
   "resources.sectionTitle.seniorCenters": "مراكز متعددة الأغراض لكبار السن",
   "resources.sectionTitle.servingDisabilities": "المنظمات التي تخدم الأشخاص ذوي الإعاقة",
   "resources.sectionTitle.servingTheHomeless": "المنظمات التي تخدم المشردين",
+  "application.household.reasonableAccommodations.question": "هل تحتاج إلى تسهيلات معقولة؟ إذا كان الأمر كذلك، يرجى التحديد.",
+  "pageTitle.reasonableAccommodations": "التسهيلات المعقولة",
   "welcome.title": "تقدم بطلب للحصول على سكن ميسور التكلفة ومتاح للجميع في"
 }

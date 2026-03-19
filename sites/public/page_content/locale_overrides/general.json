@@ -145,5 +145,7 @@
   "resources.sectionTitle.seniorCenters": "Multipurpose senior centers",
   "resources.sectionTitle.servingDisabilities": "Organizations serving people with disabilities",
   "resources.sectionTitle.servingTheHomeless": "Organizations serving the homeless",
+  "application.household.reasonableAccommodations.question": "Do you require Reasonable Accommodations? If so, please specify.",
+  "pageTitle.reasonableAccommodations": "Reasonable accommodations",
   "welcome.title": "Apply for affordable and accessible housing in"
 }

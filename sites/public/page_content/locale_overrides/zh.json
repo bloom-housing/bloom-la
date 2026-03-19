@@ -142,5 +142,7 @@
   "resources.sectionTitle.seniorCenters": "多功能老年中心",
   "resources.sectionTitle.servingDisabilities": "为残疾人士服务的组织",
   "resources.sectionTitle.servingTheHomeless": "为无家可归者服务的组织",
+  "application.household.reasonableAccommodations.question": "您是否需要合理的便利措施？如果需要，请具体说明。",
+  "pageTitle.reasonableAccommodations": "合理的便利措施",
   "welcome.title": "申请经济适用且方便的住房"
 }

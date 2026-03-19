@@ -142,5 +142,7 @@
   "resources.sectionTitle.seniorCenters": "مراکز چندمنظوره سالمندان",
   "resources.sectionTitle.servingDisabilities": "سازمان‌هایی که به افراد دارای معلولیت خدمت‌رسانی می‌کنند",
   "resources.sectionTitle.servingTheHomeless": "سازمان‌هایی که به بی‌خانمان‌ها خدمت می‌کنند",
+  "application.household.reasonableAccommodations.question": "آیا به امکانات رفاهی معقول نیاز دارید؟ در این صورت، لطفاً مشخص کنید.",
+  "pageTitle.reasonableAccommodations": "امکانات رفاهی معقول",
   "welcome.title": "برای مسکن مقرون به صرفه و قابل دسترس درخواست دهید"
 }

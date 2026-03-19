@@ -142,5 +142,7 @@
   "resources.sectionTitle.seniorCenters": "Centros multiusos para personas mayores",
   "resources.sectionTitle.servingDisabilities": "Organizaciones que sirven a personas con discapacidad",
   "resources.sectionTitle.servingTheHomeless": "Organizaciones que sirven a las personas sin hogar",
+  "application.household.reasonableAccommodations.question": "¿Necesita adaptaciones razonables? En caso afirmativo, por favor especifíquelo.",
+  "pageTitle.reasonableAccommodations": "Adaptaciones razonables",
   "welcome.title": "Solicite vivienda asequible y accesible en"
 }

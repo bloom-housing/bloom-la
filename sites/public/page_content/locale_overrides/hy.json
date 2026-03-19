@@ -142,5 +142,7 @@
   "resources.sectionTitle.seniorCenters": "Բազմաֆունկցիոնալ տարեցների կենտրոններ",
   "resources.sectionTitle.servingDisabilities": "Հաշմանդամություն ունեցող անձանց սպասարկող կազմակերպություններ",
   "resources.sectionTitle.servingTheHomeless": "Անօթևաններին սպասարկող կազմակերպություններ",
+  "application.household.reasonableAccommodations.question": "Ձեզ անհրաժեշտ են՞ ողջամիտ հարմարեցումներ: Եթե այո, խնդրում ենք մանրամասնել:",
+  "pageTitle.reasonableAccommodations": "Խելամիտ հարմարեցումներ",
   "welcome.title": "Դիմեք մատչելի և հասանելի բնակարանների համար"
 }

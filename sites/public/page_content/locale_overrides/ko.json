@@ -142,5 +142,7 @@
   "resources.sectionTitle.seniorCenters": "다목적 노인 센터",
   "resources.sectionTitle.servingDisabilities": "장애인을 지원하는 단체",
   "resources.sectionTitle.servingTheHomeless": "노숙자들을 지원하는 단체들",
+  "application.household.reasonableAccommodations.question": "합리적인 편의 제공이 필요하신가요? 필요하시다면 구체적으로 명시해 주세요.",
+  "pageTitle.reasonableAccommodations": "합리적인 편의 제공",
   "welcome.title": "저렴하고 접근성이 좋은 주택을 신청하세요"
 }
