@@ -228,7 +228,7 @@ WITH updated AS (
 INSERT INTO translations ("language", "translations", "jurisdiction_id", "created_at", "updated_at")
 SELECT
   'zh',
-  '{"footer":{"line1":"City of Los Angeles","line2":"","thankYou":"谢谢","footer":"City of Los Angeles"},"header":{"logoUrl":"https://res.cloudinary.com/exygy/image/upload/w_1302,c_limit,q_65/dev/LAHD_Assets_LAHD_Logo_vkqs1f.jpg","logoTitle":經濟適用房登記冊"},"accountRemoval":{"subject":"經濟適用房登記處已安排因帳戶長期不活躍而刪除帳戶。","courtesyText":"這是一封禮貌性郵件，通知您由於您的經濟適用房和無障礙住房登記帳戶已三年未使用，根據我們的使用條款和隱私政策，您的帳戶將在30天後被刪除。如果您希望保留您的帳戶，請在下個月內登錄，我們將視您的帳戶狀態恢復為已啟動。","signIn":"登入經濟適用房和無障礙住房登記處"},"forgotPassword":{"subject":"忘记密码了吗？","callToAction":"如果您已提交此请求，请点击以下链接重置密码：","passwordInfo":"您的密码不会更改，直到您访问上面的链接并创建一个新密码。","resetRequest":"最近有人要求重置您經濟適用房和無障礙住房登記網站 %{appUrl} 的密碼。","ignoreRequest":"如果您没有提出此项请求，请忽略此邮件。","changePassword":"更改我的密码"}}'::jsonb,
+  '{"footer":{"line1":"City of Los Angeles","line2":"","thankYou":"谢谢","footer":"City of Los Angeles"},"header":{"logoUrl":"https://res.cloudinary.com/exygy/image/upload/w_1302,c_limit,q_65/dev/LAHD_Assets_LAHD_Logo_vkqs1f.jpg","logoTitle":"經濟適用房登記冊"},"accountRemoval":{"subject":"經濟適用房登記處已安排因帳戶長期不活躍而刪除帳戶。","courtesyText":"這是一封禮貌性郵件，通知您由於您的經濟適用房和無障礙住房登記帳戶已三年未使用，根據我們的使用條款和隱私政策，您的帳戶將在30天後被刪除。如果您希望保留您的帳戶，請在下個月內登錄，我們將視您的帳戶狀態恢復為已啟動。","signIn":"登入經濟適用房和無障礙住房登記處"},"forgotPassword":{"subject":"忘记密码了吗？","callToAction":"如果您已提交此请求，请点击以下链接重置密码：","passwordInfo":"您的密码不会更改，直到您访问上面的链接并创建一个新密码。","resetRequest":"最近有人要求重置您經濟適用房和無障礙住房登記網站 %{appUrl} 的密碼。","ignoreRequest":"如果您没有提出此项请求，请忽略此邮件。","changePassword":"更改我的密码"}}'::jsonb,
   (SELECT id FROM jurisdictions WHERE name = 'Los Angeles'),
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
