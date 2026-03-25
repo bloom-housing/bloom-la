@@ -165,9 +165,18 @@ SELECT
   CURRENT_TIMESTAMP
 WHERE NOT EXISTS (SELECT 1 FROM updated);
 
--- en null jurisdiction logoUrl update
+-- en null jurisdiction overrides
 UPDATE translations
-SET translations = jsonb_set(COALESCE(translations, '{}'::jsonb), '{header,logoUrl}', '"https://res.cloudinary.com/exygy/image/upload/w_1302,c_limit,q_65/dev/LAHD_Assets_LAHD_Logo_vkqs1f.jpg"')
+SET translations = jsonb_set(
+  jsonb_set(
+    jsonb_set(
+      jsonb_set(COALESCE(translations, '{}'::jsonb), '{header,logoUrl}', '"https://res.cloudinary.com/exygy/image/upload/w_1302,c_limit,q_65/dev/LAHD_Assets_LAHD_Logo_vkqs1f.jpg"'),
+      '{footer,line1}', '"City of Los Angeles"'
+    ),
+    '{footer,footer}', '"City of Los Angeles"'
+  ),
+  '{forgotPassword,resetRequest}', '"A request to reset your Affordable and Accessible Housing Registry Partners Portal website password for %{appUrl} has recently been made."'
+)
 WHERE language = 'en' AND jurisdiction_id IS NULL;
 
 -- es Los Angeles
