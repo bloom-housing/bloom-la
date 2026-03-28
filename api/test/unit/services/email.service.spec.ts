@@ -621,7 +621,7 @@ describe('Testing email service', () => {
   });
 
   describe('application update', () => {
-    const mockContactEmail = 'email@email.com';
+    const mockContactEmail = 'lahd.achp@lacity.org';
 
     beforeEach(() => {
       process.env.CONTACT_EMAIL = mockContactEmail;

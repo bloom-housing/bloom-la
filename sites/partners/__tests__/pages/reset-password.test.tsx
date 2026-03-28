@@ -40,7 +40,7 @@ describe("reset-password", () => {
       expect(queryByText("The passwords do not match")).not.toBeInTheDocument()
       expect(
         queryByText(
-          "There was an error. Please try again, or contact support at email@email.com for help."
+          "There was an error. Please try again, or contact support at lahd.achp@lacity.org for help."
         )
       ).not.toBeInTheDocument()
       expect(
@@ -173,7 +173,7 @@ describe("reset-password", () => {
 
     const errorMessage = await waitFor(() =>
       getByText(
-        "There was an error. Please try again, or contact support at email@email.com for help."
+        "There was an error. Please try again, or contact support at lahd.achp@lacity.org for help."
       )
     )
     expect(errorMessage).toBeInTheDocument()

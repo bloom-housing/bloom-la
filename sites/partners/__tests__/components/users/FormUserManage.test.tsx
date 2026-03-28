@@ -584,7 +584,7 @@ describe("<FormUserManage>", () => {
               id: "existingUserId",
               firstName: "existingFirstName",
               lastName: "existingLastName",
-              email: "existingEmail@email.com",
+              email: "existinglahd.achp@lacity.org",
               userRoles: { isPartner: true },
               jurisdictions: [{ id: "jurisdiction1" }],
               listings: [
@@ -640,7 +640,7 @@ describe("<FormUserManage>", () => {
           lastName: "existingLastName",
           isAdvocate: false,
           isApproved: false,
-          email: "existingEmail@email.com",
+          email: "existinglahd.achp@lacity.org",
           userRoles: {
             isAdmin: false,
             isPartner: true,
@@ -689,7 +689,7 @@ describe("<FormUserManage>", () => {
               id: "existingUserId",
               firstName: "existingFirstName",
               lastName: "existingLastName",
-              email: "existingEmail@email.com",
+              email: "existinglahd.achp@lacity.org",
               userRoles: { isPartner: true },
               jurisdictions: [{ id: "jurisdiction1" }],
               listings: [
@@ -714,7 +714,7 @@ describe("<FormUserManage>", () => {
       await waitFor(() => {
         expect(requestSpy).toHaveBeenCalledWith({
           appUrl: "http://localhost",
-          email: "existingEmail@email.com",
+          email: "existinglahd.achp@lacity.org",
         })
       })
       await waitFor(() => expect(onDrawerClose).toBeCalled())
@@ -750,7 +750,7 @@ describe("<FormUserManage>", () => {
               id: "existingUserId",
               firstName: "existingFirstName",
               lastName: "existingLastName",
-              email: "existingEmail@email.com",
+              email: "existinglahd.achp@lacity.org",
               userRoles: { isPartner: true },
               jurisdictions: [{ id: "jurisdiction1" }],
               listings: [

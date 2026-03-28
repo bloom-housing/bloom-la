@@ -148,7 +148,7 @@ describe("forgot-password", () => {
     })
 
     const genericError = await findByText(
-      "Please try again, or contact support at email@email.com for help."
+      "Please try again, or contact support at lahd.achp@lacity.org for help."
     )
     expect(genericError).toBeInTheDocument()
   })

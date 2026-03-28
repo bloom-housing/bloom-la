@@ -81,7 +81,7 @@ describe("Create advocate page", () => {
     expect(screen.getByRole("combobox", { name: "Agency" })).toBeInTheDocument()
     expect(screen.getByRole("link", { name: "Contact support" })).toHaveAttribute(
       "href",
-      "mailto:email@email.com"
+      "mailto:lahd.achp@lacity.org"
     )
     expect(screen.getByText(/if your agency is not listed/i)).toBeInTheDocument()
 
