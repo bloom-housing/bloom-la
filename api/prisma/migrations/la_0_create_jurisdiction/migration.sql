@@ -1,4 +1,4 @@
-
+-- conditionally create or update the LA jurisdiction
 INSERT INTO jurisdictions (
   created_at,
   updated_at,
@@ -165,6 +165,7 @@ ON CONFLICT (name) DO UPDATE SET
   race_ethnicity_configuration           = EXCLUDED.race_ethnicity_configuration
 ;
 
+-- conditionally create reserved community types
 INSERT INTO reserved_community_types (created_at, updated_at, description, jurisdiction_id, name)
 SELECT now(), now(), NULL, j.id, rct_name
 FROM jurisdictions j
@@ -172,4 +173,55 @@ CROSS JOIN unnest(ARRAY['senior55', 'senior62', 'referralOnly']::TEXT[]) AS rct_
 WHERE j.name = 'Los Angeles' AND NOT EXISTS (
   SELECT 1 FROM reserved_community_types rct
   WHERE rct.jurisdiction_id = j.id AND rct.name = rct_name
+);
+
+-- conditionally create unit types
+INSERT INTO unit_types (created_at, updated_at, num_bedrooms, name)
+SELECT NOW(), NOW(), 0, 'studio'
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM unit_types
+    WHERE name = 'studio'
+);
+INSERT INTO unit_types (created_at, updated_at, num_bedrooms, name)
+SELECT NOW(), NOW(), 1, 'oneBdrm'
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM unit_types
+    WHERE name = 'oneBdrm'
+);
+INSERT INTO unit_types (created_at, updated_at, num_bedrooms, name)
+SELECT NOW(), NOW(), 2, 'twoBdrm'
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM unit_types
+    WHERE name = 'twoBdrm'
+);
+INSERT INTO unit_types (created_at, updated_at, num_bedrooms, name)
+SELECT NOW(), NOW(), 3, 'threeBdrm'
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM unit_types
+    WHERE name = 'threeBdrm'
+);
+INSERT INTO unit_types (created_at, updated_at, num_bedrooms, name)
+SELECT NOW(), NOW(), 4, 'fourBdrm'
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM unit_types
+    WHERE name = 'fourBdrm'
+);
+INSERT INTO unit_types (created_at, updated_at, num_bedrooms, name)
+SELECT NOW(), NOW(), 0, 'SRO'
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM unit_types
+    WHERE name = 'SRO'
+);
+INSERT INTO unit_types (created_at, updated_at, num_bedrooms, name)
+SELECT NOW(), NOW(), 5, 'fiveBdrm'
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM unit_types
+    WHERE name = 'fiveBdrm'
 );
