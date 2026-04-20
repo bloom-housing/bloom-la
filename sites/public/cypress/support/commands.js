@@ -662,7 +662,7 @@ Cypress.Commands.add("step18Summary", (application, verify) => {
   ]
 
   if (application.accessibility.mobility) {
-    const val = "Mobility accessibility features"
+    const val = "For mobility impairments"
     fields.push({ id: val, fieldValue: val })
   }
   if (application.accessibility.vision) {
