@@ -163,6 +163,9 @@ export class ApplicationController {
     @Query(new ValidationPipe(defaultValidationPipeOptions))
     queryParams: ApplicationCsvQueryParams,
   ): Promise<string> {
+    console.log(
+      `An application csv was requested for listing id: ${queryParams.id}`,
+    );
     return await this.applicationExportService.exporterSecure(
       req,
       queryParams,

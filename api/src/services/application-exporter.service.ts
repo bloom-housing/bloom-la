@@ -130,17 +130,21 @@ export class ApplicationExporterService {
       }-${now.getTime()}`;
       filename = `applications-${queryParams.id}-${dateString}`;
     }
-
+    console.log(
+      `we've began generating the export for listing id: ${queryParams.id}`,
+    );
     const path = await zipExportSecure(
       readStream,
       zipFilename,
       filename,
       isSpreadsheet,
     );
+    console.log(`we've generated the export for listing id: ${queryParams.id}`);
     const s3Key = `${
       isLottery ? 'lottery' : 'applications'
     }_export_${now.getTime()}.zip`;
     await this.s3Service.uploadToPrivate(s3Key, path);
+    console.log(`we've uploaded the export for listing id: ${queryParams.id}`);
     return await this.s3Service.urlForPrivate(s3Key);
   }
 
