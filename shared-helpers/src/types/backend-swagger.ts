@@ -1713,6 +1713,25 @@ export class ApplicationsService {
     })
   }
   /**
+   * Download a template CSV for bulk updating applications for a listing
+   */
+  downloadBulkUpdateTemplate(
+    params: {
+      /**  */
+      listingId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<StreamableFile> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/applications/bulk-update/template/{listingId}"
+      url = url.replace("{listingId}", params["listingId"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
    * Submit application (used by applicants applying to a listing)
    */
   submit(
@@ -7242,7 +7261,7 @@ export interface Application {
   reasonableAccommodations?: string
 
   /**  */
-  incomeVouchers?: boolean
+  incomeVouchers?: string[]
 
   /**  */
   income?: string
@@ -8274,7 +8293,7 @@ export interface PublicAppsFiltered {
   reasonableAccommodations?: string
 
   /**  */
-  incomeVouchers?: boolean
+  incomeVouchers?: string[]
 
   /**  */
   income?: string
@@ -8625,7 +8644,7 @@ export interface ApplicationCreate {
   reasonableAccommodations?: string
 
   /**  */
-  incomeVouchers?: boolean
+  incomeVouchers?: string[]
 
   /**  */
   income?: string
@@ -8961,7 +8980,7 @@ export interface ApplicationUpdate {
   reasonableAccommodations?: string
 
   /**  */
-  incomeVouchers?: boolean
+  incomeVouchers?: string[]
 
   /**  */
   income?: string
@@ -10756,6 +10775,7 @@ export enum FeatureFlagEnum {
   "enableAccessibilityFeatures" = "enableAccessibilityFeatures",
   "enableAdditionalResources" = "enableAdditionalResources",
   "enableApplicationStatus" = "enableApplicationStatus",
+  "enableAutoOpenDate" = "enableAutoOpenDate",
   "enableAutopublish" = "enableAutopublish",
   "enableCompanyWebsite" = "enableCompanyWebsite",
   "enableCustomListingNotifications" = "enableCustomListingNotifications",
@@ -10785,6 +10805,7 @@ export enum FeatureFlagEnum {
   "enableMarketingFlyer" = "enableMarketingFlyer",
   "enableMarketingStatus" = "enableMarketingStatus",
   "enableMarketingStatusMonths" = "enableMarketingStatusMonths",
+  "enableMultiselectVoucherQuestion" = "enableMultiselectVoucherQuestion",
   "enableNeighborhoodAmenities" = "enableNeighborhoodAmenities",
   "enableNeighborhoodAmenitiesDropdown" = "enableNeighborhoodAmenitiesDropdown",
   "enableNonRegulatedListings" = "enableNonRegulatedListings",

@@ -14,6 +14,7 @@ export enum FeatureFlagEnum {
   enableAccessibilityFeatures = 'enableAccessibilityFeatures',
   enableAdditionalResources = 'enableAdditionalResources',
   enableApplicationStatus = 'enableApplicationStatus',
+  enableAutoOpenDate = 'enableAutoOpenDate',
   enableAutopublish = 'enableAutopublish',
   enableCompanyWebsite = 'enableCompanyWebsite',
   enableCustomListingNotifications = 'enableCustomListingNotifications',
@@ -43,6 +44,7 @@ export enum FeatureFlagEnum {
   enableMarketingFlyer = 'enableMarketingFlyer',
   enableMarketingStatus = 'enableMarketingStatus',
   enableMarketingStatusMonths = 'enableMarketingStatusMonths',
+  enableMultiselectVoucherQuestion = 'enableMultiselectVoucherQuestion',
   enableNeighborhoodAmenities = 'enableNeighborhoodAmenities',
   enableNeighborhoodAmenitiesDropdown = 'enableNeighborhoodAmenitiesDropdown',
   enableNonRegulatedListings = 'enableNonRegulatedListings',
@@ -142,6 +144,11 @@ export const featureFlagMap: {
     name: FeatureFlagEnum.enableApplicationStatus,
     description:
       'When true, the application status and notifications feature is enabled on public and partners',
+  },
+  {
+    name: FeatureFlagEnum.enableAutoOpenDate,
+    description:
+      'When true, partners can set an optional scheduled listing applications open date',
   },
   {
     name: FeatureFlagEnum.enableAutopublish,
@@ -279,6 +286,11 @@ export const featureFlagMap: {
     name: FeatureFlagEnum.enableMarketingStatusMonths,
     description:
       "When true, the 'marketing status' sub-section uses months instead of seasons (functions only if enableMarketingStatus is also true)",
+  },
+  {
+    name: FeatureFlagEnum.enableMultiselectVoucherQuestion,
+    description:
+      'When true, the vouchers question on the application form becomes a multi-select checkbox experience with Section 8, rental assistance, and none of the above as options',
   },
   {
     name: FeatureFlagEnum.enableNeighborhoodAmenities,
