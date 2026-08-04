@@ -15,6 +15,7 @@ import {
   UserRoleEnum,
 } from '@prisma/client';
 import { Logger } from '@nestjs/common';
+import dayjs from 'dayjs';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { ConfigService } from '@nestjs/config';
 import { randomUUID } from 'crypto';
@@ -220,6 +221,8 @@ const listingPublishedMock = jest.fn();
 const lotteryReleasedMock = jest.fn();
 const lotteryPublishedAdminMock = jest.fn();
 const lotteryPublishedApplicantMock = jest.fn();
+const listingPublishNotificationMock = jest.fn();
+const listingPublishNotificationViaGovDeliveryMock = jest.fn();
 
 const canOrThrowMock = jest.fn();
 
@@ -288,6 +291,9 @@ describe('Testing listing service', () => {
             lotteryReleased: lotteryReleasedMock,
             lotteryPublishedAdmin: lotteryPublishedAdminMock,
             lotteryPublishedApplicant: lotteryPublishedApplicantMock,
+            listingPublishNotification: listingPublishNotificationMock,
+            listingPublishNotificationViaGovDelivery:
+              listingPublishNotificationViaGovDeliveryMock,
           },
         },
         {
@@ -342,7 +348,6 @@ describe('Testing listing service', () => {
   ): ListingCreate | ListingUpdate => {
     return {
       id: listingId ?? undefined,
-      assets: [exampleAsset],
       listingsBuildingAddress: exampleAddress,
       depositMin: '1000',
       depositMax: '5000',
@@ -861,8 +866,9 @@ describe('Testing listing service', () => {
           listingNeighborhoodAmenities: true,
           units: {
             include: {
-              unitTypes: true,
               unitAmiChartOverrides: true,
+              unitRentTypes: true,
+              unitTypes: true,
             },
           },
           unitGroups: {
@@ -1006,8 +1012,9 @@ describe('Testing listing service', () => {
           listingNeighborhoodAmenities: true,
           units: {
             include: {
-              unitTypes: true,
               unitAmiChartOverrides: true,
+              unitRentTypes: true,
+              unitTypes: true,
             },
           },
           unitGroups: {
@@ -1235,12 +1242,12 @@ describe('Testing listing service', () => {
       expect(res.items[0].unitsSummarized).toEqual({
         byUnitTypeAndRent: [
           {
-            areaRange: { min: 0, max: 7 },
-            minIncomeRange: { min: '$0', max: '$7' },
-            occupancyRange: { min: 0, max: 7 },
-            rentRange: { min: '$0', max: '$7' },
+            areaRange: { min: 0, max: 0 },
+            minIncomeRange: { min: '$0', max: '$0' },
+            occupancyRange: { min: 0, max: 0 },
+            rentRange: { min: '$0', max: '$0' },
             rentAsPercentIncomeRange: { min: 0, max: 0 },
-            floorRange: { min: 0, max: 7 },
+            floorRange: { min: 0, max: 0 },
             unitTypes: {
               id: 'unitType 0',
               createdAt: date,
@@ -1248,15 +1255,15 @@ describe('Testing listing service', () => {
               name: 'SRO',
               numBedrooms: 0,
             },
-            totalAvailable: 2,
+            totalAvailable: 1,
           },
           {
-            areaRange: { min: 1, max: 8 },
-            minIncomeRange: { min: '$1', max: '$8' },
-            occupancyRange: { min: 1, max: 8 },
-            rentRange: { min: '$1', max: '$8' },
+            areaRange: { min: 1, max: 1 },
+            minIncomeRange: { min: '$1', max: '$1' },
+            occupancyRange: { min: 1, max: 1 },
+            rentRange: { min: '$1', max: '$1' },
             rentAsPercentIncomeRange: { min: 1, max: 1 },
-            floorRange: { min: 1, max: 8 },
+            floorRange: { min: 1, max: 1 },
             unitTypes: {
               id: 'unitType 1',
               createdAt: date,
@@ -1264,7 +1271,7 @@ describe('Testing listing service', () => {
               name: 'studio',
               numBedrooms: 1,
             },
-            totalAvailable: 2,
+            totalAvailable: 1,
           },
           {
             areaRange: { min: 2, max: 2 },
@@ -1343,6 +1350,38 @@ describe('Testing listing service', () => {
               updatedAt: date,
               name: 'fiveBdrm',
               numBedrooms: 6,
+            },
+            totalAvailable: 1,
+          },
+          {
+            areaRange: { min: 7, max: 7 },
+            minIncomeRange: { min: '$7', max: '$7' },
+            occupancyRange: { min: 7, max: 7 },
+            rentRange: { min: '$7', max: '$7' },
+            rentAsPercentIncomeRange: { min: 7, max: 7 },
+            floorRange: { min: 7, max: 7 },
+            unitTypes: {
+              id: 'unitType 7',
+              createdAt: date,
+              updatedAt: date,
+              name: 'sixBdrm',
+              numBedrooms: 7,
+            },
+            totalAvailable: 1,
+          },
+          {
+            areaRange: { min: 8, max: 8 },
+            minIncomeRange: { min: '$8', max: '$8' },
+            occupancyRange: { min: 8, max: 8 },
+            rentRange: { min: '$8', max: '$8' },
+            rentAsPercentIncomeRange: { min: 8, max: 8 },
+            floorRange: { min: 8, max: 8 },
+            unitTypes: {
+              id: 'unitType 8',
+              createdAt: date,
+              updatedAt: date,
+              name: 'sevenBdrm',
+              numBedrooms: 8,
             },
             totalAvailable: 1,
           },
@@ -1446,8 +1485,9 @@ describe('Testing listing service', () => {
           listingNeighborhoodAmenities: true,
           units: {
             include: {
-              unitTypes: true,
               unitAmiChartOverrides: true,
+              unitRentTypes: true,
+              unitTypes: true,
             },
           },
           unitGroups: {
@@ -1575,6 +1615,7 @@ describe('Testing listing service', () => {
               unitTypes: {
                 select: { numBedrooms: true, name: true },
               },
+              accessibilityPriorityType: true,
             },
           },
         },
@@ -2188,39 +2229,6 @@ describe('Testing listing service', () => {
                 listingsBuildingAddress: {
                   city: {
                     equals: cityName,
-                    mode: 'insensitive',
-                  },
-                },
-              },
-            ],
-          },
-        ],
-      });
-    });
-
-    it('should return a where clause for filter counties', () => {
-      const counties = ['county1', 'county2'];
-      const filter = [
-        {
-          $comparison: 'IN',
-          counties: counties,
-        } as ListingFilterParams,
-      ];
-      const whereClause = service.buildWhereClause(filter, '');
-
-      expect(whereClause).toStrictEqual({
-        AND: [
-          {
-            externalListingId: {
-              equals: null,
-            },
-          },
-          {
-            OR: [
-              {
-                listingsBuildingAddress: {
-                  county: {
-                    in: counties,
                     mode: 'insensitive',
                   },
                 },
@@ -2920,8 +2928,9 @@ describe('Testing listing service', () => {
           listingNeighborhoodAmenities: true,
           units: {
             include: {
-              unitTypes: true,
               unitAmiChartOverrides: true,
+              unitRentTypes: true,
+              unitTypes: true,
             },
           },
           unitGroups: {
@@ -3263,13 +3272,13 @@ describe('Testing listing service', () => {
               minIncomeRange: { min: '$7', max: '$7' },
               occupancyRange: { min: 7, max: 7 },
               rentRange: { min: '$7', max: '$7' },
-              rentAsPercentIncomeRange: { min: 0, max: 0 },
+              rentAsPercentIncomeRange: { min: 7, max: 7 },
               floorRange: { min: 7, max: 7 },
               unitTypes: {
                 id: 'unitType 7',
                 createdAt: date,
                 updatedAt: date,
-                name: 'SRO',
+                name: 'sixBdrm',
                 numBedrooms: 7,
               },
               totalAvailable: 1,
@@ -3284,13 +3293,13 @@ describe('Testing listing service', () => {
               minIncomeRange: { min: '$8', max: '$8' },
               occupancyRange: { min: 8, max: 8 },
               rentRange: { min: '$8', max: '$8' },
-              rentAsPercentIncomeRange: { min: 1, max: 1 },
+              rentAsPercentIncomeRange: { min: 8, max: 8 },
               floorRange: { min: 8, max: 8 },
               unitTypes: {
                 id: 'unitType 8',
                 createdAt: date,
                 updatedAt: date,
-                name: 'studio',
+                name: 'sevenBdrm',
                 numBedrooms: 8,
               },
               totalAvailable: 1,
@@ -3305,13 +3314,13 @@ describe('Testing listing service', () => {
               minIncomeRange: { min: '$9', max: '$9' },
               occupancyRange: { min: 9, max: 9 },
               rentRange: { min: '$9', max: '$9' },
-              rentAsPercentIncomeRange: { min: 2, max: 2 },
+              rentAsPercentIncomeRange: { min: 0, max: 0 },
               floorRange: { min: 9, max: 9 },
               unitTypes: {
                 id: 'unitType 9',
                 createdAt: date,
                 updatedAt: date,
-                name: 'oneBdrm',
+                name: 'SRO',
                 numBedrooms: 9,
               },
               totalAvailable: 1,
@@ -3372,21 +3381,21 @@ describe('Testing listing service', () => {
         {
           createdAt: date,
           id: 'unitType 7',
-          name: 'SRO',
+          name: 'sixBdrm',
           numBedrooms: 7,
           updatedAt: date,
         },
         {
           createdAt: date,
           id: 'unitType 8',
-          name: 'studio',
+          name: 'sevenBdrm',
           numBedrooms: 8,
           updatedAt: date,
         },
         {
           createdAt: date,
           id: 'unitType 9',
-          name: 'oneBdrm',
+          name: 'SRO',
           numBedrooms: 9,
           updatedAt: date,
         },
@@ -3418,8 +3427,9 @@ describe('Testing listing service', () => {
           listingNeighborhoodAmenities: true,
           units: {
             include: {
-              unitTypes: true,
               unitAmiChartOverrides: true,
+              unitRentTypes: true,
+              unitTypes: true,
             },
           },
           unitGroups: {
@@ -3730,8 +3740,9 @@ describe('Testing listing service', () => {
           },
           units: {
             include: {
-              unitTypes: true,
               unitAmiChartOverrides: true,
+              unitRentTypes: true,
+              unitTypes: true,
             },
           },
         },
@@ -3786,12 +3797,6 @@ describe('Testing listing service', () => {
         {
           name: 'example listing name',
           depositMin: '5',
-          assets: [
-            {
-              fileId: randomUUID(),
-              label: 'example asset',
-            },
-          ],
           jurisdictions: {
             id: randomUUID(),
           },
@@ -3899,14 +3904,7 @@ describe('Testing listing service', () => {
             },
           },
           depositMin: '5',
-          assets: {
-            create: [
-              {
-                fileId: expect.anything(),
-                label: 'example asset',
-              },
-            ],
-          },
+          assets: {},
           jurisdictions: {
             connect: {
               id: expect.anything(),
@@ -4040,9 +4038,7 @@ describe('Testing listing service', () => {
             },
           },
           publishedAt: expect.anything(),
-          assets: {
-            create: [exampleAsset],
-          },
+          assets: {},
           applicationMethods: {
             create: [
               {
@@ -4321,12 +4317,6 @@ describe('Testing listing service', () => {
         {
           name: 'example listing name',
           depositMin: '5',
-          assets: [
-            {
-              fileId: randomUUID(),
-              label: 'example asset',
-            },
-          ],
           jurisdictions: {
             id: randomUUID(),
           },
@@ -4435,14 +4425,7 @@ describe('Testing listing service', () => {
               id: user.id,
             },
           },
-          assets: {
-            create: [
-              {
-                fileId: expect.anything(),
-                label: 'example asset',
-              },
-            ],
-          },
+          assets: {},
           jurisdictions: {
             connect: {
               id: expect.anything(),
@@ -4588,9 +4571,7 @@ describe('Testing listing service', () => {
             connect: { id: user.id },
           },
           publishedAt: expect.anything(),
-          assets: {
-            create: [exampleAsset],
-          },
+          assets: {},
           applicationMethods: {
             create: [
               {
@@ -4842,6 +4823,7 @@ describe('Testing listing service', () => {
 
       prisma.listings.create = jest.fn().mockResolvedValue({
         id: 'example id',
+        jurisdictions: { id: 'jurisdiction-id' },
         listingMultiselectQuestions: [
           {
             id: randomUUID(),
@@ -4954,9 +4936,7 @@ describe('Testing listing service', () => {
             },
           },
           publishedAt: expect.anything(),
-          assets: {
-            create: [exampleAsset],
-          },
+          assets: {},
           applicationMethods: {
             create: [
               {
@@ -5256,7 +5236,6 @@ describe('Testing listing service', () => {
         {
           name: 'listing name',
           depositMin: '5',
-          assets: [],
           jurisdictions: { id: 'jurisdiction-id' },
           status: ListingsStatusEnum.active,
           displayWaitlistSize: false,
@@ -5757,7 +5736,6 @@ describe('Testing listing service', () => {
       expect(updateCall.data.unitsAvailable).toBe(calculatedUnitsAvailable);
       expect(updateCall.data.publishedAt).toBeInstanceOf(Date);
       expect(updateCall.data.contentUpdatedAt).toBeInstanceOf(Date);
-      expect(updateCall.data.assets).toEqual([exampleAsset]);
       expect(updateCall.data.section8Acceptance).toBe(true);
       expect(updateCall.data.isVerified).toBe(true);
 
@@ -5814,6 +5792,146 @@ describe('Testing listing service', () => {
         },
       );
       expect(prisma.listingSnapshot.create).toHaveBeenCalled();
+    });
+
+    describe('scheduledPublishAt validation on create', () => {
+      const mockJurisdictionWithAutopublish = () => {
+        prisma.jurisdictions.findUnique = jest.fn().mockResolvedValue({
+          id: 'jurisdiction-id',
+          featureFlags: [
+            { name: FeatureFlagEnum.enableAutopublish, active: true },
+          ],
+        });
+      };
+
+      it('should throw when creating a listing with a past scheduledPublishAt', async () => {
+        mockJurisdictionWithAutopublish();
+
+        await expect(
+          service.create(
+            {
+              name: 'listing name',
+              depositMin: '5',
+              jurisdictions: { id: randomUUID() },
+              status: ListingsStatusEnum.pending,
+              displayWaitlistSize: false,
+              unitsSummary: null,
+              listingEvents: [],
+              isVerified: true,
+              scheduledPublishAt: new Date('2020-01-01T00:00:00.000Z'),
+            } as ListingCreate,
+            user,
+          ),
+        ).rejects.toMatchObject({
+          response: { message: ['scheduledPublishAt must be in the future'] },
+        });
+      });
+
+      it('should not throw when creating a listing with a future scheduledPublishAt', async () => {
+        jest
+          .useFakeTimers()
+          .setSystemTime(new Date('2020-01-01T00:00:00.000Z'));
+        mockJurisdictionWithAutopublish();
+        prisma.listings.create = jest.fn().mockResolvedValue({
+          id: 'example id',
+          name: 'example name',
+        });
+        prisma.listingSnapshot.create = jest
+          .fn()
+          .mockResolvedValue({ id: 'snapshot-id' });
+
+        await expect(
+          service.create(
+            {
+              name: 'listing name',
+              depositMin: '5',
+              jurisdictions: { id: randomUUID() },
+              status: ListingsStatusEnum.pending,
+              displayWaitlistSize: false,
+              unitsSummary: null,
+              listingEvents: [],
+              isVerified: true,
+              scheduledPublishAt: new Date('2030-01-01T00:00:00.000Z'),
+            } as ListingCreate,
+            user,
+          ),
+        ).resolves.not.toThrow();
+        jest.useRealTimers();
+      });
+
+      it('should ignore scheduledApplicationOpenAt when enableAutoOpenDate is disabled', async () => {
+        mockJurisdictionWithAutopublish();
+        prisma.listings.create = jest.fn().mockResolvedValue({
+          id: 'example id',
+          name: 'example name',
+        });
+        prisma.listingSnapshot.create = jest
+          .fn()
+          .mockResolvedValue({ id: 'snapshot-id' });
+
+        await expect(
+          service.create(
+            {
+              name: 'listing name',
+              depositMin: '5',
+              jurisdictions: { id: randomUUID() },
+              status: ListingsStatusEnum.pending,
+              displayWaitlistSize: false,
+              unitsSummary: null,
+              listingEvents: [],
+              isVerified: true,
+              scheduledApplicationOpenAt: new Date('2020-01-01T00:00:00.000Z'),
+            } as ListingCreate,
+            user,
+          ),
+        ).resolves.not.toThrow();
+      });
+
+      it('should normalize and save scheduledApplicationOpenAt when enableAutoOpenDate is enabled without autopublish', async () => {
+        jest
+          .useFakeTimers()
+          .setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
+        prisma.jurisdictions.findUnique = jest.fn().mockResolvedValue({
+          id: 'jurisdiction-id',
+          featureFlags: [
+            { name: FeatureFlagEnum.enableAutoOpenDate, active: true },
+          ],
+          listingApprovalPermissions: [],
+          publicUrl: '',
+        });
+        prisma.listings.create = jest.fn().mockResolvedValue({
+          id: 'example id',
+          name: 'example name',
+          scheduledApplicationOpenAt: new Date('2026-05-15T16:00:00.000Z'),
+        });
+        prisma.listingSnapshot.create = jest
+          .fn()
+          .mockResolvedValue({ id: 'snapshot-id' });
+
+        await expect(
+          service.create(
+            {
+              name: 'listing name',
+              depositMin: '5',
+              jurisdictions: { id: randomUUID() },
+              status: ListingsStatusEnum.pending,
+              displayWaitlistSize: false,
+              unitsSummary: null,
+              listingEvents: [],
+              isVerified: true,
+              scheduledApplicationOpenAt: new Date('2026-05-15T00:00:00.000Z'),
+            } as ListingCreate,
+            user,
+          ),
+        ).resolves.not.toThrow();
+
+        const createCall = (prisma.listings.create as jest.Mock).mock
+          .calls[0][0];
+        expect(createCall.data.scheduledApplicationOpenAt.toISOString()).toBe(
+          '2026-05-15T16:00:00.000Z',
+        );
+        jest.useRealTimers();
+      });
     });
   });
 
@@ -6000,12 +6118,6 @@ describe('Testing listing service', () => {
           id: randomUUID(),
           name: 'example listing name',
           depositMin: '5',
-          assets: [
-            {
-              fileId: randomUUID(),
-              label: 'example asset',
-            },
-          ],
           jurisdictions: {
             id: randomUUID(),
           },
@@ -6113,13 +6225,6 @@ describe('Testing listing service', () => {
             },
           },
           depositMin: '5',
-          assets: [
-            {
-              fileId: expect.anything(),
-              label: 'example asset',
-            },
-          ],
-
           jurisdictions: {
             connect: {
               id: expect.anything(),
@@ -6178,6 +6283,7 @@ describe('Testing listing service', () => {
           section8Acceptance: false,
           unitsAvailable: 0,
           isVerified: false,
+          publishedAt: null,
         },
         where: {
           id: expect.anything(),
@@ -6245,12 +6351,6 @@ describe('Testing listing service', () => {
           id: randomUUID(),
           name: 'example listing name',
           depositMin: '5',
-          assets: [
-            {
-              fileId: randomUUID(),
-              label: 'example asset',
-            },
-          ],
           jurisdictions: {
             id: randomUUID(),
           },
@@ -6296,12 +6396,6 @@ describe('Testing listing service', () => {
           scheduledPublishAt: null,
           scheduledApplicationOpenAt: null,
           depositMin: '5',
-          assets: [
-            {
-              fileId: expect.anything(),
-              label: 'example asset',
-            },
-          ],
           jurisdictions: {
             connect: {
               id: expect.anything(),
@@ -6399,6 +6493,7 @@ describe('Testing listing service', () => {
           },
           isVerified: false,
           section8Acceptance: false,
+          publishedAt: null,
         },
         where: {
           id: expect.anything(),
@@ -6461,12 +6556,6 @@ describe('Testing listing service', () => {
           id: listingId,
           name: 'example listing name',
           depositMin: '5',
-          assets: [
-            {
-              fileId: randomUUID(),
-              label: 'example asset',
-            },
-          ],
           jurisdictions: {
             id: randomUUID(),
           },
@@ -6564,12 +6653,6 @@ describe('Testing listing service', () => {
           id: randomUUID(),
           name: 'example listing name',
           depositMin: '5',
-          assets: [
-            {
-              fileId: randomUUID(),
-              label: 'example asset',
-            },
-          ],
           jurisdictions: {
             id: randomUUID(),
           },
@@ -6683,13 +6766,6 @@ describe('Testing listing service', () => {
             },
           },
           depositMin: '5',
-          assets: [
-            {
-              fileId: expect.anything(),
-              label: 'example asset',
-            },
-          ],
-
           jurisdictions: {
             connect: {
               id: expect.anything(),
@@ -6857,12 +6933,6 @@ describe('Testing listing service', () => {
           id: randomUUID(),
           name: 'example listing name',
           depositMin: '5',
-          assets: [
-            {
-              fileId: randomUUID(),
-              label: 'example asset',
-            },
-          ],
           jurisdictions: {
             id: randomUUID(),
           },
@@ -6969,6 +7039,7 @@ describe('Testing listing service', () => {
           name: 'example listing name',
           contentUpdatedAt: expect.anything(),
           closedAt: expect.anything(),
+          publishedAt: null,
           scheduledPublishAt: null,
           scheduledApplicationOpenAt: null,
           lastUpdatedByUser: {
@@ -6977,13 +7048,6 @@ describe('Testing listing service', () => {
             },
           },
           depositMin: '5',
-          assets: [
-            {
-              fileId: expect.anything(),
-              label: 'example asset',
-            },
-          ],
-
           jurisdictions: {
             connect: {
               id: expect.anything(),
@@ -7069,6 +7133,264 @@ describe('Testing listing service', () => {
         multiselectQuestionServiceMock.retireMultiselectQuestions,
       ).toHaveBeenCalled();
     });
+
+    describe('scheduledPublishAt validation bypasses on publishing or unpublishing', () => {
+      const pastDate = new Date('2020-01-01T00:00:00.000Z');
+      const futureDate = new Date('2030-01-01T00:00:00.000Z');
+
+      beforeAll(() => {
+        jest
+          .useFakeTimers()
+          .setSystemTime(new Date('2025-01-01T00:00:00.000Z'));
+      });
+
+      afterAll(() => {
+        jest.useRealTimers();
+      });
+
+      const baseDto = (
+        incomingStatus: ListingsStatusEnum,
+        scheduledPublishAt: Date,
+      ) =>
+        ({
+          id: 'listing-id',
+          name: 'listing name',
+          depositMin: '5',
+          jurisdictions: { id: 'jurisdiction-id' },
+          status: incomingStatus,
+          displayWaitlistSize: false,
+          unitsSummary: null,
+          listingEvents: [],
+          lastUpdatedByUser: user,
+          scheduledPublishAt,
+        } as ListingUpdate);
+
+      const mockStoredListing = (status: ListingsStatusEnum) => {
+        prisma.listings.findUnique = jest.fn().mockResolvedValue({
+          id: 'listing-id',
+          status,
+          listingMultiselectQuestions: [],
+        });
+      };
+
+      const mockJurisdictionWithAutopublish = () => {
+        prisma.jurisdictions.findUnique = jest.fn().mockResolvedValue({
+          id: 'jurisdiction-id',
+          featureFlags: [
+            { name: FeatureFlagEnum.enableAutopublish, active: true },
+          ],
+          listingApprovalPermissions: [],
+        });
+      };
+
+      const mockListingUpdate = (resultStatus: ListingsStatusEnum) => {
+        prisma.listings.update = jest.fn().mockResolvedValue({
+          id: 'listing-id',
+          status: resultStatus,
+          listingMultiselectQuestions: [],
+          units: [],
+        });
+        prisma.listingEvents.findMany = jest.fn().mockResolvedValue([]);
+        prisma.$transaction = jest.fn().mockResolvedValue([
+          {
+            id: 'listing-id',
+            listingMultiselectQuestions: [],
+            units: [],
+          },
+        ]);
+      };
+
+      it('should throw when updating a non-active listing with no status change and a past scheduledPublishAt', async () => {
+        mockStoredListing(ListingsStatusEnum.pending);
+        mockJurisdictionWithAutopublish();
+
+        await expect(
+          service.update(baseDto(ListingsStatusEnum.pending, pastDate), user),
+        ).rejects.toMatchObject({
+          response: { message: ['scheduledPublishAt must be in the future'] },
+        });
+      });
+
+      it('should throw when transitioning from non-active to pendingReview with a past scheduledPublishAt', async () => {
+        mockStoredListing(ListingsStatusEnum.pending);
+        mockJurisdictionWithAutopublish();
+
+        await expect(
+          service.update(
+            baseDto(ListingsStatusEnum.pendingReview, pastDate),
+            user,
+          ),
+        ).rejects.toMatchObject({
+          response: { message: ['scheduledPublishAt must be in the future'] },
+        });
+      });
+
+      it('should not throw when publishing (status → active) with a past scheduledPublishAt', async () => {
+        mockStoredListing(ListingsStatusEnum.pending);
+        mockJurisdictionWithAutopublish();
+        mockListingUpdate(ListingsStatusEnum.active);
+        jest
+          .spyOn(service, 'getUserEmailInfo')
+          .mockResolvedValueOnce({ emails: [] });
+        jest
+          .spyOn(service, 'sendListingPublishNotification')
+          .mockResolvedValueOnce(undefined);
+
+        await expect(
+          service.update(baseDto(ListingsStatusEnum.active, pastDate), user),
+        ).resolves.not.toThrow();
+      });
+
+      it('should not throw when unpublishing (active → pending) with a past scheduledPublishAt', async () => {
+        mockStoredListing(ListingsStatusEnum.active);
+        mockJurisdictionWithAutopublish();
+        mockListingUpdate(ListingsStatusEnum.pending);
+
+        await expect(
+          service.update(baseDto(ListingsStatusEnum.pending, pastDate), user),
+        ).resolves.not.toThrow();
+      });
+
+      it('should not throw when an active listing stays active with a past scheduledPublishAt', async () => {
+        mockStoredListing(ListingsStatusEnum.active);
+        mockJurisdictionWithAutopublish();
+        mockListingUpdate(ListingsStatusEnum.active);
+        jest
+          .spyOn(service, 'sendListingPublishNotification')
+          .mockResolvedValueOnce(undefined);
+
+        await expect(
+          service.update(baseDto(ListingsStatusEnum.active, pastDate), user),
+        ).resolves.not.toThrow();
+      });
+
+      it('should not throw when updating a non-active listing with a future scheduledPublishAt', async () => {
+        mockStoredListing(ListingsStatusEnum.pending);
+        mockJurisdictionWithAutopublish();
+        mockListingUpdate(ListingsStatusEnum.pending);
+
+        await expect(
+          service.update(baseDto(ListingsStatusEnum.pending, futureDate), user),
+        ).resolves.not.toThrow();
+      });
+
+      it('should ignore scheduledApplicationOpenAt on update when enableAutoOpenDate is disabled', async () => {
+        mockStoredListing(ListingsStatusEnum.pending);
+        mockJurisdictionWithAutopublish();
+        mockListingUpdate(ListingsStatusEnum.pending);
+
+        await expect(
+          service.update(
+            {
+              ...baseDto(ListingsStatusEnum.pending, futureDate),
+              scheduledApplicationOpenAt: pastDate,
+            },
+            user,
+          ),
+        ).resolves.not.toThrow();
+      });
+
+      it('should normalize and validate scheduledApplicationOpenAt when enableAutoOpenDate is enabled without autopublish', async () => {
+        jest
+          .useFakeTimers()
+          .setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
+        prisma.jurisdictions.findUnique = jest.fn().mockResolvedValue({
+          id: 'jurisdiction-id',
+          featureFlags: [
+            { name: FeatureFlagEnum.enableAutoOpenDate, active: true },
+          ],
+          listingApprovalPermissions: [],
+        });
+        mockStoredListing(ListingsStatusEnum.pending);
+        mockListingUpdate(ListingsStatusEnum.pending);
+
+        const scheduledApplicationOpenAt = new Date('2026-05-15T14:30:00.000Z');
+
+        await expect(
+          service.update(
+            {
+              ...baseDto(ListingsStatusEnum.pending, futureDate),
+              scheduledApplicationOpenAt,
+            },
+            user,
+          ),
+        ).resolves.not.toThrow();
+
+        const updateMock = prisma.listings.update as jest.Mock;
+        const updateCall = updateMock.mock.calls[0][0];
+        expect(updateCall.data.scheduledApplicationOpenAt.toISOString()).toBe(
+          '2026-05-15T16:00:00.000Z',
+        );
+        jest.useRealTimers();
+      });
+    });
+
+    it('should call listingPublishNotificationViaGovDelivery when enableListingOpportunity flag is on', async () => {
+      prisma.jurisdictions.findUnique = jest.fn().mockResolvedValue({
+        id: 'jurisdiction-id',
+        publicUrl: 'public.housing.gov',
+        featureFlags: [
+          { name: FeatureFlagEnum.enableListingOpportunity, active: true },
+        ],
+        listingApprovalPermissions: [],
+      });
+      prisma.listings.findUnique = jest.fn().mockResolvedValue({
+        id: 'listing-id',
+        name: 'listing name',
+        status: ListingsStatusEnum.pending,
+        jurisdictionId: 'jurisdiction-id',
+        listingMultiselectQuestions: [],
+      });
+      prisma.listings.update = jest.fn().mockResolvedValue({
+        id: 'listing-id',
+        name: 'listing name',
+        status: ListingsStatusEnum.active,
+        listingMultiselectQuestions: [],
+        units: [],
+      });
+      prisma.listingEvents.findMany = jest.fn().mockResolvedValue([]);
+      prisma.listingSnapshot.create = jest
+        .fn()
+        .mockResolvedValue({ id: 'snapshot-id' });
+      prisma.$transaction = jest.fn().mockResolvedValue([
+        {
+          id: 'listing-id',
+          name: 'listing name',
+          status: ListingsStatusEnum.active,
+          listingMultiselectQuestions: [],
+          units: [],
+        },
+      ]);
+      jest
+        .spyOn(service, 'getUserEmailInfo')
+        .mockResolvedValueOnce({ emails: ['partner@email.com'] });
+      jest
+        .spyOn(service, 'sendListingPublishNotification')
+        .mockResolvedValueOnce(undefined);
+
+      await service.update(
+        {
+          id: 'listing-id',
+          name: 'listing name',
+          depositMin: '5',
+          assets: [],
+          jurisdictions: { id: 'jurisdiction-id' },
+          status: ListingsStatusEnum.active,
+          displayWaitlistSize: false,
+          unitsSummary: null,
+          listingEvents: [],
+          lastUpdatedByUser: user,
+        } as ListingUpdate,
+        user,
+      );
+
+      expect(listingPublishNotificationViaGovDeliveryMock).toHaveBeenCalledWith(
+        { id: 'jurisdiction-id' },
+        expect.objectContaining({ id: 'listing-id' }),
+        [],
+        'standard',
+      );
+    });
   });
 
   describe('Test listingApprovalNotify endpoint', () => {
@@ -7092,6 +7414,7 @@ describe('Testing listing service', () => {
       expect(requestApprovalMock).toBeCalledWith(
         { id: 'jurisId' },
         { id: 'id', name: 'name' },
+        undefined,
         ['admin@email.com'],
         config.get('PARTNERS_PORTAL_URL'),
       );
@@ -7277,7 +7600,6 @@ describe('Testing listing service', () => {
           id: 'listing-id',
           name: 'listing name',
           depositMin: '5',
-          assets: [],
           jurisdictions: { id: 'jurisdiction-id' },
           status: ListingsStatusEnum.active,
           displayWaitlistSize: false,
@@ -7502,15 +7824,20 @@ describe('Testing listing service', () => {
           id: 'scheduled-id-1',
           name: 'name 1',
           jurisdictionId: 'jurisId',
+          scheduledApplicationOpenAt: null,
           jurisdictions: { publicUrl: 'public.housing.gov' },
         },
         {
           id: 'scheduled-id-2',
           name: 'name 2',
           jurisdictionId: 'jurisId',
+          scheduledApplicationOpenAt: null,
           jurisdictions: { publicUrl: 'public.housing.gov' },
         },
       ]);
+      jest
+        .spyOn(service, 'findOne')
+        .mockResolvedValue({ id: 'scheduled-id-1' } as any);
       prisma.listings.findUnique = jest
         .fn()
         .mockResolvedValue({ id: 'scheduled-id-1' });
@@ -7535,6 +7862,7 @@ describe('Testing listing service', () => {
           id: true,
           name: true,
           jurisdictionId: true,
+          scheduledApplicationOpenAt: true,
           jurisdictions: {
             select: {
               publicUrl: true,
@@ -7582,7 +7910,7 @@ describe('Testing listing service', () => {
       expect(prisma.cronJob.findFirst).toHaveBeenCalled();
       expect(prisma.cronJob.findFirst).toHaveBeenCalledWith({
         where: {
-          name: 'LISTING_SCHEDULED_PUBLISH_CRON_STRING',
+          name: 'LISTING_SCHEDULED_PUBLISH_CRON_JOB',
         },
       });
       expect(prisma.cronJob.update).toHaveBeenCalled();
@@ -7594,6 +7922,44 @@ describe('Testing listing service', () => {
         'public.housing.gov',
       );
       process.env.PROXY_URL = undefined;
+    });
+
+    it('should send comingSoon subscriber notification when scheduledApplicationOpenAt is in the future', async () => {
+      const futureOpenAt = dayjs().add(7, 'days').toDate();
+      prisma.listings.findMany = jest.fn().mockResolvedValue([
+        {
+          id: 'scheduled-id-1',
+          name: 'name 1',
+          jurisdictionId: 'jurisId',
+          scheduledApplicationOpenAt: futureOpenAt,
+          jurisdictions: { publicUrl: 'public.housing.gov' },
+        },
+      ]);
+      prisma.listings.findUnique = jest
+        .fn()
+        .mockResolvedValue({ id: 'scheduled-id-1' });
+      prisma.listings.updateMany = jest.fn().mockResolvedValue({ count: 1 });
+      prisma.activityLog.createMany = jest.fn().mockResolvedValue({ count: 1 });
+      prisma.cronJob.findFirst = jest
+        .fn()
+        .mockResolvedValue({ id: randomUUID() });
+      prisma.cronJob.update = jest.fn().mockResolvedValue(true);
+      prisma.listingSnapshot.create = jest
+        .fn()
+        .mockResolvedValue({ id: 'snapshot-id' });
+      jest
+        .spyOn(service, 'getUserEmailInfo')
+        .mockResolvedValue({ emails: ['partner@email.com'] });
+      const fullListing = { id: 'scheduled-id-1', name: 'name 1' };
+      jest.spyOn(service, 'findOne').mockResolvedValue(fullListing as any);
+      const sendNotifSpy = jest
+        .spyOn(service, 'sendListingPublishNotification')
+        .mockResolvedValue(undefined);
+
+      await service.publishScheduledListingsCronJob();
+
+      expect(service.findOne).toHaveBeenCalledWith('scheduled-id-1');
+      expect(sendNotifSpy).toHaveBeenCalledWith(fullListing, 'comingSoon');
     });
 
     it('should not purge cache or write activity logs when no listings are due', async () => {
@@ -7613,6 +7979,193 @@ describe('Testing listing service', () => {
       expect(httpServiceMock.request).not.toHaveBeenCalled();
       expect(prisma.activityLog.createMany).not.toHaveBeenCalled();
       process.env.PROXY_URL = undefined;
+    });
+  });
+
+  describe('Test sendApplicationOpenNotificationsCronJob', () => {
+    it('should send the standard notification for listings whose open date was reached', async () => {
+      const lastRunDate = new Date(2026, 5, 10, 9);
+      prisma.cronJob.findFirst = jest
+        .fn()
+        .mockResolvedValue({ id: randomUUID(), lastRunDate });
+      prisma.cronJob.update = jest.fn().mockResolvedValue(true);
+      prisma.listings.findMany = jest.fn().mockResolvedValue([
+        {
+          id: 'open-id-1',
+        },
+      ]);
+      prisma.listings.update = jest.fn();
+      prisma.listings.updateMany = jest.fn();
+      const mockedListing = { id: 'open-id-1' } as unknown as Listing;
+      const findOneSpy = jest
+        .spyOn(service, 'findOne')
+        .mockResolvedValue(mockedListing);
+      const sendNotificationSpy = jest
+        .spyOn(service, 'sendListingPublishNotification')
+        .mockResolvedValue(undefined);
+
+      const result = await service.sendApplicationOpenNotificationsCronJob();
+
+      expect(result).toEqual({ success: true });
+      expect(prisma.listings.findMany).toHaveBeenCalledWith({
+        select: { id: true },
+        where: {
+          status: ListingsStatusEnum.active,
+          AND: [
+            { scheduledApplicationOpenAt: { not: null } },
+            { scheduledApplicationOpenAt: { gt: lastRunDate } },
+            { scheduledApplicationOpenAt: { lte: expect.any(Date) } },
+            {
+              OR: [
+                { publishedAt: null },
+                {
+                  publishedAt: {
+                    lt: prisma.listings.fields.scheduledApplicationOpenAt,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+      expect(findOneSpy).toHaveBeenCalledWith('open-id-1');
+      expect(sendNotificationSpy).toHaveBeenCalledWith(
+        mockedListing,
+        'standard',
+      );
+      expect(prisma.listings.update).not.toHaveBeenCalled();
+      expect(prisma.listings.updateMany).not.toHaveBeenCalled();
+      expect(prisma.cronJob.findFirst).toHaveBeenCalledWith({
+        where: {
+          name: 'LISTING_OPEN_DATE_NOTIFICATION_CRON_JOB',
+        },
+      });
+      expect(prisma.cronJob.update).toHaveBeenCalled();
+
+      findOneSpy.mockRestore();
+      sendNotificationSpy.mockRestore();
+    });
+
+    it('should skip listings published after their open date', async () => {
+      prisma.cronJob.findFirst = jest
+        .fn()
+        .mockResolvedValue({ id: randomUUID(), lastRunDate: new Date() });
+      prisma.cronJob.update = jest.fn().mockResolvedValue(true);
+      prisma.listings.findMany = jest.fn().mockResolvedValue([]);
+      const sendNotificationSpy = jest
+        .spyOn(service, 'sendListingPublishNotification')
+        .mockResolvedValue(undefined);
+
+      const result = await service.sendApplicationOpenNotificationsCronJob();
+
+      expect(result).toEqual({ success: true });
+      expect(sendNotificationSpy).not.toHaveBeenCalled();
+
+      sendNotificationSpy.mockRestore();
+    });
+
+    it('should query with a fallback window on the first run', async () => {
+      prisma.cronJob.findFirst = jest.fn().mockResolvedValue(null);
+      prisma.cronJob.create = jest.fn().mockResolvedValue(true);
+      prisma.listings.findMany = jest.fn().mockResolvedValue([]);
+      const sendNotificationSpy = jest
+        .spyOn(service, 'sendListingPublishNotification')
+        .mockResolvedValue(undefined);
+
+      const result = await service.sendApplicationOpenNotificationsCronJob();
+
+      expect(result).toEqual({ success: true });
+      expect(prisma.listings.findMany).toHaveBeenCalledWith({
+        select: { id: true },
+        where: {
+          status: ListingsStatusEnum.active,
+          AND: [
+            { scheduledApplicationOpenAt: { not: null } },
+            { scheduledApplicationOpenAt: { gt: expect.any(Date) } },
+            { scheduledApplicationOpenAt: { lte: expect.any(Date) } },
+            {
+              OR: [
+                { publishedAt: null },
+                {
+                  publishedAt: {
+                    lt: prisma.listings.fields.scheduledApplicationOpenAt,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+      expect(prisma.cronJob.create).toHaveBeenCalled();
+      expect(sendNotificationSpy).not.toHaveBeenCalled();
+
+      sendNotificationSpy.mockRestore();
+    });
+  });
+
+  describe('Test sendListingPublishNotification', () => {
+    const publishedListing = {
+      id: 'listing-id',
+      name: 'Test Listing',
+      units: [],
+      jurisdictions: { id: 'juris-id' },
+    } as unknown as Listing;
+
+    beforeEach(() => {
+      prisma.userAccounts.findMany = jest
+        .fn()
+        .mockResolvedValue([
+          { email: 'user@example.com', language: LanguagesEnum.en },
+        ]);
+      prisma.jurisdictions.findUnique = jest.fn().mockResolvedValue({
+        id: 'juris-id',
+        publicUrl: 'https://localhost',
+        featureFlags: [
+          {
+            name: FeatureFlagEnum.enableCustomListingNotifications,
+            active: true,
+          },
+        ],
+      });
+    });
+
+    it('should forward the standard variant by default', async () => {
+      await service.sendListingPublishNotification(publishedListing);
+
+      expect(listingPublishNotificationMock).toHaveBeenCalledWith(
+        { id: 'juris-id' },
+        publishedListing,
+        [],
+        expect.objectContaining({ en: ['user@example.com'] }),
+        'standard',
+      );
+    });
+
+    it('should forward the comingSoon variant', async () => {
+      await service.sendListingPublishNotification(
+        publishedListing,
+        'comingSoon',
+      );
+
+      expect(listingPublishNotificationMock).toHaveBeenCalledWith(
+        { id: 'juris-id' },
+        publishedListing,
+        [],
+        expect.objectContaining({ en: ['user@example.com'] }),
+        'comingSoon',
+      );
+    });
+
+    it('should skip sending when the feature flag is off for the jurisdiction', async () => {
+      prisma.jurisdictions.findUnique = jest.fn().mockResolvedValue({
+        id: 'juris-id',
+        publicUrl: 'https://localhost',
+        featureFlags: [],
+      });
+
+      await service.sendListingPublishNotification(publishedListing);
+
+      expect(listingPublishNotificationMock).not.toHaveBeenCalled();
     });
   });
 
@@ -8014,6 +8567,77 @@ describe('Testing listing service', () => {
       const normalized =
         service.normalizeScheduledApplicationOpenAt(nonMidnight);
       expect(normalized.toISOString()).toBe('2026-05-15T16:00:00.000Z');
+    });
+
+    it('should normalize to 9:00 AM in the configured app timezone', () => {
+      const previousTimeZone = process.env.TIME_ZONE;
+      try {
+        process.env.TIME_ZONE = 'America/New_York';
+        const utcMidnight = new Date('2026-01-15T00:00:00.000Z');
+        const normalized =
+          service.normalizeScheduledApplicationOpenAt(utcMidnight);
+        expect(normalized.toISOString()).toBe('2026-01-15T14:00:00.000Z');
+      } finally {
+        process.env.TIME_ZONE = previousTimeZone;
+      }
+    });
+  });
+
+  describe('resolvePublishedAt', () => {
+    const storedDate = new Date('2025-01-01T00:00:00.000Z');
+
+    it('pending → active: returns a new Date (first publish)', () => {
+      const result = ListingService['resolvePublishedAt'](
+        ListingsStatusEnum.active,
+        ListingsStatusEnum.pending,
+        null,
+      );
+      expect(result).toBeInstanceOf(Date);
+    });
+
+    it('active → active: returns stored value (no re-stamp)', () => {
+      const result = ListingService['resolvePublishedAt'](
+        ListingsStatusEnum.active,
+        ListingsStatusEnum.active,
+        storedDate,
+      );
+      expect(result).toBe(storedDate);
+    });
+
+    it('active → pending: returns null (clears publishedAt)', () => {
+      const result = ListingService['resolvePublishedAt'](
+        ListingsStatusEnum.pending,
+        ListingsStatusEnum.active,
+        storedDate,
+      );
+      expect(result).toBeNull();
+    });
+
+    it('pending → pending: returns null (was never published)', () => {
+      const result = ListingService['resolvePublishedAt'](
+        ListingsStatusEnum.pending,
+        ListingsStatusEnum.pending,
+        null,
+      );
+      expect(result).toBeNull();
+    });
+
+    it('active → closed: returns stored value', () => {
+      const result = ListingService['resolvePublishedAt'](
+        ListingsStatusEnum.closed,
+        ListingsStatusEnum.active,
+        storedDate,
+      );
+      expect(result).toBe(storedDate);
+    });
+
+    it('scheduled → active: returns a new Date (scheduled auto-publish path)', () => {
+      const result = ListingService['resolvePublishedAt'](
+        ListingsStatusEnum.active,
+        ListingsStatusEnum.scheduled,
+        null,
+      );
+      expect(result).toBeInstanceOf(Date);
     });
   });
 });

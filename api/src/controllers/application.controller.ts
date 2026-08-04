@@ -53,6 +53,9 @@ import { ExportLogInterceptor } from '../interceptors/export-log.interceptor';
 import { ApiKeyGuard } from '../guards/api-key.guard';
 import { PublicAppsViewQueryParams } from '../dtos/applications/public-apps-view-params.dto';
 import { PublicAppsViewResponse } from '../dtos/applications/public-apps-view-response.dto';
+import { ApplicationBulkUploadService } from '../services/application-bulk-upload.service';
+import { ApplicationBulkUrl } from '../dtos/applications/application-bulk-url.dto';
+import { ApplicationBulkPresignedUrl } from '../dtos/applications/application-bulk-presigned-url.dto';
 
 @Controller('applications')
 @ApiTags('applications')
@@ -70,6 +73,7 @@ export class ApplicationController {
   constructor(
     private readonly applicationService: ApplicationService,
     private readonly applicationExportService: ApplicationExporterService,
+    private readonly applicationBulkUploadService: ApplicationBulkUploadService,
   ) {}
 
   @Get()
@@ -204,6 +208,25 @@ export class ApplicationController {
     return this.applicationService.findOne(applicationId, req);
   }
 
+  @Get('bulk-update/template/:listingId')
+  @ApiOperation({
+    summary:
+      'Download a template CSV for bulk updating applications for a listing',
+    operationId: 'downloadBulkUpdateTemplate',
+  })
+  @Header('Content-Type', 'application/zip')
+  @UseInterceptors(ExportLogInterceptor)
+  @ApiOkResponse({ type: StreamableFile })
+  async downloadBulkUpdateTemplate(
+    @Request() req: ExpressRequest,
+    @Param('listingId') listingId: string,
+  ): Promise<StreamableFile> {
+    return await this.applicationBulkUploadService.downloadBulkUpdateTemplate(
+      listingId,
+      mapTo(User, req['user']),
+    );
+  }
+
   @Post()
   @ApiOperation({
     summary:
@@ -304,6 +327,18 @@ export class ApplicationController {
       dto,
       mapTo(User, req['user']),
     );
+  }
+
+  @Post('bulk-update/upload-url')
+  @ApiOperation({
+    summary: 'Generates an presigned URL link to a private S3 bucket',
+    operationId: 'uploadBulkUpdate',
+  })
+  @ApiOkResponse({ type: ApplicationBulkPresignedUrl })
+  async uploadBulkUpdate(
+    @Body() dto: ApplicationBulkUrl,
+  ): Promise<ApplicationBulkPresignedUrl> {
+    return await this.applicationBulkUploadService.uploadUrl(dto);
   }
 
   @Delete()

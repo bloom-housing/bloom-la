@@ -14,13 +14,15 @@ export enum FeatureFlagEnum {
   enableAccessibilityFeatures = 'enableAccessibilityFeatures',
   enableAdditionalResources = 'enableAdditionalResources',
   enableApplicationStatus = 'enableApplicationStatus',
+  enableAutoOpenDate = 'enableAutoOpenDate',
   enableAutopublish = 'enableAutopublish',
   enableCompanyWebsite = 'enableCompanyWebsite',
-  enableCustomListingNotifications = 'enableCustomListingNotifications',
   enableConfigurableRegions = 'enableConfigurableRegions',
   enableCreditScreeningFee = 'enableCreditScreeningFee',
+  enableCustomListingNotifications = 'enableCustomListingNotifications',
   enableFaq = 'enableFaq',
   enableFilterByBathroom = 'enableFilterByBathroom',
+  enableFilterByCounty = 'enableFilterByCounty',
   enableFullTimeStudentQuestion = 'enableFullTimeStudentQuestion',
   enableGenderQuestion = 'enableGenderQuestion',
   enableGeocodingPreferences = 'enableGeocodingPreferences',
@@ -30,6 +32,7 @@ export enum FeatureFlagEnum {
   enableHousingBasics = 'enableHousingBasics',
   enableHousingDeveloperOwner = 'enableHousingDeveloperOwner',
   enableIsVerified = 'enableIsVerified',
+  enableLandUse = 'enableLandUse',
   enableLeasingAgentAltText = 'enableLeasingAgentAltText',
   enableLimitedHowDidYouHear = 'enableLimitedHowDidYouHear',
   enableListingFavoriting = 'enableListingFavoriting',
@@ -43,6 +46,7 @@ export enum FeatureFlagEnum {
   enableMarketingFlyer = 'enableMarketingFlyer',
   enableMarketingStatus = 'enableMarketingStatus',
   enableMarketingStatusMonths = 'enableMarketingStatusMonths',
+  enableMultiselectVoucherQuestion = 'enableMultiselectVoucherQuestion',
   enableNeighborhoodAmenities = 'enableNeighborhoodAmenities',
   enableNeighborhoodAmenitiesDropdown = 'enableNeighborhoodAmenitiesDropdown',
   enableNonRegulatedListings = 'enableNonRegulatedListings',
@@ -144,6 +148,11 @@ export const featureFlagMap: {
       'When true, the application status and notifications feature is enabled on public and partners',
   },
   {
+    name: FeatureFlagEnum.enableAutoOpenDate,
+    description:
+      'When true, partners can set an optional scheduled listing applications open date',
+  },
+  {
     name: FeatureFlagEnum.enableAutopublish,
     description:
       'When true, partners can set an optional scheduled listing publish date',
@@ -175,6 +184,11 @@ export const featureFlagMap: {
     name: FeatureFlagEnum.enableFilterByBathroom,
     description:
       'When true, the filter drawer on the public site includes the option to filter listings by number of bathrooms',
+  },
+  {
+    name: FeatureFlagEnum.enableFilterByCounty,
+    description:
+      'When true, the filter drawer on the public site includes the option to filter listings by county',
   },
   {
     name: FeatureFlagEnum.enableFullTimeStudentQuestion,
@@ -218,6 +232,11 @@ export const featureFlagMap: {
     name: FeatureFlagEnum.enableIsVerified,
     description:
       'When true, the listing can ba have its contents manually verified by a user',
+  },
+  {
+    name: FeatureFlagEnum.enableLandUse,
+    description:
+      'When true, land use listings are displayed in listing creation/edit and public listing view',
   },
   {
     name: FeatureFlagEnum.enableLimitedHowDidYouHear,
@@ -279,6 +298,11 @@ export const featureFlagMap: {
     name: FeatureFlagEnum.enableMarketingStatusMonths,
     description:
       "When true, the 'marketing status' sub-section uses months instead of seasons (functions only if enableMarketingStatus is also true)",
+  },
+  {
+    name: FeatureFlagEnum.enableMultiselectVoucherQuestion,
+    description:
+      'When true, the vouchers question on the application form becomes a multi-select checkbox experience with Section 8, rental assistance, and none of the above as options',
   },
   {
     name: FeatureFlagEnum.enableNeighborhoodAmenities,

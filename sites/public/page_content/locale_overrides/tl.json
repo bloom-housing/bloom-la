@@ -1,5 +1,6 @@
 {
   "account.create.initialDisclaimer": "Kung ikaw ay nakararanas ng kawalan ng tirahan, nanganganib na mawalan ng tirahan, o nasa hindi ligtas na pabahay, pakipili <a href='https://lahousing.lacity.org/BloomExtension' target='_blank'>ang link na ito</a> upang ibahagi ang iyong impormasyon sa Los Angeles Homeless Service Authority (LAHSA) at mga may-ari at tagapamahala ng ari-arian ng mga ari-arian na Coordinated Entry System (CES) na maaaring may bakanteng tirahan. Sa paggawa nito, binibigyan mo ng pahintulot na ibahagi ang iyong impormasyon sa mga partidong ito.",
+  "account.settings.disclaimer": "",
   "advocateAccount.agencyNotListed": "<a href='mailto:%{contactEmail}'>Makipag-ugnayan sa suporta</a> kung ang iyong ahensya ay hindi nakalista",
   "advocateAccount.resendLinkSuccess": "Kung mayroong aprubadong advocate account na may email na iyon, makakatanggap ka ng email na may bagong link para kumpirmahin ang iyong account. Tandaan, ang link ay mawawalan ng bisa sa loob ng 24 oras. Kung hindi ka makatanggap ng email, maaaring wala kang account sa ilalim ng email na iyon at kakailanganin mong humiling nito. Kung mayroon kang anumang mga katanungan sa ngayon, mangyaring makipag-ugnayan sa lahd.achp@lacity.org",
   "application.ada.hearing": "Mga tampok ng accessibility sa pandinig",

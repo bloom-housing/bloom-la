@@ -104,6 +104,7 @@ type FormSummaryDetailsProps = {
   enableUnitGroups?: boolean
   enableFullTimeStudentQuestion?: boolean
   enableReasonableAccommodations?: boolean
+  enableMultiselectVoucherQuestion?: boolean
   swapCommunityTypeWithPrograms?: boolean
   enableV2MSQ?: boolean
 }
@@ -118,6 +119,7 @@ const FormSummaryDetails = ({
   enableUnitGroups = false,
   enableReasonableAccommodations = false,
   enableFullTimeStudentQuestion = false,
+  enableMultiselectVoucherQuestion = false,
   swapCommunityTypeWithPrograms = false,
   enableV2MSQ = false,
 }: FormSummaryDetailsProps) => {
@@ -132,13 +134,19 @@ const FormSummaryDetails = ({
 
   const accessibilityLabels = () => {
     const labels = []
-    if (application.accessibility?.mobility) labels.push(t("application.ada.mobility"))
-    if (application.accessibility?.vision) labels.push(t("application.ada.vision"))
-    if (application.accessibility?.hearing) labels.push(t("application.ada.hearing"))
+    if (application.accessibility?.mobility)
+      labels.push({ key: "ada-mobility", label: t("application.ada.mobility") })
+    if (application.accessibility?.vision)
+      labels.push({ key: "ada-vision", label: t("application.ada.vision") })
+    if (application.accessibility?.hearing)
+      labels.push({ key: "ada-hearing", label: t("application.ada.hearing") })
     if (application.accessibility?.hearingAndVision)
-      labels.push(t("application.ada.hearingAndVision"))
-    if (application.accessibility?.other) labels.push(t("application.ada.other"))
-    if (labels.length === 0) labels.push(t("t.no"))
+      labels.push({ key: "ada-hearingAndVision", label: t("application.ada.hearingAndVision") })
+    if (application.accessibility?.other)
+      labels.push({ key: "ada-other", label: t("application.ada.other") })
+    if (labels.length === 0) {
+      labels.push({ key: "ada-none", label: t("t.no") })
+    }
 
     return labels
   }
@@ -608,8 +616,8 @@ const FormSummaryDetails = ({
             className={styles["summary-value"]}
           >
             {accessibilityLabels().map((item) => (
-              <div key={item} data-testid={item}>
-                {item}
+              <div key={item.key} data-testid={item.key}>
+                {item.label}
                 <br />
               </div>
             ))}
@@ -706,7 +714,15 @@ const FormSummaryDetails = ({
             label={t("application.review.voucherOrSubsidy")}
             className={styles["summary-value"]}
           >
-            {application.incomeVouchers ? t("t.yes") : t("t.no")}
+            {enableMultiselectVoucherQuestion
+              ? application.incomeVouchers?.length
+                ? application.incomeVouchers
+                    .map((v) => t(`application.financial.vouchers.${v}`))
+                    .join(", ")
+                : t("application.financial.vouchers.none")
+              : application.incomeVouchers?.includes("incomeVoucher")
+              ? t("t.yes")
+              : t("t.no")}
           </FieldValue>
 
           {application.incomePeriod && (
