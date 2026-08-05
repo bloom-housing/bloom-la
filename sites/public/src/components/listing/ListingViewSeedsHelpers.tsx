@@ -1,6 +1,8 @@
 import React from "react"
 import { UseFormMethods } from "react-hook-form"
 import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
+import timezone from "dayjs/plugin/timezone"
 import { Button, Dialog, Heading, Link } from "@bloom-housing/ui-seeds"
 import {
   ApplicationAddressTypeEnum,
@@ -41,6 +43,9 @@ import { OrderedCardList } from "../../patterns/OrderedCardList"
 import { ReadMore } from "../../patterns/ReadMore"
 import { DateSectionFlyer } from "./listing_sections/DateSection"
 import styles from "./ListingViewSeeds.module.scss"
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 export const getFilteredMultiselectQuestions = (
   multiselectQuestions: ListingMultiselectQuestion[],
@@ -106,12 +111,15 @@ export const getPaperApplications = (applicationMethods: ApplicationMethod[]) =>
 export const getOnlineApplicationURL = (
   applicationMethods: ApplicationMethod[],
   listingId: string,
-  preview: boolean
+  preview: boolean,
+  externalURL = ""
 ) => {
   let onlineApplicationURL
   let isCommonApp = false
   if (hasMethod(applicationMethods, ApplicationMethodsTypeEnum.Internal)) {
-    onlineApplicationURL = `/applications/start/choose-language?listingId=${listingId}`
+    onlineApplicationURL = `${
+      externalURL ? externalURL : ""
+    }/applications/start/choose-language?listingId=${listingId}`
     onlineApplicationURL += `${preview ? "&preview=true" : ""}`
     isCommonApp = true
   } else if (hasMethod(applicationMethods, ApplicationMethodsTypeEnum.ExternalLink)) {
@@ -126,6 +134,10 @@ export const getHasNonReferralMethods = (listing: Listing) => {
   const nonReferralMethods = listing.applicationMethods.filter(
     (method) => method.type !== ApplicationMethodsTypeEnum.Referral
   )
+
+  if (hasMethod(nonReferralMethods, ApplicationMethodsTypeEnum.LeasingAgent)) {
+    return nonReferralMethods.length
+  }
   if (
     nonReferralMethods.length === 1 &&
     nonReferralMethods[0].type === ApplicationMethodsTypeEnum.FileDownload &&
@@ -461,7 +473,9 @@ export const getReservedTitle = (reservedCommunityType: IdDTO) => {
 }
 
 export const getDateString = (date: Date, format: string) => {
-  return date ? dayjs(date).format(format) : null
+  if (!date) return null
+  const configuredTimeZone = process.env.timeZone || "America/Los_Angeles"
+  return dayjs(date).tz(configuredTimeZone).format(format)
 }
 
 export const getBuildingSelectionCriteria = (listing: Listing) => {

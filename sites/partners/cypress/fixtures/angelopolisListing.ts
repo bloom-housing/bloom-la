@@ -90,7 +90,7 @@ export const angelopolisListing: CypressListing = {
   updatedAt: new Date(),
   status: ListingsStatusEnum.pending,
   displayWaitlistSize: false,
-  assets: [],
+  assets: {},
   applicationLotteryTotals: [],
   jurisdiction: {
     id: "Angelopolis",
@@ -129,8 +129,9 @@ export const angelopolisListing: CypressListing = {
   neighborhood: "Basic Test Neighborhood",
   yearBuilt: 2021,
   reservedCommunityTypes: {
-    id: "Seniors 62+",
+    id: "Descriptive test community type",
   },
+  reservedCommunityTypeDescription: "This is a test community type with a description.",
   creditScreeningFee: "150",
   reviewOrderType: ReviewOrderTypeEnum.firstComeFirstServe,
   disableUnitsAccordion: true,

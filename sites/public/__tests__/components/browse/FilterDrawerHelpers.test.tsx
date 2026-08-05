@@ -55,6 +55,8 @@ describe("filter drawer helpers", () => {
       [UnitTypeEnum.threeBdrm]: false,
       [UnitTypeEnum.fourBdrm]: false,
       [UnitTypeEnum.fiveBdrm]: false,
+      [UnitTypeEnum.sixBdrm]: false,
+      [UnitTypeEnum.sevenBdrm]: false,
     },
     [ListingFilterKeys.monthlyRent]: {
       minRent: "",
@@ -388,6 +390,18 @@ describe("filter drawer helpers", () => {
         { $comparison: "IN", accessibilityPriorityTypes: ["mobility"] },
       ])
     })
+    it("should return correct backend filters for jurisdictions", () => {
+      const filterData: FilterData = {
+        [ListingFilterKeys.jurisdictions]: {
+          "123": true,
+          "234": true,
+          "345": false,
+        },
+      }
+
+      const backendFilters = encodeFilterDataToBackendFilters(filterData)
+      expect(backendFilters).toStrictEqual([{ $comparison: "IN", jurisdictions: ["123", "234"] }])
+    })
     it("should return correct backend filters for accessibilityPriorityTypes with multiple types", () => {
       const filterData: FilterData = {
         [ListingFilterKeys.accessibilityPriorityTypes]: {
@@ -647,6 +661,8 @@ describe("filter drawer helpers", () => {
           threeBdrm: false,
           fourBdrm: false,
           fiveBdrm: false,
+          sixBdrm: false,
+          sevenBdrm: false,
         },
         monthlyRent: {
           minRent: "",

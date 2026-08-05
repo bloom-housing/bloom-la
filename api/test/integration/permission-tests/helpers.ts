@@ -290,7 +290,6 @@ export const buildUserCreateMock = (
     firstName: 'Public User firstName',
     lastName: 'Public User lastName',
     password: 'Abcdef12345!',
-    passwordConfirmation: 'Abcdef12345!',
     dob: new Date(),
     agreedToTermsOfService: true,
     email,
@@ -400,7 +399,7 @@ export const buildApplicationCreateMock = (
     sendMailToMailingAddress: true,
     householdExpectingChanges: false,
     householdStudent: false,
-    incomeVouchers: false,
+    incomeVouchers: [],
     income: '36000',
     incomePeriod: IncomePeriodEnum.perYear,
     language: LanguagesEnum.en,
@@ -499,7 +498,7 @@ export const buildApplicationUpdateMock = (
     sendMailToMailingAddress: true,
     householdExpectingChanges: false,
     householdStudent: false,
-    incomeVouchers: false,
+    incomeVouchers: [],
     income: '36000',
     incomePeriod: IncomePeriodEnum.perYear,
     language: LanguagesEnum.en,
@@ -553,7 +552,6 @@ export const constructFullListingData = async (
 
   return {
     id: listingId ?? undefined,
-    assets: [exampleAsset],
     listingsBuildingAddress: exampleAddress,
     depositMin: '1000',
     depositMax: '5000',

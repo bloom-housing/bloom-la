@@ -269,6 +269,21 @@ describe("ListingViewSeedsHelpers", () => {
       expect(result.isCommonApp).toBe(true)
     })
 
+    it("should return online application URL from Internal method with external URL", () => {
+      const methods: ApplicationMethod[] = [
+        {
+          type: ApplicationMethodsTypeEnum.Internal,
+          externalReference: "",
+        } as ApplicationMethod,
+      ]
+
+      const result = getOnlineApplicationURL(methods, "123", false, "www.externalURL.com")
+      expect(result.url).toBe(
+        "www.externalURL.com/applications/start/choose-language?listingId=123"
+      )
+      expect(result.isCommonApp).toBe(true)
+    })
+
     it("should include preview parameter when preview is true", () => {
       const methods: ApplicationMethod[] = [
         {
@@ -319,6 +334,20 @@ describe("ListingViewSeedsHelpers", () => {
 
       const result = getHasNonReferralMethods(mockListing)
       expect(result).toBe(0)
+    })
+
+    it("should return true if listing has only a leasing agent application method", () => {
+      const mockListing: Listing = {
+        ...listing,
+        applicationMethods: [
+          {
+            type: ApplicationMethodsTypeEnum.LeasingAgent,
+          } as ApplicationMethod,
+        ],
+      }
+
+      const result = getHasNonReferralMethods(mockListing)
+      expect(result).toBe(1)
     })
   })
 
@@ -814,8 +843,18 @@ describe("ListingViewSeedsHelpers", () => {
   })
 
   describe("getDateString", () => {
+    const originalTimeZone = process.env.timeZone
+
+    beforeEach(() => {
+      process.env.timeZone = "America/Los_Angeles"
+    })
+
+    afterEach(() => {
+      process.env.timeZone = originalTimeZone
+    })
+
     it("should format date with given format string", () => {
-      const date = new Date("2024-01-15T10:30:00")
+      const date = new Date("2024-01-15T18:30:00.000Z")
       const result = getDateString(date, "MMMM DD, YYYY")
       expect(result).toBe("January 15, 2024")
     })
@@ -826,7 +865,7 @@ describe("ListingViewSeedsHelpers", () => {
     })
 
     it("should format date with different format", () => {
-      const date = new Date("2024-01-15T10:30:00")
+      const date = new Date("2024-01-15T18:30:00.000Z")
       const result = getDateString(date, "MM/DD/YYYY")
       expect(result).toBe("01/15/2024")
     })
