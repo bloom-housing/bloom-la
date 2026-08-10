@@ -38,7 +38,9 @@ The following are all of the feature flags currently available in the Bloom plat
 | [disableWorkInRegion](./feature-flags/disableWorkInRegion.md) | When true the "Work in Region" question will be removed from the application process |
 | [enableAccessibilityFeatures](./feature-flags/enableAccessibilityFeatures.md) | When true, the 'accessibility features' section is displayed in listing creation/edit and the public listing view |
 | [enableAdditionalResources](./feature-flags/enableAdditionalResources.md) | When true, the 'learn more' section is displayed on the home page |
+| [enableApplicationBulkCSVUpdates](./feature-flags/enableApplicationBulkCSVUpdates.md) | When true, allows for the bulk uptake of application statuses |
 | [enableApplicationStatus](./feature-flags/enableApplicationStatus.md) | When true, the application status and notifications feature is enabled on public and partners |
+| [enableAutoOpenDate](./feature-flags/enableAutoOpenDate.md) | When true, partners can set an optional scheduled listing applications open date |
 | [enableAutopublish](./feature-flags/enableAutopublish.md) | When true, partners can set an optional scheduled listing publish date |
 | [enableCompanyWebsite](./feature-flags/enableCompanyWebsite.md) | When true, allows partners to add company website information |
 | [enableConfigurableRegions](./feature-flags/enableConfigurableRegions.md) | When true, allows for configurable regions per jurisdiction enabled on partners and public |
@@ -46,6 +48,7 @@ The following are all of the feature flags currently available in the Bloom plat
 | [enableCustomListingNotifications](./feature-flags/enableCustomListingNotifications.md) | When true, users have access to custom notification settings |
 | [enableFaq](./feature-flags/enableFaq.md) | When true, a link to the FAQ page is displayed on the get assistance page |
 | [enableFilterByBathroom](./feature-flags/enableFilterByBathroom.md) | When true, the filter drawer on the public site includes the option to filter listings by number of bathrooms |
+| [enableFilterByCounty](./feature-flags/enableFilterByCounty.md) | When true, the filter drawer on the public site includes the option to filter listings by county |
 | [enableFullTimeStudentQuestion](./feature-flags/enableFullTimeStudentQuestion.md) | When true, the full time student question is displayed in the application form |
 | [enableGenderQuestion](./feature-flags/enableGenderQuestion.md) | When true, the gender identity question is displayed in the public and partner application demographics section |
 | [enableGeocodingPreferences](./feature-flags/enableGeocodingPreferences.md) | When true, preferences can be created with geocoding functionality and when an application is created/updated on a listing that is geocoding then the application gets geocoded |
@@ -55,6 +58,7 @@ The following are all of the feature flags currently available in the Bloom plat
 | [enableHousingBasics](./feature-flags/enableHousingBasics.md) | When true, a link to the housing basics page is displayed on the get assistance page |
 | [enableHousingDeveloperOwner](./feature-flags/enableHousingDeveloperOwner.md) | When true, the 'Housing developer' field label becomes 'Housing developer / owner' |
 | [enableIsVerified](./feature-flags/enableIsVerified.md) | When true, the listing can ba have its contents manually verified by a user |
+| [enableLandUse](./feature-flags/enableLandUse.md) | When true, land use listings are displayed in listing creation/edit and public listing view |
 | [enableLeasingAgentAltText](./feature-flags/enableLeasingAgentAltText.md) | When true, shows alternative text for LA users |
 | [enableLimitedHowDidYouHear](./feature-flags/enableLimitedHowDidYouHear.md) | When true, the Radio Ad and Bus Ad options are removed from the how did you hear section. |
 | [enableListingFavoriting](./feature-flags/enableListingFavoriting.md) | When true, a Favorite button is shown for public listings and users can view their favorited listings |
@@ -68,9 +72,13 @@ The following are all of the feature flags currently available in the Bloom plat
 | [enableMarketingFlyer](./feature-flags/enableMarketingFlyer.md) | When true, the 'marketing flyer' sub-section is displayed in listing creation/edit and the public listing view |
 | [enableMarketingStatus](./feature-flags/enableMarketingStatus.md) | When true, the 'marketing status' sub-section is displayed in listing creation/edit and the public listing view |
 | [enableMarketingStatusMonths](./feature-flags/enableMarketingStatusMonths.md) | When true, the 'marketing status' sub-section uses months instead of seasons (functions only if enableMarketingStatus is also true) |
+| [enableMultiselectVoucherQuestion](./feature-flags/enableMultiselectVoucherQuestion.md) | When true, the vouchers question on the application form becomes a multi-select checkbox experience with Section 8, rental assistance, and none of the above as options |
 | [enableNeighborhoodAmenities](./feature-flags/enableNeighborhoodAmenities.md) | When true, the 'neighborhood amenities' section is displayed in listing creation/edit and the public listing view |
 | [enableNeighborhoodAmenitiesDropdown](./feature-flags/enableNeighborhoodAmenitiesDropdown.md) | When true, neighborhood amenities inputs render as dropdowns with distance options instead of textareas |
 | [enableNonRegulatedListings](./feature-flags/enableNonRegulatedListings.md) | When true, non-regulated listings are displayed in listing creation/edit and public listing view |
+| [enableOnlyAdminCanAddAppsAfterClose](./feature-flags/enableOnlyAdminCanAddAppsAfterClose.md) | When true, only admin level users are allowed to add paper apps after a listing has closed |
+| [enableOnlyAdminCanEditListingDates](./feature-flags/enableOnlyAdminCanEditListingDates.md) | When true, only admins level users can edit the application close dates, the review order type or the lottery run date on a published listing |
+| [enableOnlyAdminCanManageUsers](./feature-flags/enableOnlyAdminCanManageUsers.md) | When true, only admins can add/edit users on the partner site. Jurisdictional admins can view but not cannot create or edit users other than themselves |
 | [enableParkingFee](./feature-flags/enableParkingFee.md) | When true, the parking fee field should be visible |
 | [enableParkingType](./feature-flags/enableParkingType.md) | When true, the parking type field is visible in the listing form |
 | [enablePartnerDemographics](./feature-flags/enablePartnerDemographics.md) | When true, demographics data is included in application or lottery exports for partners |
@@ -92,7 +100,7 @@ The following are all of the feature flags currently available in the Bloom plat
 | [enableUnitAccessibilityTypeTags](./feature-flags/enableUnitAccessibilityTypeTags.md) | When true, unit accessibility type tags (for example, 'Mobility units') are displayed on listing cards and details |
 | [enableUnitGroups](./feature-flags/enableUnitGroups.md) | When true, uses unit groups instead of units |
 | [enableUtilitiesIncluded](./feature-flags/enableUtilitiesIncluded.md) | When true, the 'utilities included' section is displayed in listing creation/edit and the public listing view |
-| [enableV2MSQ](./feature-flags/enableV2MSQ.md) | When true, the new mutliselect question logic will be used. |
+| [enableV2MSQ](./feature-flags/enableV2MSQ.md) | When true, the new multiselect question logic will be used. |
 | [enableVerifyIncome](./feature-flags/enableVerifyIncome.md) | When true, the income question on the application will be validated against the income limits for the listing and an error message will be shown if income is outside limits |
 | [enableWaitlistAdditionalFields](./feature-flags/enableWaitlistAdditionalFields.md) | When true, the waitlist additional fields are displayed in the waitlist section of the listing form |
 | [enableWaitlistLottery](./feature-flags/enableWaitlistLottery.md) | When true, jurisdiction supports lotteries for waitlist opportunities |

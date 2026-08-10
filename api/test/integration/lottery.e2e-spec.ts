@@ -276,13 +276,13 @@ describe('Lottery Controller Tests', () => {
           ...appA,
           preferences: [
             {
-              multiselectQuestionId: preferenceA,
+              multiselectQuestionId: preferenceA.id,
               key: preferenceA.text,
               claimed: true,
               options: [],
             },
             {
-              multiselectQuestionId: preferenceB,
+              multiselectQuestionId: preferenceB.id,
               key: preferenceB.text,
               claimed: true,
               options: [],
@@ -304,13 +304,13 @@ describe('Lottery Controller Tests', () => {
           ...appB,
           preferences: [
             {
-              multiselectQuestionId: preferenceA,
+              multiselectQuestionId: preferenceA.id,
               key: preferenceA.text,
               claimed: true,
               options: [],
             },
             {
-              multiselectQuestionId: preferenceB,
+              multiselectQuestionId: preferenceB.id,
               key: preferenceB.text,
               claimed: false,
               options: [],
@@ -332,13 +332,13 @@ describe('Lottery Controller Tests', () => {
           ...appC,
           preferences: [
             {
-              multiselectQuestionId: preferenceA,
+              multiselectQuestionId: preferenceA.id,
               key: preferenceA.text,
               claimed: false,
               options: [],
             },
             {
-              multiselectQuestionId: preferenceB,
+              multiselectQuestionId: preferenceB.id,
               key: preferenceB.text,
               claimed: true,
               options: [],
@@ -1145,6 +1145,7 @@ describe('Lottery Controller Tests', () => {
         lotteryStatus: LotteryStatusEnum.releasedToPartners,
         applications: [
           {
+            incomeVouchers: [],
             preferences: [],
             status: ApplicationStatusEnum.submitted,
             confirmationCode: 'ABCD1234',
@@ -1160,6 +1161,7 @@ describe('Lottery Controller Tests', () => {
             },
           },
           {
+            incomeVouchers: [],
             preferences: [],
             status: ApplicationStatusEnum.submitted,
             confirmationCode: 'EFGH5678',
@@ -1175,6 +1177,7 @@ describe('Lottery Controller Tests', () => {
             },
           },
           {
+            incomeVouchers: [],
             preferences: [],
             status: ApplicationStatusEnum.submitted,
             confirmationCode: 'IJKL9012',
@@ -1190,6 +1193,7 @@ describe('Lottery Controller Tests', () => {
             },
           },
           {
+            incomeVouchers: [],
             preferences: [],
             status: ApplicationStatusEnum.submitted,
             confirmationCode: 'ABC678',
@@ -1205,6 +1209,7 @@ describe('Lottery Controller Tests', () => {
             },
           },
           {
+            incomeVouchers: [],
             preferences: [],
             status: ApplicationStatusEnum.submitted,
             confirmationCode: 'MNOP3456',

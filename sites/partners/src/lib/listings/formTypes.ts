@@ -55,6 +55,7 @@ export type FormListing = Omit<
   commonDigitalApplicationChoice?: YesNoEnum
   paperApplicationChoice?: YesNoEnum
   referralOpportunityChoice?: YesNoEnum
+  leasingAgentApplicationChoice?: YesNoEnum
   criteriaAttachType?: string
   marketingFlyerAttachType?: "upload" | "url"
   accessibleMarketingFlyerAttachType?: "upload" | "url"
@@ -136,7 +137,6 @@ export const formDefaults: FormListing = {
   listingsApplicationMailingAddress: null,
   listingsApplicationDropOffAddress: null,
   applicationDropOffAddressOfficeHours: null,
-  assets: [],
   buildingSelectionCriteria: "",
   listingsBuildingSelectionCriteriaFile: null,
   criteriaAttachType: "",
@@ -250,4 +250,6 @@ export type FormMetadata = {
   latLong: LatitudeLongitude
   customMapPositionChosen: boolean
   enableUnitGroups: boolean
+  enableAutopublish?: boolean
+  enableAutoOpenDate?: boolean
 }

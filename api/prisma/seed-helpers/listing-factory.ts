@@ -108,7 +108,7 @@ export const listingFactory = async (
     applicationDueDate:
       optionalParams?.applicationDueDate ??
       dayjs(new Date()).add(30, 'days').toDate(),
-    assets: [],
+    assets: {},
     closedAt: optionalParams?.closedAt
       ? optionalParams?.closedAt
       : optionalParams?.status === ListingsStatusEnum.closed
@@ -245,7 +245,7 @@ export const listingFactory = async (
     ...additionalEligibilityRules(optionalParams?.includeEligibilityRules),
     ...buildingFeatures(optionalParams?.includeBuildingFeatures),
     ...(optionalParams?.enableListingFeaturesAndUtilities
-      ? featuresAndUtilites(
+      ? featuresAndUtilities(
           optionalParams?.optionalFeatures,
           optionalParams?.optionalUtilities,
         )
@@ -303,7 +303,7 @@ export const listingsRequiredDocuments = (
   },
 });
 
-export const featuresAndUtilites = (
+export const featuresAndUtilities = (
   optionalFeatures?: Prisma.ListingFeaturesCreateInput,
   optionalUtilities?: Prisma.ListingUtilitiesCreateInput,
 ): {

@@ -133,6 +133,11 @@ const ApplicationForm = ({ listingId, editMode, application }: ApplicationFormPr
     listingDto?.jurisdictions.id
   )
 
+  const enableMultiselectVoucherQuestion = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.enableMultiselectVoucherQuestion,
+    listingDto?.jurisdictions.id
+  )
+
   const units = listingDto?.units
 
   const defaultValues = editMode ? mapApiToForm(application, listingDto, enableV2MSQ) : {}
@@ -407,7 +412,9 @@ const ApplicationForm = ({ listingId, editMode, application }: ApplicationFormPr
                       enableV2MSQ={enableV2MSQ}
                     />
 
-                    <FormHouseholdIncome />
+                    <FormHouseholdIncome
+                      enableMultiselectVoucherQuestion={enableMultiselectVoucherQuestion}
+                    />
 
                     <FormMultiselectQuestions
                       questions={preferences}

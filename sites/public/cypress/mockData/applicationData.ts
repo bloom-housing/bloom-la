@@ -158,7 +158,8 @@ export const ElmVillageApplication: Application = {
     vision: true,
     hearing: true,
   },
-  incomeVouchers: true,
+  incomeVouchers: ["incomeVoucher"],
+  voucher: "Yes",
   income: "3000.00",
   incomePeriod: IncomePeriodEnum.perMonth,
   householdMember: [

@@ -13,14 +13,17 @@ export enum FeatureFlagEnum {
   disableWorkInRegion = 'disableWorkInRegion',
   enableAccessibilityFeatures = 'enableAccessibilityFeatures',
   enableAdditionalResources = 'enableAdditionalResources',
+  enableApplicationBulkCSVUpdates = 'enableApplicationBulkCSVUpdates',
   enableApplicationStatus = 'enableApplicationStatus',
+  enableAutoOpenDate = 'enableAutoOpenDate',
   enableAutopublish = 'enableAutopublish',
   enableCompanyWebsite = 'enableCompanyWebsite',
-  enableCustomListingNotifications = 'enableCustomListingNotifications',
   enableConfigurableRegions = 'enableConfigurableRegions',
   enableCreditScreeningFee = 'enableCreditScreeningFee',
+  enableCustomListingNotifications = 'enableCustomListingNotifications',
   enableFaq = 'enableFaq',
   enableFilterByBathroom = 'enableFilterByBathroom',
+  enableFilterByCounty = 'enableFilterByCounty',
   enableFullTimeStudentQuestion = 'enableFullTimeStudentQuestion',
   enableGenderQuestion = 'enableGenderQuestion',
   enableGeocodingPreferences = 'enableGeocodingPreferences',
@@ -30,6 +33,7 @@ export enum FeatureFlagEnum {
   enableHousingBasics = 'enableHousingBasics',
   enableHousingDeveloperOwner = 'enableHousingDeveloperOwner',
   enableIsVerified = 'enableIsVerified',
+  enableLandUse = 'enableLandUse',
   enableLeasingAgentAltText = 'enableLeasingAgentAltText',
   enableLimitedHowDidYouHear = 'enableLimitedHowDidYouHear',
   enableListingFavoriting = 'enableListingFavoriting',
@@ -43,9 +47,13 @@ export enum FeatureFlagEnum {
   enableMarketingFlyer = 'enableMarketingFlyer',
   enableMarketingStatus = 'enableMarketingStatus',
   enableMarketingStatusMonths = 'enableMarketingStatusMonths',
+  enableMultiselectVoucherQuestion = 'enableMultiselectVoucherQuestion',
   enableNeighborhoodAmenities = 'enableNeighborhoodAmenities',
   enableNeighborhoodAmenitiesDropdown = 'enableNeighborhoodAmenitiesDropdown',
   enableNonRegulatedListings = 'enableNonRegulatedListings',
+  enableOnlyAdminCanAddAppsAfterClose = 'enableOnlyAdminCanAddAppsAfterClose',
+  enableOnlyAdminCanEditListingDates = 'enableOnlyAdminCanEditListingDates',
+  enableOnlyAdminCanManageUsers = 'enableOnlyAdminCanManageUsers',
   enableParkingFee = 'enableParkingFee',
   enableParkingType = 'enableParkingType',
   enablePartnerDemographics = 'enablePartnerDemographics',
@@ -144,9 +152,19 @@ export const featureFlagMap: {
       'When true, the application status and notifications feature is enabled on public and partners',
   },
   {
+    name: FeatureFlagEnum.enableAutoOpenDate,
+    description:
+      'When true, partners can set an optional scheduled listing applications open date',
+  },
+  {
     name: FeatureFlagEnum.enableAutopublish,
     description:
       'When true, partners can set an optional scheduled listing publish date',
+  },
+  {
+    name: FeatureFlagEnum.enableApplicationBulkCSVUpdates,
+    description:
+      'When true, allows for the bulk uptake of application statuses',
   },
   {
     name: FeatureFlagEnum.enableCompanyWebsite,
@@ -175,6 +193,11 @@ export const featureFlagMap: {
     name: FeatureFlagEnum.enableFilterByBathroom,
     description:
       'When true, the filter drawer on the public site includes the option to filter listings by number of bathrooms',
+  },
+  {
+    name: FeatureFlagEnum.enableFilterByCounty,
+    description:
+      'When true, the filter drawer on the public site includes the option to filter listings by county',
   },
   {
     name: FeatureFlagEnum.enableFullTimeStudentQuestion,
@@ -218,6 +241,11 @@ export const featureFlagMap: {
     name: FeatureFlagEnum.enableIsVerified,
     description:
       'When true, the listing can ba have its contents manually verified by a user',
+  },
+  {
+    name: FeatureFlagEnum.enableLandUse,
+    description:
+      'When true, land use listings are displayed in listing creation/edit and public listing view',
   },
   {
     name: FeatureFlagEnum.enableLimitedHowDidYouHear,
@@ -281,6 +309,11 @@ export const featureFlagMap: {
       "When true, the 'marketing status' sub-section uses months instead of seasons (functions only if enableMarketingStatus is also true)",
   },
   {
+    name: FeatureFlagEnum.enableMultiselectVoucherQuestion,
+    description:
+      'When true, the vouchers question on the application form becomes a multi-select checkbox experience with Section 8, rental assistance, and none of the above as options',
+  },
+  {
     name: FeatureFlagEnum.enableNeighborhoodAmenities,
     description:
       "When true, the 'neighborhood amenities' section is displayed in listing creation/edit and the public listing view",
@@ -294,6 +327,21 @@ export const featureFlagMap: {
     name: FeatureFlagEnum.enableNonRegulatedListings,
     description:
       'When true, non-regulated listings are displayed in listing creation/edit and public listing view',
+  },
+  {
+    name: FeatureFlagEnum.enableOnlyAdminCanAddAppsAfterClose,
+    description:
+      'When true, only admin level users are allowed to add paper apps after a listing has closed',
+  },
+  {
+    name: FeatureFlagEnum.enableOnlyAdminCanEditListingDates,
+    description:
+      'When true, only admins level users can edit the application close dates, the review order type or the lottery run date on a published listing',
+  },
+  {
+    name: FeatureFlagEnum.enableOnlyAdminCanManageUsers,
+    description:
+      'When true, only admins can add/edit users on the partner site. Jurisdictional admins can view but not cannot create or edit users other than themselves',
   },
   {
     name: FeatureFlagEnum.enableParkingFee,
@@ -415,7 +463,7 @@ export const featureFlagMap: {
   },
   {
     name: FeatureFlagEnum.enableV2MSQ,
-    description: 'When true, the new mutliselect question logic will be used.',
+    description: 'When true, the new multiselect question logic will be used.',
   },
   {
     name: FeatureFlagEnum.hideCloseListingButton,
