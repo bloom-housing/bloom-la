@@ -1,5 +1,6 @@
 {
   "account.create.initialDisclaimer": "如果您目前无家可归、面临无家可归的风险或居住在不安全的住所，请点击<a href='https://lahousing.lacity.org/BloomExtension' target='_blank'>此链接</a>，将您的信息分享给洛杉矶无家可归者服务管理局 (LAHSA) 以及协调准入系统 (CES) 内可能存在空置房源的房产的所有者和物业经理。点击此链接即表示您同意将您的信息分享给上述各方。",
+  "account.settings.disclaimer": "",
   "advocateAccount.agencyNotListed": "如果您的机构未列出，请<a href='mailto:%{contactEmail}'>联系支持部门</a>。",
   "advocateAccount.resendLinkSuccess": "如果該郵箱地址已註冊並獲批，您將收到一封包含新連結的郵件，用於確認您的帳戶。請注意，該連結將在24小時後失效。如果您未收到郵件，表示您可能尚未在該郵箱地址下註冊帳戶，需要申請一個。如有任何疑問，請聯絡 lahd.achp@lacity.org。",
   "application.ada.hearing": "听力辅助功能",

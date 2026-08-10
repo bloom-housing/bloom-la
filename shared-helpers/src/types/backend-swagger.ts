@@ -1713,6 +1713,25 @@ export class ApplicationsService {
     })
   }
   /**
+   * Download a template CSV for bulk updating applications for a listing
+   */
+  downloadBulkUpdateTemplate(
+    params: {
+      /**  */
+      listingId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<StreamableFile> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/applications/bulk-update/template/{listingId}"
+      url = url.replace("{listingId}", params["listingId"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
    * Submit application (used by applicants applying to a listing)
    */
   submit(
@@ -1808,6 +1827,28 @@ export class ApplicationsService {
     return new Promise((resolve, reject) => {
       let url = basePath + "/applications/{id}/notify-update"
       url = url.replace("{id}", params["id"] + "")
+
+      const configs: IRequestConfig = getConfigs("post", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Generates an presigned URL link to a private S3 bucket
+   */
+  uploadBulkUpdate(
+    params: {
+      /** requestBody */
+      body?: ApplicationBulkUrl
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<ApplicationBulkPresignedUrl> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/applications/bulk-update/upload-url"
 
       const configs: IRequestConfig = getConfigs("post", "application/json", url, options)
 
@@ -2531,6 +2572,81 @@ export class AuthService {
       let data = params.body
 
       configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+}
+
+export class JobsService {
+  /**
+   * Creates a new background job record in the database
+   */
+  createBackgroundJob(
+    params: {
+      /** requestBody */
+      body?: BackgroundJobCreate
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<BackgroundJob> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jobs"
+
+      const configs: IRequestConfig = getConfigs("post", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get an active background job for a listing
+   */
+  findActiveJobForListing(
+    params: {
+      /**  */
+      listingId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<BackgroundJob[]> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jobs"
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { listingId: params["listingId"] }
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get info if any jobs are currently running
+   */
+  activeJobStatus(options: IRequestOptions = {}): Promise<SuccessDTO> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jobs/active"
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get a background job data by its ID
+   */
+  getBackgroundJob(
+    params: {
+      /**  */
+      jobId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<BackgroundJob> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jobs/{jobId}"
+      url = url.replace("{jobId}", params["jobId"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
 
       axios(configs, resolve, reject)
     })
@@ -3402,6 +3518,113 @@ export class AgencyService {
   }
 }
 
+export class ExternalListingsService {
+  /**
+   * Get an object of externalized system data details
+   */
+  externalize(options: IRequestOptions = {}): Promise<ExternalizedDetails> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/externalListings"
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Ingest listing data from an external Bloom instance
+   */
+  ingest(
+    params: {
+      /** requestBody */
+      body?: IngestParams
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<SuccessDTO> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/externalListings/ingest"
+
+      const configs: IRequestConfig = getConfigs("put", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+}
+
+export class TranslationsService {
+  /**
+   * Get a jurisdiction's site translation overrides
+   */
+  jurisdictionOverrides(
+    params: {
+      /**  */
+      jurisdictionId: string
+      /**  */
+      language?: LanguagesEnum
+      /**  */
+      site: SiteEnum
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/jurisdictions/{jurisdictionId}"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { language: params["language"], site: params["site"] }
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get a jurisdiction's site translation overrides by name
+   */
+  jurisdictionOverridesByName(
+    params: {
+      /**  */
+      jurisdictionName: string
+      /**  */
+      language?: LanguagesEnum
+      /**  */
+      site: SiteEnum
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/byName/{jurisdictionName}"
+      url = url.replace("{jurisdictionName}", params["jurisdictionName"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { language: params["language"], site: params["site"] }
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get the global Partners translation overrides
+   */
+  partnersOverrides(
+    params: {
+      /**  */
+      language?: LanguagesEnum
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations"
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { language: params["language"] }
+
+      axios(configs, resolve, reject)
+    })
+  }
+}
+
 /** SuccessDTO */
 export interface SuccessDTO {
   /**  */
@@ -3430,9 +3653,6 @@ export interface ListingFilterParams {
 
   /**  */
   city?: string
-
-  /**  */
-  counties?: string[]
 
   /**  */
   homeTypes?: HomeTypeEnum[]
@@ -4761,9 +4981,6 @@ export interface Listing {
   applicationPickUpAddressType?: ApplicationAddressTypeEnum
 
   /**  */
-  assets: Asset[]
-
-  /**  */
   buildingSelectionCriteria?: string
 
   /**  */
@@ -5148,18 +5365,6 @@ export interface ListingMapMarker {
   lng: number
 }
 
-/** AssetCreate */
-export interface AssetCreate {
-  /**  */
-  fileId: string
-
-  /**  */
-  label: string
-
-  /**  */
-  id?: string
-}
-
 /** UnitsSummaryCreate */
 export interface UnitsSummaryCreate {
   /**  */
@@ -5221,6 +5426,18 @@ export interface UnitsSummaryCreate {
 
   /**  */
   monthlyRent?: number
+}
+
+/** AssetCreate */
+export interface AssetCreate {
+  /**  */
+  fileId: string
+
+  /**  */
+  label: string
+
+  /**  */
+  id?: string
 }
 
 /** ListingImageCreate */
@@ -5992,9 +6209,6 @@ export interface ListingCreate {
 
   /**  */
   listingMultiselectQuestions?: IdDTO[]
-
-  /**  */
-  assets?: AssetCreate[]
 
   /**  */
   unitsSummary: UnitsSummaryCreate[]
@@ -6879,9 +7093,6 @@ export interface ListingUpdate {
   applicationMethods?: ApplicationMethodUpdate[]
 
   /**  */
-  assets?: AssetCreate[]
-
-  /**  */
   unitsSummary: UnitsSummaryCreate[]
 
   /**  */
@@ -7242,7 +7453,7 @@ export interface Application {
   reasonableAccommodations?: string
 
   /**  */
-  incomeVouchers?: boolean
+  incomeVouchers?: string[]
 
   /**  */
   income?: string
@@ -8274,7 +8485,7 @@ export interface PublicAppsFiltered {
   reasonableAccommodations?: string
 
   /**  */
-  incomeVouchers?: boolean
+  incomeVouchers?: string[]
 
   /**  */
   income?: string
@@ -8399,6 +8610,9 @@ export interface PublicAppsViewResponse {
   /**  */
   applicationsCount: PublicAppsCount
 }
+
+/** StreamableFile */
+export interface StreamableFile {}
 
 /** ApplicationSelectionOptionCreate */
 export interface ApplicationSelectionOptionCreate {
@@ -8625,7 +8839,7 @@ export interface ApplicationCreate {
   reasonableAccommodations?: string
 
   /**  */
-  incomeVouchers?: boolean
+  incomeVouchers?: string[]
 
   /**  */
   income?: string
@@ -8961,7 +9175,7 @@ export interface ApplicationUpdate {
   reasonableAccommodations?: string
 
   /**  */
-  incomeVouchers?: boolean
+  incomeVouchers?: string[]
 
   /**  */
   income?: string
@@ -9061,6 +9275,27 @@ export interface ApplicationUpdateEmail {
 
   /**  */
   previousConventionalUnitWaitlistNumber?: number
+}
+
+/** ApplicationBulkUrl */
+export interface ApplicationBulkUrl {
+  /**  */
+  listingId: string
+
+  /**  */
+  contentType: string
+
+  /**  */
+  contentDisposition: string
+}
+
+/** ApplicationBulkPresignedUrl */
+export interface ApplicationBulkPresignedUrl {
+  /**  */
+  key: string
+
+  /**  */
+  presignedUrl: string
 }
 
 /** CreatePresignedUploadMetadata */
@@ -9262,9 +9497,6 @@ export interface PublicUserCreate {
 
   /**  */
   password: string
-
-  /**  */
-  passwordConfirmation: string
 
   /**  */
   emailConfirmation?: string
@@ -10005,9 +10237,6 @@ export interface UpdatePassword {
   password: string
 
   /**  */
-  passwordConfirmation: string
-
-  /**  */
   token: string
 }
 
@@ -10018,6 +10247,51 @@ export interface Confirm {
 
   /**  */
   password?: string
+}
+
+/** BackgroundJob */
+export interface BackgroundJob {
+  /**  */
+  id: string
+
+  /**  */
+  createdAt: Date
+
+  /**  */
+  updatedAt: Date
+
+  /**  */
+  listingId: string
+
+  /**  */
+  requestedByUserId: string
+
+  /**  */
+  status: BackgroundJobStatusEnum
+
+  /**  */
+  totalRecords?: number
+
+  /**  */
+  inputS3Key: string
+
+  /**  */
+  errorMessage?: string
+
+  /**  */
+  errorRow?: number
+
+  /**  */
+  completedAt?: Date
+}
+
+/** BackgroundJobCreate */
+export interface BackgroundJobCreate {
+  /**  */
+  listingId: string
+
+  /**  */
+  inputS3Key: string
 }
 
 /** MapLayer */
@@ -10311,6 +10585,54 @@ export interface PaginatedAgency {
   meta: PaginationMeta
 }
 
+/** ExternalizedListing */
+export interface ExternalizedListing {
+  /**  */
+  id: string
+
+  /**  */
+  name?: string
+
+  /**  */
+  ordinal?: number
+
+  /**  */
+  contentUpdatedAt: Date
+
+  /**  */
+  jurisdictionId: string
+}
+
+/** ExternalizedDetails */
+export interface ExternalizedDetails {
+  /**  */
+  jurisdictions: IdDTO[]
+
+  /**  */
+  listings: ExternalizedListing[]
+
+  /**  */
+  reservedCommunityTypes: IdDTO[]
+
+  /**  */
+  unitRentTypes: IdDTO[]
+
+  /**  */
+  unitTypes: IdDTO[]
+}
+
+/** IngestParams */
+export interface IngestParams {
+  /**  */
+  externalURL: string
+
+  /**  */
+  jurisdictionId: string
+
+  /**  */
+  targetName: string
+}
+
 export enum FilterAvailabilityEnum {
   "closedWaitlist" = "closedWaitlist",
   "comingSoon" = "comingSoon",
@@ -10345,6 +10667,7 @@ export enum ListingsStatusEnum {
 export enum ListingTypeEnum {
   "regulated" = "regulated",
   "nonRegulated" = "nonRegulated",
+  "landUse" = "landUse",
 }
 
 export enum ParkingTypeEnum {
@@ -10411,7 +10734,6 @@ export enum ListingFilterKeys {
   "bedroomTypes" = "bedroomTypes",
   "city" = "city",
   "configurableRegions" = "configurableRegions",
-  "counties" = "counties",
   "homeTypes" = "homeTypes",
   "ids" = "ids",
   "includeExternal" = "includeExternal",
@@ -10544,6 +10866,8 @@ export enum UnitTypeEnum {
   "fourBdrm" = "fourBdrm",
   "SRO" = "SRO",
   "fiveBdrm" = "fiveBdrm",
+  "sixBdrm" = "sixBdrm",
+  "sevenBdrm" = "sevenBdrm",
 }
 
 export enum UnitRentTypeEnum {
@@ -10557,6 +10881,7 @@ export enum EnumListingDepositType {
 export enum EnumListingListingType {
   "regulated" = "regulated",
   "nonRegulated" = "nonRegulated",
+  "landUse" = "landUse",
 }
 export enum EnumUnitGroupAmiLevelCreateMonthlyRentDeterminationType {
   "flatRent" = "flatRent",
@@ -10569,6 +10894,7 @@ export enum EnumListingCreateDepositType {
 export enum EnumListingCreateListingType {
   "regulated" = "regulated",
   "nonRegulated" = "nonRegulated",
+  "landUse" = "landUse",
 }
 export enum EnumUnitGroupAmiLevelUpdateMonthlyRentDeterminationType {
   "flatRent" = "flatRent",
@@ -10581,6 +10907,7 @@ export enum EnumListingUpdateDepositType {
 export enum EnumListingUpdateListingType {
   "regulated" = "regulated",
   "nonRegulated" = "nonRegulated",
+  "landUse" = "landUse",
 }
 export enum AfsView {
   "pending" = "pending",
@@ -10755,14 +11082,17 @@ export enum FeatureFlagEnum {
   "disableWorkInRegion" = "disableWorkInRegion",
   "enableAccessibilityFeatures" = "enableAccessibilityFeatures",
   "enableAdditionalResources" = "enableAdditionalResources",
+  "enableApplicationBulkCSVUpdates" = "enableApplicationBulkCSVUpdates",
   "enableApplicationStatus" = "enableApplicationStatus",
+  "enableAutoOpenDate" = "enableAutoOpenDate",
   "enableAutopublish" = "enableAutopublish",
   "enableCompanyWebsite" = "enableCompanyWebsite",
-  "enableCustomListingNotifications" = "enableCustomListingNotifications",
   "enableConfigurableRegions" = "enableConfigurableRegions",
   "enableCreditScreeningFee" = "enableCreditScreeningFee",
+  "enableCustomListingNotifications" = "enableCustomListingNotifications",
   "enableFaq" = "enableFaq",
   "enableFilterByBathroom" = "enableFilterByBathroom",
+  "enableFilterByCounty" = "enableFilterByCounty",
   "enableFullTimeStudentQuestion" = "enableFullTimeStudentQuestion",
   "enableGenderQuestion" = "enableGenderQuestion",
   "enableGeocodingPreferences" = "enableGeocodingPreferences",
@@ -10772,6 +11102,7 @@ export enum FeatureFlagEnum {
   "enableHousingBasics" = "enableHousingBasics",
   "enableHousingDeveloperOwner" = "enableHousingDeveloperOwner",
   "enableIsVerified" = "enableIsVerified",
+  "enableLandUse" = "enableLandUse",
   "enableLeasingAgentAltText" = "enableLeasingAgentAltText",
   "enableLimitedHowDidYouHear" = "enableLimitedHowDidYouHear",
   "enableListingFavoriting" = "enableListingFavoriting",
@@ -10785,9 +11116,13 @@ export enum FeatureFlagEnum {
   "enableMarketingFlyer" = "enableMarketingFlyer",
   "enableMarketingStatus" = "enableMarketingStatus",
   "enableMarketingStatusMonths" = "enableMarketingStatusMonths",
+  "enableMultiselectVoucherQuestion" = "enableMultiselectVoucherQuestion",
   "enableNeighborhoodAmenities" = "enableNeighborhoodAmenities",
   "enableNeighborhoodAmenitiesDropdown" = "enableNeighborhoodAmenitiesDropdown",
   "enableNonRegulatedListings" = "enableNonRegulatedListings",
+  "enableOnlyAdminCanAddAppsAfterClose" = "enableOnlyAdminCanAddAppsAfterClose",
+  "enableOnlyAdminCanEditListingDates" = "enableOnlyAdminCanEditListingDates",
+  "enableOnlyAdminCanManageUsers" = "enableOnlyAdminCanManageUsers",
   "enableParkingFee" = "enableParkingFee",
   "enableParkingType" = "enableParkingType",
   "enablePartnerDemographics" = "enablePartnerDemographics",
@@ -10853,6 +11188,12 @@ export enum MfaType {
   "sms" = "sms",
   "email" = "email",
 }
+
+export enum BackgroundJobStatusEnum {
+  "processing" = "processing",
+  "completed" = "completed",
+  "failed" = "failed",
+}
 export enum EnumPropertyFilterParamsComparison {
   "=" = "=",
   "<>" = "<>",
@@ -10870,4 +11211,8 @@ export enum EnumAgencyFilterParamsComparison {
   "<=" = "<=",
   "LIKE" = "LIKE",
   "NA" = "NA",
+}
+export enum SiteEnum {
+  "public" = "public",
+  "partners" = "partners",
 }

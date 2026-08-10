@@ -81,6 +81,7 @@ type ListingFormProps = {
   listing?: FormListing
   editMode?: boolean
   isNonRegulated?: boolean
+  isLandUse?: boolean
   setListingName?: React.Dispatch<React.SetStateAction<string>>
   updateListing?: (updatedListing: Listing) => void
 }
@@ -121,6 +122,7 @@ const ListingForm = ({
   setListingName,
   updateListing,
   isNonRegulated,
+  isLandUse,
 }: ListingFormProps) => {
   const rawDefaultValues = editMode ? listing : formDefaults
 
@@ -139,7 +141,7 @@ const ListingForm = ({
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { getValues, setError, clearErrors, reset, watch, setValue } = formMethods
-
+  const isListingActive = listing?.status === ListingsStatusEnum.active
   const marketingTypeChoice = watch("marketingType")
   const scheduledListingPublishDateField = watch("scheduledListingPublishDateField")
   const scheduledPublishAtFromForm = createDate(scheduledListingPublishDateField, true)
@@ -256,13 +258,45 @@ const ListingForm = ({
     whatToExpectAdditionalDetailsEditor,
   ])
 
-  const enableUnitGroups = doJurisdictionsHaveFeatureFlagOn(
-    FeatureFlagEnum.enableUnitGroups,
+  const disableListingPreferences = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.disableListingPreferences,
     jurisdictionId
   )
 
-  const disableListingPreferences = doJurisdictionsHaveFeatureFlagOn(
-    FeatureFlagEnum.disableListingPreferences,
+  const enableAutoOpenDate = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.enableAutoOpenDate,
+    jurisdictionId
+  )
+
+  const enableAutopublish = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.enableAutopublish,
+    jurisdictionId
+  )
+
+  const enableLandUse = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.enableLandUse,
+    jurisdictionId
+  )
+
+  const enableListingImageAltText = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.enableListingImageAltText,
+    jurisdictionId
+  )
+
+  const enableNonRegulatedListings = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.enableNonRegulatedListings,
+    jurisdictionId
+  )
+
+  const enableOnlyAdminCanEditListingDates = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.enableOnlyAdminCanEditListingDates,
+    jurisdictionId
+  )
+
+  const enableV2MSQ = doJurisdictionsHaveFeatureFlagOn(FeatureFlagEnum.enableV2MSQ, jurisdictionId)
+
+  const enableUnitGroups = doJurisdictionsHaveFeatureFlagOn(
+    FeatureFlagEnum.enableUnitGroups,
     jurisdictionId
   )
 
@@ -272,31 +306,23 @@ const ListingForm = ({
     !jurisdictionId
   )
 
-  const enableNonRegulatedListings = doJurisdictionsHaveFeatureFlagOn(
-    FeatureFlagEnum.enableNonRegulatedListings,
-    jurisdictionId
-  )
-
-  const enableListingImageAltText = doJurisdictionsHaveFeatureFlagOn(
-    FeatureFlagEnum.enableListingImageAltText,
-    jurisdictionId
-  )
-
-  const enableV2MSQ = doJurisdictionsHaveFeatureFlagOn(FeatureFlagEnum.enableV2MSQ, jurisdictionId)
-
-  const enableAutopublish = doJurisdictionsHaveFeatureFlagOn(
-    FeatureFlagEnum.enableAutopublish,
-    jurisdictionId
-  )
-
   useEffect(() => {
-    if (enableNonRegulatedListings && !listing?.listingType) {
+    if (enableLandUse && !listing?.listingType) {
+      setValue("listingType", isLandUse ? EnumListingListingType.landUse : undefined)
+    } else if (enableNonRegulatedListings && !listing?.listingType) {
       setValue(
         "listingType",
         isNonRegulated ? EnumListingListingType.nonRegulated : EnumListingListingType.regulated
       )
     }
-  }, [enableNonRegulatedListings, isNonRegulated, listing?.listingType, setValue])
+  }, [
+    enableLandUse,
+    enableNonRegulatedListings,
+    isLandUse,
+    isNonRegulated,
+    listing?.listingType,
+    setValue,
+  ])
 
   useEffect(() => {
     if (listing && listing.listingFeatures && accessibilityFeatures === null) {
@@ -356,7 +382,7 @@ const ListingForm = ({
 
   const triggerSubmitWithStatus: SubmitFunction = (action, status, newData) => {
     if (action !== "redirect" && status === ListingsStatusEnum.active) {
-      if (listing?.status === ListingsStatusEnum.active) {
+      if (isListingActive) {
         setListingIsAlreadyLiveDialog(true)
       } else {
         setPublishDialog(true)
@@ -405,7 +431,7 @@ const ListingForm = ({
             formData.listingSection8Acceptance = YesNoEnum.no
           }
 
-          if (!enableNonRegulatedListings) {
+          if (!enableNonRegulatedListings && !enableLandUse) {
             formData.listingType = undefined
           }
 
@@ -431,6 +457,9 @@ const ListingForm = ({
           if (!enableAutopublish) {
             delete formData.scheduledListingPublishDateField
             formData.scheduledPublishAt = null
+          }
+
+          if (!enableAutoOpenDate) {
             delete formData.scheduledApplicationOpenDateField
             formData.scheduledApplicationOpenAt = null
           }
@@ -448,6 +477,8 @@ const ListingForm = ({
               latLong,
               customMapPositionChosen,
               enableUnitGroups,
+              enableAutopublish,
+              enableAutoOpenDate,
             })
             const formattedData = await dataPipeline.run()
             let result
@@ -556,6 +587,7 @@ const ListingForm = ({
       addToast,
       enableUnitGroups,
       enableAutopublish,
+      enableAutoOpenDate,
       whatToExpectEditor,
       whatToExpectAdditionalDetailsEditor,
     ]
@@ -602,6 +634,7 @@ const ListingForm = ({
                           />
                           <ListingIntro
                             enableNonRegulatedListings={enableNonRegulatedListings}
+                            enableLandUse={enableLandUse}
                             enableHousingDeveloperOwner={doJurisdictionsHaveFeatureFlagOn(
                               FeatureFlagEnum.enableHousingDeveloperOwner,
                               jurisdictionId
@@ -627,6 +660,7 @@ const ListingForm = ({
                             listingId={listing?.id}
                             listingType={
                               listing?.listingType ||
+                              (isLandUse && enableLandUse && EnumListingListingType.landUse) ||
                               (isNonRegulated &&
                                 enableNonRegulatedListings &&
                                 EnumListingListingType.nonRegulated)
@@ -667,6 +701,11 @@ const ListingForm = ({
                             requiredFields={requiredFields}
                           />
                           <Units
+                            disableListingAvailability={
+                              isListingActive &&
+                              enableOnlyAdminCanEditListingDates &&
+                              !profile.userRoles.isAdmin
+                            }
                             disableUnitsAccordion={listing?.disableUnitsAccordion}
                             jurisdiction={jurisdictionId}
                             requiredFields={requiredFields}
@@ -787,6 +826,11 @@ const ListingForm = ({
                             {t("listings.requiredToPublishAsterisk")}
                           </p>
                           <RankingsAndResults
+                            disableDueDates={
+                              isListingActive &&
+                              enableOnlyAdminCanEditListingDates &&
+                              !profile.userRoles.isAdmin
+                            }
                             enableUnitGroups={enableUnitGroups}
                             enableWaitlistAdditionalFields={doJurisdictionsHaveFeatureFlagOn(
                               FeatureFlagEnum.enableWaitlistAdditionalFields,
@@ -801,10 +845,10 @@ const ListingForm = ({
                               jurisdictionId
                             )}
                             isAdmin={profile?.userRoles.isAdmin}
+                            listing={listing}
                             requiredFields={requiredFields}
                             whatToExpectAdditionalTextEditor={whatToExpectAdditionalDetailsEditor}
                             whatToExpectEditor={whatToExpectEditor}
-                            listing={listing}
                           />
                           <LeasingAgent
                             enableCompanyWebsite={doJurisdictionsHaveFeatureFlagOn(
@@ -829,6 +873,11 @@ const ListingForm = ({
                           />
                           <ApplicationAddress requiredFields={requiredFields} listing={listing} />
                           <ApplicationDates
+                            disableDueDate={
+                              isListingActive &&
+                              enableOnlyAdminCanEditListingDates &&
+                              !profile.userRoles.isAdmin
+                            }
                             enableMarketingFlyer={doJurisdictionsHaveFeatureFlagOn(
                               FeatureFlagEnum.enableMarketingFlyer,
                               jurisdictionId
@@ -842,6 +891,7 @@ const ListingForm = ({
                               jurisdictionId
                             )}
                             enableAutopublish={enableAutopublish}
+                            enableAutoOpenDate={enableAutoOpenDate}
                             listing={listing}
                             openHouseEvents={openHouseEvents}
                             requiredFields={requiredFields}
@@ -886,7 +936,14 @@ const ListingForm = ({
                         showCloseListingModal={() => setCloseListingDialog(true)}
                         showLotteryResultsDrawer={() => setLotteryResultsDrawer(true)}
                         showRequestChangesModal={() => setRequestChangesDialog(true)}
-                        showSubmitForApprovalModal={() => setSubmitForApprovalDialog(true)}
+                        showSubmitForApprovalModal={async () => {
+                          const valid = await formMethods.trigger()
+                          if (!valid) {
+                            setAlert("form")
+                            return
+                          }
+                          setSubmitForApprovalDialog(true)
+                        }}
                         submitFormWithStatus={triggerSubmitWithStatus}
                       />
                     </aside>
@@ -916,6 +973,8 @@ const ListingForm = ({
         isOpen={publishDialog}
         setOpen={setPublishDialog}
         submitFormWithStatus={triggerSubmitWithStatus}
+        enableAutopublish={enableAutopublish}
+        scheduledPublishAt={scheduledPublishAtFromForm}
       />
 
       <LiveConfirmationDialog

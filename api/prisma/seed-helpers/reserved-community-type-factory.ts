@@ -9,6 +9,11 @@ const reservedCommunityTypeOptions: { name: string; description?: string }[] = [
       'This property is reserved for seniors aged 62 and older. Applicants must meet the age requirement to be eligible.',
   },
   { name: 'referralOnly' },
+  { name: 'testCommunityType' },
+  {
+    name: 'testCommunityTypeWithDescription',
+    description: 'This is a test community type with a description.',
+  },
 ];
 
 export const reservedCommunityTypeFactory = (

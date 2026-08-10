@@ -4,6 +4,7 @@ import {
   translationFactory,
   upsertTranslation,
 } from './seed-helpers/translation-factory';
+import { unitRentTypeFactoryAll } from './seed-helpers/unit-rent-type-factory';
 import { unitTypeFactoryAll } from './seed-helpers/unit-type-factory';
 import { userFactory } from './seed-helpers/user-factory';
 import { createAngelopolisJurisdiction } from './seed-staging/seed-angelopolis';
@@ -28,13 +29,13 @@ export const stagingSeed = async (
     jurisdiction?: string;
   },
 ) => {
-  // TODO: This is temporary until the RCT seed test fix is merged in core
+  // Clear all existing reserved community types before any are added
   await prismaClient.reservedCommunityTypes.deleteMany();
-
   // Seed feature flags
   await createAllFeatureFlags(prismaClient);
 
   const unitTypes = await unitTypeFactoryAll(prismaClient);
+  const unitRentTypes = await unitRentTypeFactoryAll(prismaClient);
 
   // create a partner user that can be passed to the jurisdiction creation functions
   const partnerUser = await prismaClient.userAccounts.create({
@@ -65,6 +66,7 @@ export const stagingSeed = async (
         mainJurisdiction = await createBloomingtonJurisdiction(prismaClient, {
           jurisdictionName: jurisdictionName ?? 'Bloomington',
           publicSiteBaseURL,
+          unitRentTypes,
           unitTypes,
           partnerUser,
           msqV2,
@@ -82,6 +84,7 @@ export const stagingSeed = async (
         mainJurisdiction = await createAngelopolisJurisdiction(prismaClient, {
           jurisdictionName: jurisdictionName,
           publicSiteBaseURL,
+          unitRentTypes,
           unitTypes,
           partnerUser,
           msqV2,
@@ -101,6 +104,7 @@ export const stagingSeed = async (
     mainJurisdiction = await createBloomingtonJurisdiction(prismaClient, {
       jurisdictionName: jurisdictionName,
       publicSiteBaseURL,
+      unitRentTypes,
       unitTypes,
       partnerUser,
       msqV2,
@@ -117,6 +121,7 @@ export const stagingSeed = async (
       prismaClient,
       {
         publicSiteBaseURL,
+        unitRentTypes,
         unitTypes,
         partnerUser,
         msqV2,
