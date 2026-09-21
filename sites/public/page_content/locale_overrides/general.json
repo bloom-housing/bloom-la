@@ -120,6 +120,7 @@
   "footer.copyright": "© City of Los Angeles",
   "footer.forGeneralQuestions": "For general program inquiries, you may call us at 000-000-0000.",
   "footer.logoAlt": "Los Angeles logo",
+  "listingFilters.countyFilterNote": "",
   "listingResource.additionalCard1.link": "https://www.exygy.com",
   "listingResource.additionalCard1.linkLabel": "See listings",
   "listingResource.additionalCard1.subtext": "See available affordable housing listings in other areas.",
@@ -179,5 +180,6 @@
   "resources.sectionTitle.servingDisabilities": "Organizations serving people with disabilities",
   "resources.sectionTitle.servingTheHomeless": "Organizations serving the homeless",
   "t.nonProdBanner": "This site is for testing purposes only. Applications will not be considered. Please visit the <a href='https://access.housing.lacity.gov/'>official site</a> to apply for housing.",
-  "welcome.title": "Apply for affordable and accessible housing in"
+  "welcome.title": "Apply for affordable and accessible housing in",
+  "welcome.searchSubNote": ""
 }

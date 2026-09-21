@@ -1721,12 +1721,12 @@ export class ApplicationsService {
       listingId: string
     } = {} as any,
     options: IRequestOptions = {}
-  ): Promise<StreamableFile> {
+  ): Promise<string> {
     return new Promise((resolve, reject) => {
-      let url = basePath + "/applications/bulk-update/template/{listingId}"
-      url = url.replace("{listingId}", params["listingId"] + "")
+      let url = basePath + "/applications/bulk-update/template"
 
       const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { listingId: params["listingId"] }
 
       axios(configs, resolve, reject)
     })
@@ -1765,6 +1765,28 @@ export class ApplicationsService {
   ): Promise<SuccessDTO> {
     return new Promise((resolve, reject) => {
       let url = basePath + "/applications/verify"
+
+      const configs: IRequestConfig = getConfigs("post", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * allows user to update applications in bulk using a CSV file
+   */
+  bulkUpdateApplications(
+    params: {
+      /** requestBody */
+      body?: ApplicationBulkUpdate
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/applications/bulk-update"
 
       const configs: IRequestConfig = getConfigs("post", "application/json", url, options)
 
@@ -1855,6 +1877,100 @@ export class ApplicationsService {
       let data = params.body
 
       configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Subscribed for server side events notifications from the application processes
+   */
+  uploadBulkNotifications(
+    params: {
+      /**  */
+      jobId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/applications/bulk-update/notifications"
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { jobId: params["jobId"] }
+
+      axios(configs, resolve, reject)
+    })
+  }
+}
+
+export class JobsService {
+  /**
+   * Creates a new background job record in the database
+   */
+  createBackgroundJob(
+    params: {
+      /** requestBody */
+      body?: BackgroundJobCreate
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<BackgroundJob> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jobs"
+
+      const configs: IRequestConfig = getConfigs("post", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get an active background job for a listing
+   */
+  findActiveJobForListing(
+    params: {
+      /**  */
+      listingId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<BackgroundJob[]> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jobs"
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { listingId: params["listingId"] }
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get info if any jobs are currently running
+   */
+  activeJobStatus(options: IRequestOptions = {}): Promise<SuccessDTO> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jobs/active"
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get a background job data by its ID
+   */
+  getBackgroundJob(
+    params: {
+      /**  */
+      jobId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<BackgroundJob> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jobs/{jobId}"
+      url = url.replace("{jobId}", params["jobId"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
 
       axios(configs, resolve, reject)
     })
@@ -2578,81 +2694,6 @@ export class AuthService {
   }
 }
 
-export class JobsService {
-  /**
-   * Creates a new background job record in the database
-   */
-  createBackgroundJob(
-    params: {
-      /** requestBody */
-      body?: BackgroundJobCreate
-    } = {} as any,
-    options: IRequestOptions = {}
-  ): Promise<BackgroundJob> {
-    return new Promise((resolve, reject) => {
-      let url = basePath + "/jobs"
-
-      const configs: IRequestConfig = getConfigs("post", "application/json", url, options)
-
-      let data = params.body
-
-      configs.data = data
-
-      axios(configs, resolve, reject)
-    })
-  }
-  /**
-   * Get an active background job for a listing
-   */
-  findActiveJobForListing(
-    params: {
-      /**  */
-      listingId: string
-    } = {} as any,
-    options: IRequestOptions = {}
-  ): Promise<BackgroundJob[]> {
-    return new Promise((resolve, reject) => {
-      let url = basePath + "/jobs"
-
-      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
-      configs.params = { listingId: params["listingId"] }
-
-      axios(configs, resolve, reject)
-    })
-  }
-  /**
-   * Get info if any jobs are currently running
-   */
-  activeJobStatus(options: IRequestOptions = {}): Promise<SuccessDTO> {
-    return new Promise((resolve, reject) => {
-      let url = basePath + "/jobs/active"
-
-      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
-
-      axios(configs, resolve, reject)
-    })
-  }
-  /**
-   * Get a background job data by its ID
-   */
-  getBackgroundJob(
-    params: {
-      /**  */
-      jobId: string
-    } = {} as any,
-    options: IRequestOptions = {}
-  ): Promise<BackgroundJob> {
-    return new Promise((resolve, reject) => {
-      let url = basePath + "/jobs/{jobId}"
-      url = url.replace("{jobId}", params["jobId"] + "")
-
-      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
-
-      axios(configs, resolve, reject)
-    })
-  }
-}
-
 export class MapLayersService {
   /**
    * List map layers
@@ -2755,30 +2796,6 @@ export class ScriptRunnerService {
     })
   }
   /**
-   * A script that adds lottery translations to the db
-   */
-  lotteryTranslations(options: IRequestOptions = {}): Promise<SuccessDTO> {
-    return new Promise((resolve, reject) => {
-      let url = basePath + "/scriptRunner/lotteryTranslations"
-
-      const configs: IRequestConfig = getConfigs("put", "application/json", url, options)
-
-      axios(configs, resolve, reject)
-    })
-  }
-  /**
-   * A script that adds lottery translations to the db and creates them if it does not exist
-   */
-  lotteryTranslations1(options: IRequestOptions = {}): Promise<SuccessDTO> {
-    return new Promise((resolve, reject) => {
-      let url = basePath + "/scriptRunner/lotteryTranslationsCreateIfEmpty"
-
-      const configs: IRequestConfig = getConfigs("put", "application/json", url, options)
-
-      axios(configs, resolve, reject)
-    })
-  }
-  /**
    * A script that opts out existing lottery listings
    */
   optOutExistingLotteries(options: IRequestOptions = {}): Promise<SuccessDTO> {
@@ -2813,18 +2830,6 @@ export class ScriptRunnerService {
     })
   }
   /**
-   * A script that updates single use code translations to show extended expiration time
-   */
-  updateCodeExpirationTranslations(options: IRequestOptions = {}): Promise<SuccessDTO> {
-    return new Promise((resolve, reject) => {
-      let url = basePath + "/scriptRunner/updateCodeExpirationTranslations"
-
-      const configs: IRequestConfig = getConfigs("put", "application/json", url, options)
-
-      axios(configs, resolve, reject)
-    })
-  }
-  /**
    * A script that hides program multiselect questions from the public detail page
    */
   hideProgramsFromListings(options: IRequestOptions = {}): Promise<SuccessDTO> {
@@ -2837,13 +2842,23 @@ export class ScriptRunnerService {
     })
   }
   /**
-   * A script that updates the "what happens next" content in lottery email
+   * A script that loads the bundled site override files into translation_strings
    */
-  updatesWhatHappensInLotteryEmail(options: IRequestOptions = {}): Promise<SuccessDTO> {
+  migrateTranslationOverridesToKeyRows(
+    params: {
+      /** requestBody */
+      body?: TranslationOverrideMigrationDTO
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<SuccessDTO> {
     return new Promise((resolve, reject) => {
-      let url = basePath + "/scriptRunner/updatesWhatHappensInLotteryEmail"
+      let url = basePath + "/scriptRunner/migrateTranslationOverridesToKeyRows"
 
       const configs: IRequestConfig = getConfigs("put", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
 
       axios(configs, resolve, reject)
     })
@@ -3623,6 +3638,320 @@ export class TranslationsService {
       axios(configs, resolve, reject)
     })
   }
+  /**
+   * Get the email strings shipped with the api
+   */
+  emailBaseTranslations(
+    params: {
+      /**  */
+      language: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/base/email/{language}"
+      url = url.replace("{language}", params["language"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * List a jurisdiction's override keys
+   */
+  listRawTranslations(
+    params: {
+      /**  */
+      jurisdictionId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<TranslationOverrideRow[]> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/jurisdictions/{jurisdictionId}/raw"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get a scope's editable override keys. stale = true, if its English source changed since it was translated
+   */
+  getRawTranslations(
+    params: {
+      /**  */
+      jurisdictionId: string
+      /**  */
+      site: string
+      /**  */
+      language: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<TranslationRawKey[]> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/jurisdictions/{jurisdictionId}/raw/{site}/{language}"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+      url = url.replace("{site}", params["site"] + "")
+      url = url.replace("{language}", params["language"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Upsert a scope's override keys with per-key optimistic locking
+   */
+  updateRawTranslations(
+    params: {
+      /**  */
+      jurisdictionId: string
+      /**  */
+      site: string
+      /**  */
+      language: string
+      /** requestBody */
+      body?: TranslationUpdate
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<SuccessDTO> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/jurisdictions/{jurisdictionId}/raw/{site}/{language}"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+      url = url.replace("{site}", params["site"] + "")
+      url = url.replace("{language}", params["language"] + "")
+
+      const configs: IRequestConfig = getConfigs("put", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Delete one override key (revert to base)
+   */
+  deleteRawTranslation(
+    params: {
+      /**  */
+      jurisdictionId: string
+      /**  */
+      site: string
+      /**  */
+      language: string
+      /**  */
+      key: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<SuccessDTO> {
+    return new Promise((resolve, reject) => {
+      let url =
+        basePath + "/translations/jurisdictions/{jurisdictionId}/raw/{site}/{language}/{key}"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+      url = url.replace("{site}", params["site"] + "")
+      url = url.replace("{language}", params["language"] + "")
+      url = url.replace("{key}", params["key"] + "")
+
+      const configs: IRequestConfig = getConfigs("delete", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get the global override keys for a site. stale = true, if its English source changed since it was translated
+   */
+  getRawGlobalTranslations(
+    params: {
+      /**  */
+      site: string
+      /**  */
+      language: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<TranslationRawKey[]> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/global/raw/{site}/{language}"
+      url = url.replace("{site}", params["site"] + "")
+      url = url.replace("{language}", params["language"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Upsert the global override keys for a site with per-key optimistic locking
+   */
+  updateRawGlobalTranslations(
+    params: {
+      /**  */
+      site: string
+      /**  */
+      language: string
+      /** requestBody */
+      body?: TranslationUpdate
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<SuccessDTO> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/global/raw/{site}/{language}"
+      url = url.replace("{site}", params["site"] + "")
+      url = url.replace("{language}", params["language"] + "")
+
+      const configs: IRequestConfig = getConfigs("put", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Delete one global override key for a site (revert to base)
+   */
+  deleteRawGlobalTranslation(
+    params: {
+      /**  */
+      site: string
+      /**  */
+      language: string
+      /**  */
+      key: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<SuccessDTO> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/translations/global/raw/{site}/{language}/{key}"
+      url = url.replace("{site}", params["site"] + "")
+      url = url.replace("{language}", params["language"] + "")
+      url = url.replace("{key}", params["key"] + "")
+
+      const configs: IRequestConfig = getConfigs("delete", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+}
+
+export class JurisdictionContentService {
+  /**
+   * Get a jurisdiction's merged structured content
+   */
+  jurisdictionContent(
+    params: {
+      /**  */
+      jurisdictionId: string
+      /**  */
+      language?: LanguagesEnum
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<JurisdictionContentFields> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jurisdictionContent/jurisdictions/{jurisdictionId}"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { language: params["language"] }
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get a jurisdiction's merged structured content by name
+   */
+  jurisdictionContentByName(
+    params: {
+      /**  */
+      jurisdictionName: string
+      /**  */
+      language?: LanguagesEnum
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<JurisdictionContentFields> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jurisdictionContent/byName/{jurisdictionName}"
+      url = url.replace("{jurisdictionName}", params["jurisdictionName"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+      configs.params = { language: params["language"] }
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * List a jurisdiction's content rows across languages
+   */
+  listJurisdictionContent(
+    params: {
+      /**  */
+      jurisdictionId: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<JurisdictionContent[]> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jurisdictionContent/jurisdictions/{jurisdictionId}/admin"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Get one language's content row for editing
+   */
+  getJurisdictionContent(
+    params: {
+      /**  */
+      jurisdictionId: string
+      /**  */
+      language: string
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<JurisdictionContent> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jurisdictionContent/jurisdictions/{jurisdictionId}/admin/{language}"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+      url = url.replace("{language}", params["language"] + "")
+
+      const configs: IRequestConfig = getConfigs("get", "application/json", url, options)
+
+      axios(configs, resolve, reject)
+    })
+  }
+  /**
+   * Upsert one language's content row with an optimistic-lock check
+   */
+  updateJurisdictionContent(
+    params: {
+      /**  */
+      jurisdictionId: string
+      /**  */
+      language: string
+      /** requestBody */
+      body?: JurisdictionContentUpdate
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<JurisdictionContent> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + "/jurisdictionContent/jurisdictions/{jurisdictionId}/admin/{language}"
+      url = url.replace("{jurisdictionId}", params["jurisdictionId"] + "")
+      url = url.replace("{language}", params["language"] + "")
+
+      const configs: IRequestConfig = getConfigs("put", "application/json", url, options)
+
+      let data = params.body
+
+      configs.data = data
+
+      axios(configs, resolve, reject)
+    })
+  }
 }
 
 /** SuccessDTO */
@@ -3643,7 +3972,7 @@ export interface ListingFilterParams {
   availability?: FilterAvailabilityEnum
 
   /**  */
-  bathrooms?: []
+  bathrooms?: number
 
   /**  */
   bedrooms?: number
@@ -8167,6 +8496,9 @@ export interface JurisdictionCreate {
   regions: []
 
   /**  */
+  enabledStopLightRuleKeys?: string[]
+
+  /**  */
   listingFeaturesConfiguration?: ListingFeaturesConfiguration
 
   /**  */
@@ -8255,6 +8587,9 @@ export interface JurisdictionUpdate {
 
   /**  */
   regions: []
+
+  /**  */
+  enabledStopLightRuleKeys?: string[]
 
   /**  */
   listingFeaturesConfiguration?: ListingFeaturesConfiguration
@@ -8381,6 +8716,9 @@ export interface Jurisdiction {
 
   /**  */
   regions: []
+
+  /**  */
+  enabledStopLightRuleKeys?: string[]
 
   /**  */
   listingFeaturesConfiguration?: ListingFeaturesConfiguration
@@ -8610,9 +8948,6 @@ export interface PublicAppsViewResponse {
   /**  */
   applicationsCount: PublicAppsCount
 }
-
-/** StreamableFile */
-export interface StreamableFile {}
 
 /** ApplicationSelectionOptionCreate */
 export interface ApplicationSelectionOptionCreate {
@@ -8924,6 +9259,15 @@ export interface ApplicationCreate {
 
   /**  */
   householdMember: HouseholdMemberCreate[]
+}
+
+/** ApplicationBulkUpdate */
+export interface ApplicationBulkUpdate {
+  /**  */
+  s3Key: string
+
+  /**  */
+  listingId: string
 }
 
 /** AccessibilityUpdate */
@@ -9296,6 +9640,51 @@ export interface ApplicationBulkPresignedUrl {
 
   /**  */
   presignedUrl: string
+}
+
+/** BackgroundJob */
+export interface BackgroundJob {
+  /**  */
+  id: string
+
+  /**  */
+  createdAt: Date
+
+  /**  */
+  updatedAt: Date
+
+  /**  */
+  listingId: string
+
+  /**  */
+  requestedByUserId: string
+
+  /**  */
+  status: BackgroundJobStatusEnum
+
+  /**  */
+  totalRecords?: number
+
+  /**  */
+  inputS3Key: string
+
+  /**  */
+  errorMessage?: string
+
+  /**  */
+  errorRow?: number
+
+  /**  */
+  completedAt?: Date
+}
+
+/** BackgroundJobCreate */
+export interface BackgroundJobCreate {
+  /**  */
+  listingId: string
+
+  /**  */
+  inputS3Key: string
 }
 
 /** CreatePresignedUploadMetadata */
@@ -10249,51 +10638,6 @@ export interface Confirm {
   password?: string
 }
 
-/** BackgroundJob */
-export interface BackgroundJob {
-  /**  */
-  id: string
-
-  /**  */
-  createdAt: Date
-
-  /**  */
-  updatedAt: Date
-
-  /**  */
-  listingId: string
-
-  /**  */
-  requestedByUserId: string
-
-  /**  */
-  status: BackgroundJobStatusEnum
-
-  /**  */
-  totalRecords?: number
-
-  /**  */
-  inputS3Key: string
-
-  /**  */
-  errorMessage?: string
-
-  /**  */
-  errorRow?: number
-
-  /**  */
-  completedAt?: Date
-}
-
-/** BackgroundJobCreate */
-export interface BackgroundJobCreate {
-  /**  */
-  listingId: string
-
-  /**  */
-  inputS3Key: string
-}
-
 /** MapLayer */
 export interface MapLayer {
   /**  */
@@ -10343,6 +10687,33 @@ export interface CommunityTypeDTO {
 
   /**  */
   description?: string
+}
+
+/** TranslationOverrideMigrationDTO */
+export interface TranslationOverrideMigrationDTO {
+  /**  */
+  jurisdictionName: string
+
+  /**  */
+  commit: boolean
+
+  /**  */
+  skipExisting: boolean
+
+  /**  */
+  languages?: LanguagesEnum[]
+
+  /**  */
+  repositoryUrl?: string
+
+  /**  */
+  gitRef?: string
+
+  /**  */
+  publicPath?: string
+
+  /**  */
+  partnersPath?: string
 }
 
 /** PaginationDTO */
@@ -10631,6 +11002,294 @@ export interface IngestParams {
 
   /**  */
   targetName: string
+}
+
+/** TranslationOverrideRow */
+export interface TranslationOverrideRow {
+  /**  */
+  key: string
+
+  /**  */
+  value: string
+
+  /**  */
+  updatedAt: Date
+
+  /**  */
+  origin: TranslationOrigin
+
+  /**  */
+  site: SiteEnum
+
+  /**  */
+  language: LanguagesEnum
+}
+
+/** TranslationRawKey */
+export interface TranslationRawKey {
+  /**  */
+  key: string
+
+  /**  */
+  value: string
+
+  /**  */
+  updatedAt: Date
+
+  /**  */
+  origin: TranslationOrigin
+
+  /**  */
+  stale: boolean
+}
+
+/** TranslationKeyEdit */
+export interface TranslationKeyEdit {
+  /**  */
+  key: string
+
+  /**  */
+  value: string
+
+  /**  */
+  lastUpdatedAt?: Date
+}
+
+/** TranslationUpdate */
+export interface TranslationUpdate {
+  /**  */
+  edits: TranslationKeyEdit[]
+}
+
+/** FooterLinkDTO */
+export interface FooterLinkDTO {
+  /**  */
+  id: string
+
+  /**  */
+  text: string
+
+  /**  */
+  href: string
+
+  /**  */
+  _deleted?: boolean
+}
+
+/** FooterLogoDTO */
+export interface FooterLogoDTO {
+  /**  */
+  logoSrc: string
+
+  /**  */
+  logoAltText?: string
+
+  /**  */
+  logoUrl?: string
+}
+
+/** FooterContentDTO */
+export interface FooterContentDTO {
+  /**  */
+  textSectionsHtml?: string[]
+
+  /**  */
+  links?: FooterLinkDTO[]
+
+  /**  */
+  logo?: FooterLogoDTO
+}
+
+/** FaqItemDTO */
+export interface FaqItemDTO {
+  /**  */
+  id: string
+
+  /**  */
+  question: string
+
+  /**  */
+  answerHtml: string
+
+  /**  */
+  _deleted?: boolean
+}
+
+/** FaqCategoryDTO */
+export interface FaqCategoryDTO {
+  /**  */
+  id: string
+
+  /**  */
+  title?: string
+
+  /**  */
+  items?: FaqItemDTO[]
+
+  /**  */
+  _deleted?: boolean
+}
+
+/** FaqContentDTO */
+export interface FaqContentDTO {
+  /**  */
+  categories?: FaqCategoryDTO[]
+}
+
+/** ContactCardDTO */
+export interface ContactCardDTO {
+  /**  */
+  departmentTitle?: string
+
+  /**  */
+  description?: string
+
+  /**  */
+  email?: string
+}
+
+/** ResourceCardDTO */
+export interface ResourceCardDTO {
+  /**  */
+  id: string
+
+  /**  */
+  title: string
+
+  /**  */
+  href?: string
+
+  /**  */
+  contentHtml: string
+
+  /**  */
+  _deleted?: boolean
+}
+
+/** ResourceSectionDTO */
+export interface ResourceSectionDTO {
+  /**  */
+  id: string
+
+  /**  */
+  sectionTitle: string
+
+  /**  */
+  sectionSubtitle?: string
+
+  /**  */
+  cards?: ResourceCardDTO[]
+
+  /**  */
+  _deleted?: boolean
+}
+
+/** ResourcesContentDTO */
+export interface ResourcesContentDTO {
+  /**  */
+  contactCard?: ContactCardDTO
+
+  /**  */
+  resourceSections?: ResourceSectionDTO[]
+}
+
+/** DisclaimersContentDTO */
+export interface DisclaimersContentDTO {
+  /**  */
+  privacyHtml?: string
+
+  /**  */
+  disclaimerHtml?: string
+}
+
+/** ContactContentDTO */
+export interface ContactContentDTO {
+  /**  */
+  phone?: string
+
+  /**  */
+  email?: string
+
+  /**  */
+  addressHtml?: string
+
+  /**  */
+  hours?: string
+}
+
+/** JurisdictionContentFields */
+export interface JurisdictionContentFields {
+  /**  */
+  footer?: FooterContentDTO
+
+  /**  */
+  faq?: FaqContentDTO
+
+  /**  */
+  resources?: ResourcesContentDTO
+
+  /**  */
+  disclaimers?: DisclaimersContentDTO
+
+  /**  */
+  contact?: ContactContentDTO
+}
+
+/** JurisdictionContent */
+export interface JurisdictionContent {
+  /**  */
+  id: string
+
+  /**  */
+  createdAt: Date
+
+  /**  */
+  updatedAt: Date
+
+  /**  */
+  footer?: FooterContentDTO
+
+  /**  */
+  faq?: FaqContentDTO
+
+  /**  */
+  resources?: ResourcesContentDTO
+
+  /**  */
+  disclaimers?: DisclaimersContentDTO
+
+  /**  */
+  contact?: ContactContentDTO
+
+  /**  */
+  jurisdictionId: string
+
+  /**  */
+  language: LanguagesEnum
+
+  /**  */
+  staleFields: string[]
+}
+
+/** JurisdictionContentUpdate */
+export interface JurisdictionContentUpdate {
+  /**  */
+  footer?: FooterContentDTO
+
+  /**  */
+  faq?: FaqContentDTO
+
+  /**  */
+  resources?: ResourcesContentDTO
+
+  /**  */
+  disclaimers?: DisclaimersContentDTO
+
+  /**  */
+  contact?: ContactContentDTO
+
+  /**  */
+  lastUpdatedAt?: Date
 }
 
 export enum FilterAvailabilityEnum {
@@ -11075,6 +11734,7 @@ export enum FeatureFlagEnum {
   "disableBuildingSelectionCriteria" = "disableBuildingSelectionCriteria",
   "disableCommonApplication" = "disableCommonApplication",
   "disableEthnicityQuestion" = "disableEthnicityQuestion",
+  "disableHowToContact" = "disableHowToContact",
   "disableJurisdictionalAdmin" = "disableJurisdictionalAdmin",
   "disableListingPreferences" = "disableListingPreferences",
   "disablePartnerPublicListingEdits" = "disablePartnerPublicListingEdits",
@@ -11083,6 +11743,7 @@ export enum FeatureFlagEnum {
   "enableAccessibilityFeatures" = "enableAccessibilityFeatures",
   "enableAdditionalResources" = "enableAdditionalResources",
   "enableApplicationBulkCSVUpdates" = "enableApplicationBulkCSVUpdates",
+  "enableApplicationExpirationNonAdmins" = "enableApplicationExpirationNonAdmins",
   "enableApplicationStatus" = "enableApplicationStatus",
   "enableAutoOpenDate" = "enableAutoOpenDate",
   "enableAutopublish" = "enableAutopublish",
@@ -11090,6 +11751,9 @@ export enum FeatureFlagEnum {
   "enableConfigurableRegions" = "enableConfigurableRegions",
   "enableCreditScreeningFee" = "enableCreditScreeningFee",
   "enableCustomListingNotifications" = "enableCustomListingNotifications",
+  "enableDbDrivenContent" = "enableDbDrivenContent",
+  "enableDuplicatesDetailsInEmail" = "enableDuplicatesDetailsInEmail",
+  "enableExportTerms" = "enableExportTerms",
   "enableFaq" = "enableFaq",
   "enableFilterByBathroom" = "enableFilterByBathroom",
   "enableFilterByCounty" = "enableFilterByCounty",
@@ -11097,7 +11761,10 @@ export enum FeatureFlagEnum {
   "enableGenderQuestion" = "enableGenderQuestion",
   "enableGeocodingPreferences" = "enableGeocodingPreferences",
   "enableGeocodingRadiusMethod" = "enableGeocodingRadiusMethod",
+  "enableGetAssistanceCard" = "enableGetAssistanceCard",
+  "enableGetAssistancePage" = "enableGetAssistancePage",
   "enableHomeType" = "enableHomeType",
+  "enableHomePageSearchHero" = "enableHomePageSearchHero",
   "enableHousingAdvocate" = "enableHousingAdvocate",
   "enableHousingBasics" = "enableHousingBasics",
   "enableHousingDeveloperOwner" = "enableHousingDeveloperOwner",
@@ -11119,6 +11786,7 @@ export enum FeatureFlagEnum {
   "enableMultiselectVoucherQuestion" = "enableMultiselectVoucherQuestion",
   "enableNeighborhoodAmenities" = "enableNeighborhoodAmenities",
   "enableNeighborhoodAmenitiesDropdown" = "enableNeighborhoodAmenitiesDropdown",
+  "enableNonAdminLotteries" = "enableNonAdminLotteries",
   "enableNonRegulatedListings" = "enableNonRegulatedListings",
   "enableOnlyAdminCanAddAppsAfterClose" = "enableOnlyAdminCanAddAppsAfterClose",
   "enableOnlyAdminCanEditListingDates" = "enableOnlyAdminCanEditListingDates",
@@ -11126,19 +11794,24 @@ export enum FeatureFlagEnum {
   "enableParkingFee" = "enableParkingFee",
   "enableParkingType" = "enableParkingType",
   "enablePartnerDemographics" = "enablePartnerDemographics",
+  "enablePartnerLotteryExport" = "enablePartnerLotteryExport",
   "enablePartnerSettings" = "enablePartnerSettings",
   "enablePetPolicyCheckbox" = "enablePetPolicyCheckbox",
+  "enableProfessionalPartnersPage" = "enableProfessionalPartnersPage",
   "enableProperties" = "enableProperties",
   "enableReasonableAccommodations" = "enableReasonableAccommodations",
   "enableReceivedAtAndByFields" = "enableReceivedAtAndByFields",
   "enableReferralQuestionUnits" = "enableReferralQuestionUnits",
   "enableRegions" = "enableRegions",
   "enableResources" = "enableResources",
+  "enableResourcesCard" = "enableResourcesCard",
   "enableSection8Question" = "enableSection8Question",
+  "enableSeeOurData" = "enableSeeOurData",
   "enableSexualOrientationQuestion" = "enableSexualOrientationQuestion",
   "enableSingleUseCode" = "enableSingleUseCode",
   "enableSmokingPolicyRadio" = "enableSmokingPolicyRadio",
   "enableSpokenLanguage" = "enableSpokenLanguage",
+  "enableStopLights" = "enableStopLights",
   "enableSupportAdmin" = "enableSupportAdmin",
   "enableUnderConstructionHome" = "enableUnderConstructionHome",
   "enableUnitAccessibilityTypeTags" = "enableUnitAccessibilityTypeTags",
@@ -11175,6 +11848,12 @@ export enum ApplicationsFilterEnum {
   "open" = "open",
 }
 
+export enum BackgroundJobStatusEnum {
+  "processing" = "processing",
+  "completed" = "completed",
+  "failed" = "failed",
+}
+
 export enum UserOrderByKeys {
   "isApproved" = "isApproved",
 }
@@ -11187,12 +11866,6 @@ export enum ModificationEnum {
 export enum MfaType {
   "sms" = "sms",
   "email" = "email",
-}
-
-export enum BackgroundJobStatusEnum {
-  "processing" = "processing",
-  "completed" = "completed",
-  "failed" = "failed",
 }
 export enum EnumPropertyFilterParamsComparison {
   "=" = "=",
@@ -11215,4 +11888,10 @@ export enum EnumAgencyFilterParamsComparison {
 export enum SiteEnum {
   "public" = "public",
   "partners" = "partners",
+  "email" = "email",
+}
+
+export enum TranslationOrigin {
+  "machine" = "machine",
+  "human" = "human",
 }
