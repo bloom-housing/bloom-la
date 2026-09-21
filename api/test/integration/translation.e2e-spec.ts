@@ -303,7 +303,7 @@ describe('Translation Controller Tests', () => {
       const rows = await prisma.translationStrings.findMany({
         where: { jurisdictionId: legacyJurisdictionId, site: SiteEnum.email },
       });
-      expect(rows).toHaveLength(2);
+      expect(rows).toHaveLength(3);
     });
   });
 

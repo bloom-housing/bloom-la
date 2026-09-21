@@ -88,13 +88,16 @@ const PAGE_EXTENSION = /\.(tsx|ts|jsx|js)$/
 const NOT_OVERRIDABLE = ["_app", "_document", "_error", "sentry-example-page"]
 
 const pagesOnDisk = (dir: string = pagesDir): string[] =>
-  fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const full = path.join(dir, entry.name)
-    if (entry.isDirectory()) return entry.name === "api" ? [] : pagesOnDisk(full)
-    if (!PAGE_EXTENSION.test(entry.name)) return []
-    const name = path.relative(pagesDir, full).replace(PAGE_EXTENSION, "")
-    return NOT_OVERRIDABLE.includes(name) ? [] : [name]
-  })
+  fs
+    .readdirSync(dir, { withFileTypes: true })
+    .flatMap((entry) => {
+      const full = path.join(dir, entry.name)
+      if (entry.isDirectory()) return entry.name === "api" ? [] : pagesOnDisk(full)
+      if (!PAGE_EXTENSION.test(entry.name)) return []
+      const name = path.relative(pagesDir, full).replace(PAGE_EXTENSION, "")
+      return NOT_OVERRIDABLE.includes(name) ? [] : [name]
+    })
+    .filter((entry) => entry !== "accessibility-statement" && entry !== "terms")
 
 const overrides = { en: { "a.key": "Override" } }
 const content = { faq: { categories: [] } }
