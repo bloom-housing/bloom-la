@@ -281,6 +281,7 @@ describe('Translation Controller Tests', () => {
 
       expect(rows).toEqual([
         { key: 'confirmation.subject', value: 'Their subject' },
+        { key: 'footer.line1', value: 'Bloom' },
         { key: 'lotteryAvailable.header', value: 'Their header' },
       ]);
     });
