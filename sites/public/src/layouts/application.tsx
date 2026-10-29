@@ -3,11 +3,14 @@ import dayjs from "dayjs"
 import { NextRouter, useRouter } from "next/router"
 import Markdown from "markdown-to-jsx"
 import Head from "next/head"
+import HomeIcon from "@heroicons/react/24/solid/HomeIcon"
 import { Message, Toast, Icon } from "@bloom-housing/ui-seeds"
 import { MenuLink, t, SiteHeader as UICSiteHeader } from "@bloom-housing/ui-components"
 import { CommonMessageVariant } from "@bloom-housing/ui-seeds/src/blocks/shared/CommonMessage"
 import { AuthContext, MessageContext } from "@bloom-housing/shared-helpers"
+import { useBrand } from "../lib/BrandContext"
 import {
+  BrandDTO,
   FeatureFlag,
   FeatureFlagEnum,
   User,
@@ -217,8 +220,20 @@ interface LayoutProps {
   pageTitle?: string
 }
 
+export const headerLogo = (brand: BrandDTO | null) =>
+  brand?.logoUrl ? (
+    <img src={brand.logoUrl} alt="" data-testid="brand-header-logo" />
+  ) : (
+    <div data-testid="fallback-header-logo">
+      <Icon size={"lg"}>
+        <HomeIcon />
+      </Icon>
+    </div>
+  )
+
 const Layout = (props: LayoutProps) => {
   const { profile, signOut } = useContext(AuthContext)
+  const brand = useBrand()
   const { toastMessagesRef, addToast } = useContext(MessageContext)
   const router = useRouter()
   const featureFlags = useJurisdictionFeatureFlags()
@@ -285,11 +300,7 @@ const Layout = (props: LayoutProps) => {
                 featureFlags
               )}
               titleLink={"/"}
-              logo={
-                <Icon size={"lg"} className={styles["jurisdiction-icon"]}>
-                  <img src="/images/la-logo.svg" alt={t("footer.logoAlt")} />
-                </Icon>
-              }
+              logo={headerLogo({ ...brand, logoUrl: "/images/la-logo.svg" })}
               mainContentId="main-content"
               showMessageBar={false}
               banners={[
