@@ -1075,5 +1075,6 @@
   "applications.export.dataExpiryHeader": "No application data",
   "applications.export.dataExpiryMessage": "Application data for this listing will expire on %{date}. Please export data prior to this date.",
   "applications.export.dialogAlert": "This data will expire on %{date}.",
-  "footer.copyright": "© %{year} • All Rights Reserved"
+  "footer.copyright": "© %{year} • All Rights Reserved",
+  "t.contactEmail": "lahd.achp@lacity.org"
 }
