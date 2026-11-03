@@ -202,10 +202,16 @@ const UnitForm = ({
             values[`maxIncomeHouseholdSize${override.householdSize}`] = override.income
           })
         }
+        for (let i = 1; i <= maxAmiHouseholdSize; i++) {
+          const draftOverride = defaultUnit[`maxIncomeHouseholdSize${i}`]
+          if (draftOverride) {
+            values[`maxIncomeHouseholdSize${i}`] = draftOverride
+          }
+        }
       }
 
       values.amiPercentage = parseInt(defaultUnit["amiPercentage"])
-      values.rentType = getRentType(defaultUnit)
+      values.rentType = getRentType(defaultUnit, listingType === EnumListingListingType.landUse)
 
       reset(values)
     } else {
