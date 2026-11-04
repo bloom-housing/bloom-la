@@ -4,7 +4,7 @@ import styles from "./ResourceSection.module.scss"
 
 export interface ResourceSectionProps {
   sectionTitle: string
-  sectionSubtitle?: string
+  sectionSubtitle?: React.ReactNode | string
   cards?: React.ReactNode[]
   cardsWithTitles?: { cards: React.ReactNode[]; title: string }[]
 }
@@ -22,7 +22,7 @@ const ResourceSection = ({
           {sectionTitle}
         </Heading>
         {sectionSubtitle && (
-          <p className={styles["resource-section-subtitle"]}>{sectionSubtitle}</p>
+          <div className={styles["resource-section-subtitle"]}>{sectionSubtitle}</div>
         )}
       </div>
       {cards && (
