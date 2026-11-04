@@ -100,7 +100,7 @@ describe('Background Jobs Controller Tests', () => {
         .expect(409);
 
       expect(res.body.message).toBe(
-        `Listing with ID: ${listingId} has a currently running job assigned`,
+        `For listing with ID: ${listingId} the last upload is still processing. You can upload a new file after it's done. We'll email you when it's complete.`,
       );
     });
 
