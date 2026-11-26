@@ -131,7 +131,7 @@ describe("listings", () => {
 
     const queryClient = new QueryClient()
 
-    const { findByText, queryByText } = render(
+    const { queryByText } = render(
       <QueryClientProvider client={queryClient}>
         <ListingsList />
       </QueryClientProvider>
@@ -797,9 +797,7 @@ describe("listings", () => {
       name: "What kind of listing is this?",
     })
     expect(listingTypeRadioGroup).toBeInTheDocument()
-    expect(
-      within(listingTypeRadioGroup).getByRole("radio", { name: "Regulated" })
-    ).toBeInTheDocument()
+    expect(within(listingTypeRadioGroup).getByRole("radio", { name: "AcHP" })).toBeInTheDocument()
     expect(
       within(listingTypeRadioGroup).getByRole("radio", { name: "Non-regulated" })
     ).toBeInTheDocument()
@@ -895,9 +893,7 @@ describe("listings", () => {
     const listingTypeRadioGroup = screen.getByRole("group", {
       name: "What kind of listing is this?",
     })
-    expect(
-      within(listingTypeRadioGroup).getByRole("radio", { name: "Regulated" })
-    ).toBeInTheDocument()
+    expect(within(listingTypeRadioGroup).getByRole("radio", { name: "AcHP" })).toBeInTheDocument()
     expect(
       within(listingTypeRadioGroup).getByRole("radio", { name: "Non-regulated" })
     ).toBeInTheDocument()

@@ -15,6 +15,7 @@ import {
 } from "@bloom-housing/shared-helpers"
 import FormsLayout from "../../../layouts/forms"
 import { useFormConductor } from "../../../lib/hooks"
+import { guardFinalSubmit } from "../../../lib/applications/stopLights/guardFinalSubmit"
 import { sharedGetStaticProps } from "../../../lib/sharedPageProps"
 import { UserStatus } from "../../../lib/constants"
 import {
@@ -37,7 +38,7 @@ const ApplicationTerms = () => {
   const { conductor, application, listing } = useFormConductor("terms")
   const { applicationsService, profile } = useContext(AuthContext)
   const toastyRef = useToastyRef()
-  const [apiError, setApiError] = useState(false)
+  const [apiError, setApiError] = useState("")
   const [submitting, setSubmitting] = useState(false)
 
   let currentPageSection = 4
@@ -56,62 +57,69 @@ const ApplicationTerms = () => {
   const onSubmit = (data) => {
     // blocks multiple clicks and previously submitted applications
     if (!submitting && !application.confirmationCode) {
-      setSubmitting(true)
-      const acceptedTerms = data.agree === "agree"
-      conductor.currentStep.save({ acceptedTerms })
-      application.acceptedTerms = acceptedTerms
-      application.completedSections = 6
+      guardFinalSubmit(conductor, () => {
+        setSubmitting(true)
+        const acceptedTerms = data.agree === "agree"
+        conductor.currentStep.save({ acceptedTerms })
+        application.acceptedTerms = acceptedTerms
+        application.completedSections = 6
 
-      if (!isFeatureFlagOn(conductor.config, FeatureFlagEnum.enableFullTimeStudentQuestion)) {
-        application.applicant.fullTimeStudent = null
-        application.householdMember.forEach((member) => {
-          member.fullTimeStudent = null
-        })
-      }
+        if (!isFeatureFlagOn(conductor.config, FeatureFlagEnum.enableFullTimeStudentQuestion)) {
+          application.applicant.fullTimeStudent = null
+          application.householdMember.forEach((member) => {
+            member.fullTimeStudent = null
+          })
+        }
 
-      if (application?.programs?.length) {
-        untranslateMultiselectQuestion(application.programs, listing)
-      }
-      if (application?.preferences?.length) {
-        untranslateMultiselectQuestion(application.preferences, listing)
-      }
+        if (application?.programs?.length) {
+          untranslateMultiselectQuestion(application.programs, listing)
+        }
+        if (application?.preferences?.length) {
+          untranslateMultiselectQuestion(application.preferences, listing)
+        }
 
-      applicationsService
-        .submit({
-          body: {
-            ...application,
-            alternateContact:
-              application.alternateContact?.type === "noContact"
-                ? null
-                : application.alternateContact,
-            appUrl: window.location.origin,
-            householdMember: !disableWorkInRegion
-              ? application.householdMember
-              : application.householdMember?.map((member) => {
-                  return { ...member, householdMemberWorkAddress: undefined, workInRegion: null }
-                }),
-            listings: {
-              id: listing.id,
-            },
-            reviewStatus: ApplicationReviewStatusEnum.pending,
-            ...(profile && {
-              user: {
-                id: profile.id,
+        applicationsService
+          .submit({
+            body: {
+              ...application,
+              alternateContact:
+                application.alternateContact?.type === "noContact"
+                  ? null
+                  : application.alternateContact,
+              appUrl: window.location.origin,
+              householdMember: !disableWorkInRegion
+                ? application.householdMember
+                : application.householdMember?.map((member) => {
+                    return { ...member, householdMemberWorkAddress: undefined, workInRegion: null }
+                  }),
+              listings: {
+                id: listing.id,
               },
-            }),
-          },
-        })
-        .then((result) => {
-          conductor.currentStep.save({ confirmationCode: result.confirmationCode })
-          return router.push("/applications/review/confirmation")
-        })
-        .catch((err) => {
-          setSubmitting(false)
-          setApiError(true)
-          window.scrollTo(0, 0)
-          console.error(`Error creating application: ${err}`)
-          throw err
-        })
+              reviewStatus: ApplicationReviewStatusEnum.pending,
+              ...(profile && {
+                user: {
+                  id: profile.id,
+                },
+              }),
+            },
+          })
+          .then((result) => {
+            conductor.currentStep.save({ confirmationCode: result.confirmationCode })
+            return router.push("/applications/review/confirmation")
+          })
+          .catch((err) => {
+            const status = (err as { response?: { status?: number } })?.response?.status
+            setSubmitting(false)
+            setApiError(
+              status === 401
+                ? t("errors.alert.applicationSubmissionSessionExpired")
+                : t("errors.alert.badRequest")
+            )
+            window.scrollTo(0, 0)
+            console.error(`Error creating application: ${err}`)
+            throw err
+          })
+      })
     }
   }
 
@@ -183,8 +191,8 @@ const ApplicationTerms = () => {
           }}
         >
           {apiError && (
-            <AlertBox type="alert" inverted onClose={() => setApiError(false)}>
-              {t("errors.alert.badRequest")}
+            <AlertBox type="alert" inverted onClose={() => setApiError("")}>
+              {apiError}
             </AlertBox>
           )}
 

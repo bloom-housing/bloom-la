@@ -769,7 +769,7 @@ export class ListingCsvExporterService implements CsvExporterServiceInterface {
                 }
 
                 return val === ListingTypeEnum.regulated
-                  ? 'Regulated'
+                  ? 'AcHP'
                   : 'Non-regulated';
               },
             },

@@ -242,7 +242,7 @@ describe("listing data", () => {
         expect(screen.getByText("Charities Housing")).toBeInTheDocument()
 
         expect(screen.queryByText("What kind of listing is this?")).not.toBeInTheDocument()
-        expect(screen.queryByText("Regulated")).not.toBeInTheDocument()
+        expect(screen.queryByText("AcHP")).not.toBeInTheDocument()
         expect(screen.queryByText("Non-regulated")).not.toBeInTheDocument()
         expect(
           screen.queryByText("Has this property received HUD EBLL clearance?")
@@ -270,7 +270,7 @@ describe("listing data", () => {
         )
 
         expect(screen.getByText("What kind of listing is this?")).toBeInTheDocument()
-        expect(screen.getByText("Regulated")).toBeInTheDocument()
+        expect(screen.getByText("AcHP")).toBeInTheDocument()
         expect(screen.queryByText("Non-regulated")).not.toBeInTheDocument()
         expect(
           screen.queryByText("Has this property received HUD EBLL clearance?")
@@ -298,7 +298,7 @@ describe("listing data", () => {
         )
 
         expect(screen.getByText("What kind of listing is this?")).toBeInTheDocument()
-        expect(screen.queryByText("Regulated")).not.toBeInTheDocument()
+        expect(screen.queryByText("AcHP")).not.toBeInTheDocument()
         expect(screen.getByText("Non-regulated")).toBeInTheDocument()
         expect(
           screen.getByText("Has this property received HUD EBLL clearance?")

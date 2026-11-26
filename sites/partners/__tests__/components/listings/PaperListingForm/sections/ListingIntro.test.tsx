@@ -31,6 +31,7 @@ describe("ListingIntro", () => {
           requiredFields={[]}
           jurisdictionName={"JurisdictionA"}
           listingId={"1234"}
+          properties={[]}
         />
       </FormProviderWrapper>
     )
@@ -53,6 +54,7 @@ describe("ListingIntro", () => {
           requiredFields={["developer"]}
           jurisdictionName={"JurisdictionA"}
           listingId={"1234"}
+          properties={[]}
         />
       </FormProviderWrapper>
     )
@@ -74,6 +76,7 @@ describe("ListingIntro", () => {
           requiredFields={[]}
           jurisdictionName={"JurisdictionA"}
           listingId={"1234"}
+          properties={[]}
         />
       </FormProviderWrapper>
     )
@@ -91,6 +94,7 @@ describe("ListingIntro", () => {
           requiredFields={[]}
           jurisdictionName={"JurisdictionA"}
           listingId={"1234"}
+          properties={[]}
         />
       </FormProviderWrapper>
     )
@@ -108,6 +112,7 @@ describe("ListingIntro", () => {
           enableListingFileNumber={false}
           jurisdictionName={"JurisdictionA"}
           listingId={"1234"}
+          properties={[]}
         />
       </FormProviderWrapper>
     )
@@ -129,6 +134,7 @@ describe("ListingIntro", () => {
           enableListingFileNumber={false}
           jurisdictionName={"JurisdictionA"}
           listingId={"1234"}
+          properties={[]}
         />
       </FormProviderWrapper>
     )
@@ -136,7 +142,7 @@ describe("ListingIntro", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Listing intro" })).toBeInTheDocument()
 
     expect(screen.getByText("What kind of listing is this?")).toBeInTheDocument()
-    expect(screen.getByText("Regulated")).toBeInTheDocument()
+    expect(screen.getByText("AcHP")).toBeInTheDocument()
 
     expect(screen.getByRole("textbox", { name: /^housing developer$/i })).toBeInTheDocument()
     expect(
@@ -161,6 +167,7 @@ describe("ListingIntro", () => {
           jurisdictionName={"JurisdictionA"}
           listingId={"1234"}
           listingType={EnumListingListingType.nonRegulated}
+          properties={[]}
         />
       </FormProviderWrapper>
     )
