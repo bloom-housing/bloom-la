@@ -797,9 +797,7 @@ describe("listings", () => {
       name: "What kind of listing is this?",
     })
     expect(listingTypeRadioGroup).toBeInTheDocument()
-    expect(
-      within(listingTypeRadioGroup).getByRole("radio", { name: "Regulated" })
-    ).toBeInTheDocument()
+    expect(within(listingTypeRadioGroup).getByRole("radio", { name: "AcHP" })).toBeInTheDocument()
     expect(
       within(listingTypeRadioGroup).getByRole("radio", { name: "Non-regulated" })
     ).toBeInTheDocument()
@@ -895,9 +893,7 @@ describe("listings", () => {
     const listingTypeRadioGroup = screen.getByRole("group", {
       name: "What kind of listing is this?",
     })
-    expect(
-      within(listingTypeRadioGroup).getByRole("radio", { name: "Regulated" })
-    ).toBeInTheDocument()
+    expect(within(listingTypeRadioGroup).getByRole("radio", { name: "AcHP" })).toBeInTheDocument()
     expect(
       within(listingTypeRadioGroup).getByRole("radio", { name: "Non-regulated" })
     ).toBeInTheDocument()
